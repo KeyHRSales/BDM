@@ -195,6 +195,21 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.6px;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .tag.payroll{background:var(--chip-info);color:var(--info-ink)}
 .tag.wc{background:var(--chip-warn);color:var(--warn-ink)}
+.tag.staffing{background:var(--chip-ok);color:var(--ok-ink)}
+.mk .sub{font-size:12px;color:var(--muted);margin:4px 0 10px}
+.mk .mkg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mk .mkg .full{grid-column:1/-1}
+.mk label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.mk input.in,.mk select.in{min-height:34px;padding:6px 8px;font-size:13px;font-variant-numeric:tabular-nums}
+.mk dl{margin:12px 0 0;display:grid;grid-template-columns:1fr auto;gap:0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.mk dt,.mk dd{margin:0;padding:5px 0;border-top:1px solid var(--line)}
+.mk dt{color:var(--muted)}
+.mk dd{text-align:right;font-weight:600}
+.mk dt.hl,.mk dd.hl{font-weight:700;color:var(--ink);font-size:13.5px}
+.mk dd.neg{color:var(--stop-ink)}
+.mk .cmp{margin-top:10px;padding:9px 10px;border-radius:8px;background:var(--field);border:1px solid var(--line);font-size:12px;line-height:1.45}
+.mk .mkbtns{display:flex;gap:8px;margin-top:10px}
+.mk .mkbtns button{font-size:12px}
 .oc{font-size:12px;white-space:nowrap}
 .oc.hot{color:var(--ok-ink);font-weight:600}
 .oc.cold{color:var(--muted)}
@@ -317,6 +332,13 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
   .smbtn{width:auto;white-space:nowrap;flex:0 0 auto;margin-top:0!important;padding:8px 10px!important;border:1px solid var(--line)}
 }
 
+.ratetbl th.grp{text-align:center;color:var(--ink);border-bottom:2px solid var(--line2)}
+.ratetbl td.cur{background:var(--field)}
+.ratetbl td.kh{background:var(--resp)}
+.addon{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--field)}
+.addchk{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.addchk input{width:18px;height:18px}
+
 /* action bar */
 .bar{position:fixed;left:0;right:0;bottom:0;background:var(--brand);color:var(--on-brand);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:30;box-shadow:0 -8px 24px rgba(20,20,20,.18)}
 .bar .wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -355,9 +377,11 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
       </div>
     </div>
     <div class="tabs" role="tablist" aria-label="Talk tracks">
-      <button class="tab" role="tab" id="tab-payroll" data-tab="payroll" aria-controls="pane-payroll" aria-selected="true">Payroll &amp; PEO <small>DISCOVERY</small></button>
-      <button class="tab" role="tab" id="tab-wc" data-tab="wc" aria-controls="pane-wc" aria-selected="false">Workers' Comp <small>RENEWAL QUOTE</small></button>
-      <button class="tab" role="tab" id="tab-acord" data-tab="acord" aria-controls="pane-acord" aria-selected="false">Submission Docs <small>ACORD &amp; NARRATIVE</small></button>
+      <button class="tab" role="tab" id="tab-payroll" data-tab="payroll" aria-controls="pane-payroll" aria-selected="true">Payroll / PEO Lead</button>
+      <button class="tab" role="tab" id="tab-wc" data-tab="wc" aria-controls="pane-wc" aria-selected="false">Workers' Comp Lead</button>
+      <button class="tab" role="tab" id="tab-staffing" data-tab="staffing" aria-controls="pane-staffing" aria-selected="false">Staffing Lead</button>
+      <button class="tab" role="tab" id="tab-acord" data-tab="acord" aria-controls="pane-acord" aria-selected="false">RFP</button>
+      <button class="tab" role="tab" id="tab-narrative" data-tab="narrative" aria-controls="pane-narrative" aria-selected="false">Narrative</button>
       <button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-controls="pane-analysis" aria-selected="false">Analysis</button>
       <button class="tab" role="tab" id="tab-compare" data-tab="compare" aria-controls="pane-compare" aria-selected="false">Cost Comparison</button>
       <button class="tab" role="tab" id="tab-admin" data-tab="admin" aria-controls="pane-admin" aria-selected="false">Admin <small id="savedCount">0</small></button>
@@ -379,15 +403,23 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
   </aside>
 </div>
 
+<div class="wrap shell" id="pane-staffing" role="tabpanel" aria-labelledby="tab-staffing" hidden>
+  <main id="form-staffing" aria-label="Staffing talk track"></main>
+  <aside class="rail" aria-label="Staffing call tools">
+    <div class="panel"><h3 class="jumph">JUMP TO</h3><nav class="jump" id="jump-staffing" aria-label="Staffing sections"></nav></div>
+    <div class="panel mk" id="markup"></div>
+  </aside>
+</div>
+
 <div class="wrap subwrap" id="pane-acord" role="tabpanel" aria-labelledby="tab-acord" hidden>
   <nav class="submenu" id="subMenu" aria-label="Submission documents"></nav>
   <main id="subMain" aria-label="Submission documents">
     <div id="subCtx"></div>
     <div id="form-acord"></div>
-    <div id="form-narrative" hidden></div>
   </main>
 </div>
 
+<div class="wrap docpane" id="pane-narrative" role="tabpanel" aria-labelledby="tab-narrative" hidden><main id="form-narrative" aria-label="Underwriting narrative"></main></div>
 <div class="wrap docpane" id="pane-analysis" role="tabpanel" aria-labelledby="tab-analysis" hidden><main id="form-analysis" aria-label="Prospect analysis"></main></div>
 <div class="wrap docpane" id="pane-compare" role="tabpanel" aria-labelledby="tab-compare" hidden><main id="form-compare" aria-label="Cost comparison"></main></div>
 
@@ -404,7 +436,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
   <div class="banner" id="localBanner" hidden></div>
   <div class="toolbar">
     <input id="q" type="search" placeholder="Search company, contact or producer" aria-label="Search saved prospects">
-    <select id="fType" aria-label="Filter by type"><option value="">All types</option><option value="payroll">Payroll &amp; PEO</option><option value="wc">Workers' comp</option></select>
+    <select id="fType" aria-label="Filter by type"><option value="">All types</option><option value="payroll">Payroll / PEO</option><option value="wc">Workers' comp</option><option value="staffing">Staffing</option></select>
     <select id="fProducer" aria-label="Filter by producer"><option value="">All producers</option></select>
   </div>
   <div class="listwrap"><table class="list" aria-label="Saved prospects">
@@ -427,7 +459,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
     <tbody id="aDocs"></tbody></table></div>
   <h3 class="ah">Activity by producer and date</h3>
   <div class="listwrap"><table class="list" aria-label="Activity by producer and date">
-    <thead><tr><th>Date</th><th>Producer</th><th class="r">Calls logged</th><th class="r">Want a quote</th><th class="r">Updates</th><th class="r">ACORD 130s</th><th class="r">Downloads</th></tr></thead>
+    <thead><tr><th>Date</th><th>Producer</th><th class="r">Calls logged</th><th class="r">Want a quote</th><th class="r">Updates</th><th class="r">RFPs</th><th class="r">Downloads</th></tr></thead>
     <tbody id="aSummary"></tbody></table></div>
   <h3 class="ah">Activity log</h3>
   <div class="listwrap"><table class="list" aria-label="Activity log">
@@ -441,7 +473,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
     <div class="msg" id="msg">Your current call is kept as a draft in this browser while you type. Click Save prospect to add it to the team list.</div>
     <button class="btn ghost" id="btnNew" type="button">New prospect</button>
     <button class="btn ghost" id="btnPdf" type="button">Download PDF</button>
-    <button class="btn ghost" id="btnAcordPdf" type="button" hidden>Download ACORD 130</button>
+    <button class="btn ghost" id="btnAcordPdf" type="button" hidden>Download RFP</button>
     <button class="btn ghost" id="btnDocPdf" type="button" hidden>Download PDF</button>
     <button class="btn primary" id="btnSave" type="button">Save prospect</button>
   </div>
@@ -524,8 +556,7 @@ const PAYROLL=[
   ONE('uses_1099','Uses 1099 contractors',"Do you use any independent contractors, people who get a 1099 instead of a W-2?","(If yes, ask how many and what kind of work they do.)",YN,{fu:{Yes:["Do you collect proof of insurance from each of them? Have any of them ever been added to your bill at audit?","(Contractors without their own coverage get charged back at audit. That's a pain point we can solve.)"]}}),
   TXT('n_1099','1099 count and work',null,null,{when:s=>s.uses_1099==='Yes',ph:'e.g. 4, delivery drivers'}),
   TABLE('jobs','Job types & wages',"Can you walk me through the main jobs on your team? About how many people are in each role, and roughly what they earn in a year?","(This is the most important information for pricing. A best guess on wages is fine. Just don't leave it blank.)",JOB_COLS),
-  ONE('is_dm','Contact is the decision maker',"Are you the person who makes the final decision on something like this?",null,YN,{fu:{Yes:["Is there anyone you like to run decisions like this by, like a partner or your accountant?",null],No:["Who else would be part of the decision? What's the best way to get them on our next call?","(Get their name, title, and email in Other decision makers below.)"]}}),
-  AREA('others_dm','Other decision makers',"Is anyone else involved in decisions like this?","(Get the name, title, and email for each person. Not reaching the decision maker is the number one reason deals stall.)",{small:true}),
+  ONE('is_dm','Contact is the decision maker',"Are you the person who makes the final decision on something like this?",null,YN,{fu:{Yes:["Is there anyone you like to run decisions like this by, like a partner or your accountant?",null],No:["Who else would be part of the decision? What's the best way to get them on our next call?","(Get their name, title, and email in the notes below.)"]}}),
  ]}),
  SEC('payroll','Payroll Today',{step:'Step 4',when:pYes,items:[
   TXT('how_long','Time with provider',"How long have you been with your current provider?"),
@@ -725,12 +756,124 @@ const WC=[
  ]}),
 ];
 
-const SCHEMA={payroll:PAYROLL,wc:WC};
-[PAYROLL,WC].forEach(S=>S.forEach(sec=>{const out=[];sec.items.forEach(it=>{out.push(it);if(it.fu)out.push({t:'area',id:it.id+'_notes',label:it.label+' (notes)',fuOf:it.id,when:it.when})});out.push({t:'xnotes',id:sec.id+'_xnotes',label:sec.title+' (additional notes)'});sec.items=out}));
-const TITLES={payroll:'Payroll & PEO Discovery',wc:"Workers' Comp Quote Intake"};
+/* ---------- STAFFING ---------- */
+const sGo=s=>!!s.response&&s.response!=='Not interested';
+const sNow=s=>s.path==='Go over it now';
+const STAFFING=[
+ callInfo(),
+ SEC('open','Opener',{step:'Step 1',items:[
+  SAY("Hi, this is {producer} with Key HR. May I speak with {contact}, please?"),
+  SAY("Hi {contact}, I'll be brief. We support staffing companies like yours with cost-saving workforce management solutions, including payroll, workers' comp, HR, compliance, employee benefits and more. Would you be open to a quick comparison against what you have in place today?","(Staffing owners hear from a lot of vendors. Keep it short, lead with savings, and ask the question.)"),
+  BRANCH('response','Their response',null,"(Tap what you hear.)",[
+   {v:'Yes, interested',hint:'Open to a comparison',say:"Great! If you can give me about 3 minutes, I can see what we can do for you and get your quote started.",tip:"(Go straight to the quick questions.)"},
+   {v:'Not sure',hint:'Hesitant',say:"No pressure at all. It's a free comparison. Staffing companies usually see the biggest savings on workers' comp and back-office costs, and we can also help with payroll funding. Can I ask you a few quick questions to see if it's worth a look?",tip:"(Mention funding. Cash flow is the number one pain point for most staffing owners.)"},
+   {v:'Happy with current setup',hint:"We're all set",say:"That's great to hear. A lot of our staffing clients were happy too, until they saw what they could save on workers' comp and funding. Would it hurt to have a quote on file to compare at your next renewal?",tip:"(Ask when their workers' comp renews and capture it below.)"},
+   {v:'Not interested',hint:'No thanks',say:"I completely understand. Just so I don't bother you at the wrong time, when does your workers' comp renew? I'll reach out a couple of months before. Can I take down your email so you have my contact info?",tip:"(Get the renewal date and email, thank them, and log the call on your tracking list.)"},
+  ]),
+  DATE('renewal','Policy renewal date',"Just so I have it, when does your workers' comp policy renew?","(Within 90 days means this is a hot lead.)"),
+  DATE('reach_back','Reach back out on',null,null,{when:s=>s.response==='Not interested'||s.response==='Happy with current setup'}),
+ ]}),
+ SEC('qualify','Quick Questions',{step:'Step 2',when:sGo,items:[
+  NUM('emp_total','Total employees',"How many employees do you have on payroll right now, including the workers you place?",null,{req:true}),
+  TXT('internal_staff','Internal staff',"How many of those are internal office staff, like recruiters and admin?"),
+  MANY('staff_type','Type of staffing',"What kind of staffing do you do?",null,['Light industrial','Warehouse / logistics','Construction / trades','Clerical / office','Healthcare','IT / professional','Hospitality','Other']),
+  MANY('placement','Placement types',"Are your placements mostly temporary, temp-to-hire or direct hire?",null,['Temporary','Temp-to-hire','Direct hire','Payrolling for clients']),
+  ONE('multi_state','Other states',"Are you placing workers in any other states?",null,YN,{fu:{Yes:["About how many employees are in each state? Do they work remotely, or at a location there? What type of work are they performing?","(Each state has its own payroll tax and workers' comp rules. Get the headcount and type of work for each one.)"]}}),
+  TXT('states','Which states',null,null,{when:s=>s.multi_state==='Yes'}),
+  ONE('claims','Injuries in last 3 years',"Have you had any workers' comp accidents or injuries in the past 3 years?","(A yes doesn't rule them out. Just get the details.)",YN,{fu:{Yes:["Can you give me an idea of what that looks like? What kind of injury, at which client, how serious, and is it still open?","(Ask what they changed afterward. A good answer helps underwriting.)"]}}),
+  SAY("Thanks, that's really helpful. Staffing is a great fit for us. For full approval I'll need your loss runs, a staffing supplemental, and a list of your clients and what your workers do there. If you have a few minutes now, we can go over the details, or I can send you an email with everything I'll need."),
+  BRANCH('path','How they want to continue',null,null,[
+   {v:'Go over it now',hint:'Has a few minutes',say:"Perfect. This will only take a few minutes.",tip:"(Continue to Company Details below.)"},
+   {v:'Email me the list',hint:'Send the details',say:"No problem. Can you confirm your email address? Also, can we set up a call for this time next week? I'd need about half an hour to show you our platform, go over your quote, and answer any questions you might have.",tip:"(Confirm the email and meeting time in Wrap Up. Send the document list and a calendar invite today.)"},
+  ]),
+ ]}),
+ SEC('company','Company Details',{step:'Step 3',when:sNow,items:[
+  TXT('legal_name','Legal company name',"What's the full legal name of the business?"),
+  TXT('fein','FEIN',"Do you have your FEIN handy? It's your federal tax ID number.","(If they don't have it, you can get it from their policy paperwork later.)"),
+  TXT('address','Main address',"What's the address of your main office?"),
+  AREA('operations','What the company does',"In your own words, what does your company do, and what industries do you serve?","(Get details. Underwriting prices staffing by the work done at each client.)"),
+  NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
+  TXT('website','Website'),
+  AREA('locations','Other branch offices',"Do you have any other branch offices?","(Note the address of each branch.)",{small:true}),
+  ONE('same_fein','All under one FEIN',"Are all of your branches under the same FEIN?",null,['Yes','No','Not sure'],{fu:{No:["What are the names of the other companies? Do they all have the same owners?",null],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]}}),
+ ]}),
+ SEC('clients','Clients & Job Duties',{step:'Step 4',when:sNow,blurb:'Underwriting prices staffing by the work done at each client. This becomes the end client list.',items:[
+  NUM('n_clients','Active clients',"How many active clients are you placing workers with right now?"),
+  AREA('top_clients','Largest clients and duties',"Who are your biggest clients, what industries are they in, and what do your workers do there?","(For the end client list: client name, industry, job duties performed and number of workers placed.)"),
+  TABLE('jobs','Job types & wages',"Can you walk me through the main jobs your workers do? About how many people are in each, and roughly what they earn in a year?","(This table drives the price. Get the state, the job, the headcount and the yearly wages for each group. A best guess is fine.)",JOB_COLS),
+  ONE('hazard','Hazardous work at client sites',"Do any of your workers drive, work at heights, run heavy machinery, or work in hazardous areas at client sites?",null,YN,{fu:{Yes:["What exactly are they doing, at which clients, and how many workers?","(Driving, heights and depth change pricing the most. Get every detail.)"]}}),
+  ONE('client_safety','Safety training & equipment',"Who provides safety training and equipment at the job site, you or your clients?",null,['Client provides','We provide','Both']),
+  ONE('site_visits','Job site visits',"Do you visit client job sites before you place workers?",null,YN,{fu:{No:["How do you learn what the work involves before you place someone?",null]}}),
+  ONE('contracts','Client agreements',"Do you have written agreements with your clients that cover safety and workers' comp?",null,YN),
+ ]}),
+ SEC('coverage','Current Coverage',{step:'Step 5',when:sNow,items:[
+  TXT('carrier','Current carrier',"Who is your workers' comp with right now?"),
+  TXT('agent','Agent / broker',"Do you work with an agent or broker?"),
+  TXT('premium','Annual premium',"About how much do you pay for workers' comp each year?"),
+  ONE('structure','Premium structure',"Do you pay a deposit up front, or pay as you go with each payroll?","(With Key HR, workers' comp is pay-as-you-go. No deposit and no surprise audit bill.)",['Deposit up front','Pay-as-you-go','Not sure'],{fu:{'Deposit up front':["About how big was the deposit? Have you ever gotten a bill after the year-end audit?","(Audit bills are a common surprise. Pay-as-you-go removes them.)"]}}),
+  TXT('emr','Experience mod',"Do you know your experience mod? It's a number on your policy, usually close to 1.0.","(Below 1.0 is good. Above 1.0 means more claims than average.)",{ph:'e.g. 0.92'}),
+  ONE('loss_runs','Loss runs',"Can you send a copy of your loss runs? It's a claims report from your insurance company, usually for the last 3 to 5 years.","(Their agent or carrier can usually email it within a few days. It needs to be recent, from the last 90 days.)",['Yes, will send','Will ask agent','No'],{fu:{'Will ask agent':["Who is your agent, and what's the best way to reach them?",null],No:["No problem. Who could request them for you, your agent or someone on your team? I'll send you the exact wording to use.",null]}}),
+  ONE('open_claims','Open claims',"Are any of those claims still open, or involve a lawyer?",null,YN,{when:s=>s.claims==='Yes',fu:{Yes:["Can you tell me more? About how much has been paid so far, and is a lawyer involved?",null]}}),
+ ]}),
+ SEC('funding','Funding',{step:'Step 6',blurb:'Cash flow is the top pain point for most staffing companies. Key HR offers short-term payroll funding and payroll factoring.',items:[
+  ONE('factoring','Uses a factoring company',"Are you currently using a factoring company?",null,YN,{fu:{No:["How do you cover payroll while you wait for clients to pay?","(If cash flow is tight, a funding quote can open the door.)"]}}),
+  TXT('factor_co','Factoring company',"If yes, who?",null,{when:s=>s.factoring==='Yes'}),
+  TXT('factor_rate','Current factoring rate',"Do you know your current rate?",null,{when:s=>s.factoring==='Yes',ph:'e.g. 2.5% for 30 days'}),
+  ONE('factor_happy','Happy with funding provider',"Are you happy with your provider?",null,YNM,{when:s=>s.factoring==='Yes',fu:{Yes:["What do you like most about them?",null],No:["What's not working? The rate, how fast they fund, or the service?",null],Mixed:["What would you change if you could?",null]}}),
+  ONE('funding_quote','Open to a funding quote',"Would you be open to a new funding quote?","(Key HR offers short-term payroll funding and payroll factoring for staffing companies.)",YN),
+ ]}),
+ SEC('pivot','Payroll, Benefits & HR',{step:'Step 7',when:sNow,items:[
+  SAY("Just a couple more questions. With us, workers' comp is paid through payroll, so I like to understand how that works for you today.","(This is your opening to quote payroll and the full PEO. Keep it light.)"),
+  TXT('payroll_provider','Payroll provider',"Who do you use for payroll right now?"),
+  ONE('frequency','Pay cycle',"How often do you run payroll?",null,['Weekly','Bi-weekly','Semi-monthly','Monthly']),
+  TXT('payroll_happy','How payroll is going',"How's that going? Any frustrations?","(Write down any complaints word for word.)"),
+  ONE('offers_benefits','Offers health benefits',"Do you offer health benefits to your employees?",null,YN,{fu:{Yes:["Who are they with, and how did your last renewal go?",null],No:["Is that something you'd like to offer? What has stopped you so far?",null]}}),
+  DATE('ben_renewal','Benefits renewal',"When do your benefits renew?",null,{when:s=>s.offers_benefits==='Yes'}),
+  TXT('hr_who','Who handles HR',"Who handles HR, onboarding and employee paperwork for you?","(High-volume onboarding and I-9s are a big pain point in staffing. We handle both.)"),
+  MANY('other_quotes','Also quote',"Would you like me to include payroll, benefits, HR or funding in your quote, so you can see the full picture?","(Most clients save the most when everything is together.)",['Payroll','Benefits','HR support','Timekeeping','Payroll funding']),
+ ]}),
+ SEC('docsreq','Documents Required',{step:'Step 8',blurb:'What you must have before the quote can be built. Staffing accounts also need a staffing supplemental and an end client list.',items:[
+  {t:'reqdocs',id:'reqdocs_view',label:'Required documents'},
+  {t:'one',id:'lr_status',label:'Loss runs status',opts:['Not requested','Requested','Received'],noRender:true},
+  {t:'one',id:'ss_status',label:'Staffing supplemental status',opts:['Not requested','Requested','Received'],noRender:true},
+  {t:'one',id:'ecl_status',label:'End client list status',opts:['Not requested','Requested','Received'],noRender:true},
+ ]}),
+ SEC('docs','Documents to Request',{step:'Step 9',items:[
+  SAY("I'll send you an email today with the full list. Here's what I'll need to get your quote approved.","(Ask for as much as you can on the call. Set the proposal at least 3 business days out once you have the documents.)"),
+  MANY('docs_req','Documents requested',null,null,["WC policy page & current rates",'Experience mod worksheet','Payroll register / recent payroll report','Current payroll or PEO invoice','Current factoring agreement / rate sheet','Accounts receivable aging report'],{full:true}),
+  MANY('docs_owner','Owner documents',null,"(In business less than 1 year.)",["Owner's resume"],{full:true,when:s=>toNum(s.years)!=null&&toNum(s.years)<1}),
+  DATE('docs_due','Documents promised by'),
+ ]}),
+ SEC('close','Wrap Up',{step:'Step 10',items:[
+  SAY("Thank you so much for your time. I'll send that email today, and I'm looking forward to our call."),
+  TXT('confirm_email','Email confirmed',"Can I confirm the best email address for you?",null,{inputmode:'email'}),
+  DT('next_meeting','Next meeting'),
+  ONE('stage','Opportunity stage',null,null,STAGES,{select:true}),
+  MANY('followthru','After the call',null,"(Update Salesforce the same day. If it's not in Salesforce, it doesn't exist.)",FOLLOW,{full:true}),
+  AREA('notes','Call notes & key quotes',null,null,{full:true}),
+ ]}),
+];
+
+const SCHEMA={payroll:PAYROLL,wc:WC,staffing:STAFFING};
+[PAYROLL,WC,STAFFING].forEach(S=>S.forEach(sec=>{const out=[];sec.items.forEach(it=>{out.push(it);if(it.fu)out.push({t:'area',id:it.id+'_notes',label:it.label+' (notes)',fuOf:it.id,when:it.when})});out.push({t:'xnotes',id:sec.id+'_xnotes',label:sec.title+' (additional notes)'});sec.items=out}));
+const TITLES={payroll:'Payroll & PEO Discovery',wc:"Workers' Comp Quote Intake",staffing:'Staffing Quote Intake'};
+const CALL_TABS=['payroll','wc','staffing'];
+const TYPE_LABEL={payroll:'Payroll / PEO',wc:"Workers' comp",staffing:'Staffing'};
+const TYPE_TAG={payroll:'PAYROLL / PEO',wc:"WORKERS' COMP",staffing:'STAFFING'};
+const LEAD_LABEL={payroll:'Payroll / PEO Lead',wc:"Workers' Comp Lead",staffing:'Staffing Lead'};
+const FAQ_AFTER={payroll:'ask',wc:'qualify',staffing:'qualify'};
 
 /* ---------- quick answers ---------- */
 const FAQ={
+ staffing:[
+  ["We already have a PEO or payroll company.","That's fine. Many of our staffing clients came from another provider. A side-by-side comparison takes a few minutes and shows you whether you're paying too much on workers' comp or fees."],
+  ["Our workers' comp is too expensive or hard to place.","That's common in staffing. We work with carriers that understand staffing, and workers' comp is pay-as-you-go with each payroll, so there's no big deposit. Let me get your loss runs and client list so we can show you real numbers."],
+  ["Why do you need our client list?","Underwriters price staffing by the work your people do at each client. The end client list shows them that, so we can get you the most accurate rate.","(It stays confidential. We only use it for underwriting.)"],
+  ["We already have factoring.","Great. Many staffing companies keep their factoring company, but it never hurts to compare. If we can lower your rate or fund you faster, that goes straight to your bottom line."],
+  ["How fast can you fund payroll?","It depends on your clients and invoice volume. Let me get a few details, and our funding team will give you exact terms."],
+  ["Can you keep up with our onboarding volume?","Yes. Electronic onboarding, I-9 support and new hire reporting are built in, so your recruiters can place people faster."],
+  ["Just send me some information.","Happy to. So I send what's actually useful, can I ask three quick questions? How many people you have on payroll, what kind of staffing you do, and if you've had any injuries in the last 3 years."],
+ ],
  payroll:[
   ["We're happy with our current provider.","That's great to hear, and I'm not asking you to switch today. Most of our clients were happy too, until they saw what else they could get for the same price or less. Would it hurt to have a quote on file to compare?"],
   ["We just renewed.","Totally fair. When does it renew next? I'd love to put a quote together a few months before, so you have real options when the time comes."],
@@ -761,7 +904,7 @@ const lsGet=k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const H={producer:'',date:todayISO()};
-const forms={payroll:{id:null,v:{},all:false,dirty:false,docs:{},track:{}},wc:{id:null,v:{},all:false,dirty:false,docs:{},track:{}}};
+const forms={payroll:{id:null,v:{},all:false,dirty:false,docs:{},track:{}},wc:{id:null,v:{},all:false,dirty:false,docs:{},track:{}},staffing:{id:null,v:{},all:false,dirty:false,docs:{},track:{}}};
 let cur='payroll';
 let acordState=null;
 let lastCall='payroll';
@@ -781,10 +924,10 @@ const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=
   if(d){
     if(d.producer)H.producer=d.producer;
     if(d.date)H.date=d.date;
-    ['payroll','wc'].forEach(t=>{if(d.forms&&d.forms[t]){forms[t].id=d.forms[t].id||null;forms[t].v=d.forms[t].v||{};forms[t].all=!!d.forms[t].all;forms[t].dirty=!!d.forms[t].dirty;forms[t].docs=d.forms[t].docs||{};forms[t].track=d.forms[t].track||{}}});
-    if(d.lastCall==='wc'||d.lastCall==='payroll')lastCall=d.lastCall;
+    CALL_TABS.forEach(t=>{if(d.forms&&d.forms[t]){forms[t].id=d.forms[t].id||null;forms[t].v=d.forms[t].v||{};forms[t].all=!!d.forms[t].all;forms[t].dirty=!!d.forms[t].dirty;forms[t].docs=d.forms[t].docs||{};forms[t].track=d.forms[t].track||{}}});
+    if(CALL_TABS.includes(d.lastCall))lastCall=d.lastCall;
     if(typeof d.subView==='string'&&/^(acord:\w+|narrative)$/.test(d.subView))pendingSub=d.subView;
-    if(d.tab&&['payroll','wc','acord','narrative','analysis','compare','saved','admin'].includes(d.tab))cur=d.tab==='narrative'?'acord':d.tab==='saved'?'admin':d.tab;
+    if(d.tab&&['payroll','wc','staffing','acord','narrative','analysis','compare','saved','admin'].includes(d.tab))cur=d.tab==='narrative'?'acord':d.tab==='saved'?'admin':d.tab;
     if(d.acord&&d.acord.v&&forms[d.acord.srcTab]&&forms[d.acord.srcTab].id===d.acord.srcId&&!forms[d.acord.srcTab].docs.acord)forms[d.acord.srcTab].docs.acord=d.acord;
   }
 })();
@@ -904,9 +1047,14 @@ function reqDocsEl(tab){
   const a=el('div','reqcol');a.appendChild(el('h3',null,'Payroll-only quote'));a.appendChild(el('p','tip','Only these three are needed. Nothing to request.'));
   const ul=el('ul','reqlist2');[['company','Company info (name and address)'],['emp','Employee count'],['freq','Pay cycle (weekly, bi-weekly, semi-monthly or monthly)']].forEach(([k,l])=>{const li=el('li');li.dataset.req=k;li.appendChild(el('span','rq'));li.appendChild(el('span',null,l));ul.appendChild(li)});a.appendChild(ul);d.appendChild(a);
   const b=el('div','reqcol');b.appendChild(el('h3',null,'PEO quote'));b.appendChild(el('p','tip','Everything above, plus these two.'));
-  const r1=el('div','reqrow');const t1=el('div');t1.appendChild(el('b',null,'ACORD 130'));t1.appendChild(el('span','tip','You complete this one. Do not request it from the prospect.'));r1.appendChild(t1);const st=el('span','reqst');st.dataset.acst='1';r1.appendChild(st);const go=el('button','sbtn','Complete ACORD 130');go.type='button';go.dataset.goto='acord';r1.appendChild(go);b.appendChild(r1);
+  const r1=el('div','reqrow');const t1=el('div');t1.appendChild(el('b',null,'RFP'));t1.appendChild(el('span','tip','You complete this one. Do not request it from the prospect.'));r1.appendChild(t1);const st=el('span','reqst');st.dataset.acst='1';r1.appendChild(st);const go=el('button','sbtn','Complete RFP');go.type='button';go.dataset.goto='acord';r1.appendChild(go);b.appendChild(r1);
   const r2=el('div','reqrow');const t2=el('div');t2.appendChild(el('b',null,'Loss runs'));t2.appendChild(el('span','tip','3 to 5 years from their agent or carrier, valued within the last 90 days.'));r2.appendChild(t2);
   const pl=el('div','pills');pl.setAttribute('role','group');pl.setAttribute('aria-label','Loss runs status');['Not requested','Requested','Received'].forEach(o=>{const x=el('button','pill',o);x.type='button';x.dataset.k='lr_status';x.dataset.val=o;x.dataset.kind='one';x.setAttribute('aria-pressed',forms[tab].v.lr_status===o?'true':'false');pl.appendChild(x)});r2.appendChild(pl);b.appendChild(r2);
+  if(tab==='staffing'){b.querySelector('.tip').textContent='Everything above, plus these four.';
+    [['ss_status','Staffing supplemental','Required for all staffing and temp labor accounts.'],['ecl_status','End client list','Required for underwriting. Client name, industry, job duties performed and number of workers placed.']].forEach(([k,ttl,tp])=>{
+      const r=el('div','reqrow');const tt=el('div');tt.appendChild(el('b',null,ttl));tt.appendChild(el('span','tip',tp));r.appendChild(tt);
+      const g=el('div','pills');g.setAttribute('role','group');g.setAttribute('aria-label',ttl+' status');['Not requested','Requested','Received'].forEach(o=>{const x=el('button','pill',o);x.type='button';x.dataset.k=k;x.dataset.val=o;x.dataset.kind='one';x.setAttribute('aria-pressed',forms[tab].v[k]===o?'true':'false');g.appendChild(x)});r.appendChild(g);b.appendChild(r)});
+  }
   d.appendChild(b);return d;
 }
 function updateReqDocs(tab){
@@ -937,6 +1085,56 @@ function updateFu(tab){
   });
 }
 
+/* ---------- STAFFING MARKUP CALCULATOR ---------- */
+const MK_DEF={mk_state:'NC',mk_code:'',mk_hours:'30',mk_bill:'20',mk_pay:'15',mk_rate:'11.75',mk_cmp:'10'};
+const MK_FIELDS=[['mk_state','State','sel'],['mk_code','Class code','txt','e.g. 8810'],['mk_hours','Hours per week','num'],['mk_bill','Bill rate ($/hr)','num'],['mk_pay','Pay rate ($/hr)','num'],['mk_rate','Key HR rate (%)','num'],['mk_cmp','Compare at (%)','num','Optional']];
+function mkVal(k){const v=forms.staffing.v;return v[k]!=null&&v[k]!==''?v[k]:MK_DEF[k]}
+function renderMarkup(){
+  const box=$('#markup');if(!box)return;box.textContent='';
+  box.appendChild(el('h3',null,'MARKUP CALCULATOR'));
+  box.appendChild(el('p','sub','Sample numbers for one worker. Change any field.'));
+  const g=el('div','mkg');
+  MK_FIELDS.forEach(([k,l,kind,ph])=>{
+    const w=el('div',k==='mk_cmp'?'full':null);const lab=el('label',null,l);lab.htmlFor='mk__'+k;w.appendChild(lab);
+    let inp;
+    if(kind==='sel'){inp=el('select','in');['',...STATES].forEach(s=>{const o=el('option',null,s||'State');o.value=s;inp.appendChild(o)})}
+    else{inp=el('input','in');inp.type='text';if(kind==='num'){inp.inputMode='decimal'}if(ph)inp.placeholder=ph}
+    inp.id='mk__'+k;inp.dataset.mk=k;inp.value=mkVal(k);w.appendChild(inp);g.appendChild(w);
+  });
+  box.appendChild(g);
+  box.appendChild(el('dl'));
+  const cmp=el('div','cmp');cmp.hidden=true;box.appendChild(cmp);
+  const bt=el('div','mkbtns');const rs=el('button','sbtn','Reset to sample');rs.type='button';
+  rs.addEventListener('click',()=>{const v=forms.staffing.v;Object.keys(MK_DEF).forEach(k=>delete v[k]);renderMarkup();changed('staffing')});
+  bt.appendChild(rs);box.appendChild(bt);
+  const on=e=>{const t=e.target;if(!t.dataset.mk)return;forms.staffing.v[t.dataset.mk]=t.value;calcMarkup();changed('staffing')};
+  box.addEventListener('input',on);box.addEventListener('change',e=>{if(e.target.tagName==='SELECT')on(e)});
+  calcMarkup();
+}
+function markupMath(hours,bill,pay,rate){
+  const billed=hours*bill,wages=hours*pay,markup=billed-wages,khr=wages*rate/100,weekly=billed-wages-khr,yearly=weekly*52;
+  return {billed,wages,markup,khr,weekly,monthly:yearly/12,yearly,net:billed?yearly/(billed*52):null,gm:bill?1-pay/bill:null,mu:pay?bill/pay-1:null};
+}
+function calcMarkup(){
+  const box=$('#markup');if(!box)return;
+  const n=k=>{const x=toNum(mkVal(k));return x==null?0:x};
+  const hours=n('mk_hours'),bill=n('mk_bill'),pay=n('mk_pay'),rate=n('mk_rate');
+  const m=markupMath(hours,bill,pay,rate);
+  const pct=x=>x==null||!isFinite(x)?'':(x*100).toFixed(1).replace(/\.0$/,'')+'%';
+  const dl=box.querySelector('dl');dl.textContent='';
+  [['Billed to end client (week)',money2(m.billed)],['Employee gross wages',money2(m.wages)],['Markup dollars',money2(m.markup)],['Billed by Key HR ('+rate+'%)',money2(m.khr)],
+   ['Weekly profit',m.weekly,1],['Net profit per month',m.monthly,1],['Net profit per year',m.yearly,2],['Net profit %',pct(m.net)],['Gross margin',pct(m.gm)],['Markup %',pct(m.mu)]].forEach(([l,val,kind])=>{
+    const dt=el('dt',kind===2?'hl':null,l);let txt=val,neg=false;
+    if(kind){neg=val<0;txt=(neg?'-':'')+money2(Math.abs(val))}
+    const dd=el('dd',(kind===2?'hl ':'')+(neg?'neg':''),txt);dl.appendChild(dt);dl.appendChild(dd);
+  });
+  const c=box.querySelector('.cmp'),cr=toNum(mkVal('mk_cmp'));
+  if(cr==null||cr===rate||!hours){c.hidden=true;return}
+  const m2=markupMath(hours,bill,pay,cr),diff=m2.yearly-m.yearly;
+  c.textContent='At '+cr+'%, net profit is '+money2(m2.weekly)+' per week and '+money2(m2.yearly)+' per year. That is '+money2(Math.abs(diff))+' per year '+(diff>=0?'more':'less')+' per worker than at '+rate+'%.';
+  c.hidden=false;
+}
+
 function renderForm(tab){
   const root=$('#form-'+tab);root.textContent='';whenMap[tab]=[];
   SCHEMA[tab].forEach(sec=>{
@@ -951,7 +1149,7 @@ function renderForm(tab){
       if(it.when)whenMap[tab].push({el:node,fn:it.when});
     });
     s.appendChild(body);root.appendChild(s);
-    if(sec.id===(tab==='wc'?'qualify':'ask'))root.appendChild(faqSection(tab));
+    if(sec.id===FAQ_AFTER[tab])root.appendChild(faqSection(tab));
   });
   refresh(tab);
 }
@@ -961,7 +1159,7 @@ function refresh(tab){
   whenMap[tab].forEach(w=>{let show;try{show=(w.sec&&f.all)||!!w.fn(v)}catch(e){show=true}w.el.hidden=!show});
   // grids whose children are all hidden
   document.querySelectorAll('#form-'+tab+' .grid').forEach(g=>{g.hidden=![...g.children].some(c=>!c.hidden)});
-  updateFu(tab);updateReqDocs(tab);placeholders(tab);jump(tab);
+  updateFu(tab);updateReqDocs(tab);placeholders(tab);jump(tab);if(tab==='staffing')renderMarkup();
 }
 function placeholders(tab){
   const v=forms[tab].v;
@@ -985,7 +1183,7 @@ function jump(tab){
     if(items.length){a.appendChild(el('span','c',n+'/'+items.length));if(n===items.length)a.classList.add('done')}
     a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById('sec-'+tab+'-'+sec.id);if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
     nav.appendChild(a);
-    if(sec.id===(tab==='wc'?'qualify':'ask')){const q=el('a');q.href='#sec-'+tab+'-faq';q.appendChild(el('span','n','Quick Answers'));q.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById('sec-'+tab+'-faq');if(t)t.scrollIntoView({block:'start'})});nav.appendChild(q)}
+    if(sec.id===FAQ_AFTER[tab]){const q=el('a');q.href='#sec-'+tab+'-faq';q.appendChild(el('span','n','Quick Answers'));q.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById('sec-'+tab+'-faq');if(t)t.scrollIntoView({block:'start'})});nav.appendChild(q)}
   });
 }
 
@@ -1038,29 +1236,28 @@ function rebuildTable(tab,id){const old=document.querySelector('#form-'+tab+' [d
 /* header */
 const hp=$('#hdrProducer'),hd=$('#hdrDate');
 hp.value=H.producer;hd.value=H.date;
-hp.addEventListener('input',()=>{H.producer=hp.value;placeholders('payroll');placeholders('wc');saveDraft()});
+hp.addEventListener('input',()=>{H.producer=hp.value;CALL_TABS.forEach(placeholders);saveDraft()});
 hd.addEventListener('input',()=>{H.date=hd.value;saveDraft()});
 
 /* tabs */
-const PANES=['payroll','wc','acord','analysis','compare','admin'];
-const DOC_MSG={acord:'Pick a section from the menu on the left. Complete the ACORD 130 and narrative, then download.',narrative:'Edit the narrative if needed, then download the PDF.',analysis:'Pick the service and add-ons, build the analysis, then download the PDF.',compare:'Ask the cost questions, enter Key HR rates, then download the PDF.'};
+const PANES=['payroll','wc','staffing','acord','narrative','analysis','compare','admin'];
+const DOC_MSG={acord:'Pick a section from the menu on the left. Complete each RFP section, then download the RFP.',narrative:'Edit the narrative if needed, then download the PDF.',analysis:'Pick the service and add-ons, build the analysis, then download the PDF.',compare:'Ask the cost questions, enter Key HR rates, then download the PDF.'};
 function showTab(t){
   if(t==='saved')t='admin';
-  if(t==='narrative'){t='acord';subView='narrative'}
   if(!PANES.includes(t)||$('#tab-'+t).hidden)t='payroll';
-  cur=t;if(t==='payroll'||t==='wc')lastCall=t;
+  cur=t;if(CALL_TABS.includes(t))lastCall=t;
   document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t?'true':'false'));
   PANES.forEach(x=>{$('#pane-'+x).hidden=x!==t});
-  const call=t==='payroll'||t==='wc',doc=['acord','narrative','analysis','compare'].includes(t),g=doc?gateFor():null;
+  const call=CALL_TABS.includes(t),doc=['acord','narrative','analysis','compare'].includes(t),g=doc?gateFor():null;
   docGated=!!g;
   $('#btnNew').hidden=!call;$('#btnPdf').hidden=!call;
-  $('#btnAcordPdf').hidden=!(t==='acord'&&!g&&subView!=='narrative');
-  $('#btnDocPdf').hidden=!(doc&&!g&&(t!=='acord'||subView==='narrative'));
+  $('#btnAcordPdf').hidden=!(t==='acord'&&!g);
+  $('#btnDocPdf').hidden=!(doc&&!g&&t!=='acord');
   $('#btnSave').hidden=!(call||(doc&&!g));
   if(t==='admin'){renderList();if(!$('#adminOnly').hidden)renderAdmin();setMsg(records.length?'Open any saved prospect to keep working on it.':'Saved calls from every producer show up here.')}
   else if(doc){
-    if(t==='acord')renderSubDocs();else if(t==='analysis')renderAnalysis();else renderCompare();
-    setMsg(g?(g.kind==='empty'?'Start a call on the Payroll & PEO or Workers\' Comp tab first.':'Save the prospect to continue.'):DOC_MSG[t]+' Save prospect keeps your work and adds it to Admin documents.');
+    if(t==='acord')renderSubDocs();else if(t==='narrative')renderNarrative();else if(t==='analysis')renderAnalysis();else renderCompare();
+    setMsg(g?(g.kind==='empty'?'Start a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab first.':'Save the prospect to continue.'):DOC_MSG[t]+' Save prospect keeps your work and adds it to Admin documents.');
   }
   else setMsg(forms[t].id?'Editing a saved prospect. Click Save prospect to update it.':'Your current call is kept as a draft in this browser while you type. Click Save prospect to add it to the team list.');
   saveDraft();
@@ -1122,12 +1319,12 @@ async function del(id){
   const r0=records.find(r=>r.id===id)||{};
   if(store.mode==='db'){try{await store.col.doc(id).delete()}catch(e){setMsg("That record couldn't be deleted. You may only have view access to the team list.",'err');return}}
   else{localDel(id);records=records.filter(r=>r.id!==id);afterRecords()}
-  ['payroll','wc'].forEach(t=>{if(forms[t].id===id)forms[t].id=null});
+  CALL_TABS.forEach(t=>{if(forms[t].id===id)forms[t].id=null});
   logEvent('prospect_deleted',{company:r0.company||'',type:r0.type||'',recordId:id});
   setMsg('Record deleted.','ok');
 }
 
-const TRACK_LABEL={discovery:'Discovery questionnaire',acord:'ACORD 130',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
+const TRACK_LABEL={discovery:'Discovery questionnaire',acord:'RFP',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
 function trk(tab){const f=forms[tab];f.track=f.track||{};return f.track}
 function markStart(tab,kind){const T=trk(tab);if(!T[kind]){T[kind]={start:new Date().toISOString(),producer:(H.producer||'').trim()};saveDraft();if(forms[tab].id&&records.some(r=>r.id===forms[tab].id))persistTrack(tab)}}
 function markDone(tab,kind){const T=trk(tab),now=new Date().toISOString();if(!T[kind])T[kind]={start:now};T[kind].end=now;if(!T[kind].producer)T[kind].producer=(H.producer||'').trim();saveDraft()}
@@ -1163,7 +1360,7 @@ $('#btnSave').addEventListener('click',async()=>{
     if(kind&&D[kind==='comparison'?'comparison':kind]){upsertDoc(kind,snapFor(kind),docMeta());setMsg('Saved the prospect and the '+DOC_LABEL[kind].toLowerCase()+'. It is in Admin documents.','ok')}
     return;
   }
-  if(t!=='payroll'&&t!=='wc')return;
+  if(!CALL_TABS.includes(t))return;
   await saveProspect(t,['discovery']);
 });
 
@@ -1196,12 +1393,12 @@ function renderList(){
   const rows=records.filter(r=>(!ft||r.type===ft)&&(!fp||r.producer===fp)&&(!q||[r.company,r.contact,r.producer].join(' ').toLowerCase().includes(q)));
   const st=$('#stats');st.textContent='';
   const hot=records.filter(r=>r.outcome==='Wants a quote').length;
-  [['Total prospects',records.length],['Payroll & PEO',records.filter(r=>r.type==='payroll').length],["Workers' comp",records.filter(r=>r.type==='wc').length],['Want a quote',hot]].forEach(([l,n])=>{const d=el('div','stat');d.appendChild(el('span',null,l));d.appendChild(el('b',null,String(n)));st.appendChild(d)});
+  [['Total prospects',records.length],['Payroll / PEO',records.filter(r=>r.type==='payroll').length],["Workers' comp",records.filter(r=>r.type==='wc').length],['Staffing',records.filter(r=>r.type==='staffing').length],['Want a quote',hot]].forEach(([l,n])=>{const d=el('div','stat');d.appendChild(el('span',null,l));d.appendChild(el('b',null,String(n)));st.appendChild(d)});
   const tb=$('#listBody');tb.textContent='';
   if(!rows.length){
     const tr=el('tr'),td=el('td','empty');td.colSpan=8;
     td.appendChild(el('b',null,records.length?'No matches':'No saved prospects yet'));
-    td.appendChild(document.createTextNode(records.length?'Try a different search or filter.':'Work a call on the Payroll & PEO or Workers\' Comp tab, then click Save prospect. Every saved call lands here and in the spreadsheet download.'));
+    td.appendChild(document.createTextNode(records.length?'Try a different search or filter.':'Work a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab, then click Save prospect. Every saved call lands here and in the spreadsheet download.'));
     tr.appendChild(td);tb.appendChild(tr);return;
   }
   rows.forEach(r=>{
@@ -1209,7 +1406,7 @@ function renderList(){
     tr.appendChild(el('td',null,fmtDate(r.callDate)));
     const c=el('td');c.appendChild(el('b',null,r.company||'(No name)'));tr.appendChild(c);
     tr.appendChild(el('td',null,r.contact||''));
-    const t=el('td');t.appendChild(el('span','tag '+r.type,r.type==='wc'?"WORKERS' COMP":'PAYROLL & PEO'));tr.appendChild(t);
+    const t=el('td');t.appendChild(el('span','tag '+r.type,TYPE_TAG[r.type]||TYPE_TAG.payroll));tr.appendChild(t);
     tr.appendChild(el('td',null,r.producer||''));
     tr.appendChild(el('td','num',r.employees?String(r.employees):''));
     const oc=el('td');oc.appendChild(el('span','oc '+(r.outcome==='Wants a quote'||r.outcome==='10-min call booked'||r.outcome==='Sending doc list'?'hot':r.outcome==='Not interested'?'cold':''),r.outcome||''));if(r.stage){oc.appendChild(document.createElement('br'));oc.appendChild(el('span','oc cold',r.stage))}tr.appendChild(oc);
@@ -1229,10 +1426,10 @@ function renderList(){
 }
 ['#q','#fType','#fProducer'].forEach(s=>$(s).addEventListener('input',renderList));
 function openRecord(r){
-  const t=r.type==='wc'?'wc':'payroll';
+  const t=CALL_TABS.includes(r.type)?r.type:'payroll';
   const f=forms[t];
   if(f.dirty&&f.id!==r.id&&Object.keys(cleanValues(t,f.v)).length){
-    setMsg('Your open '+(t==='wc'?"workers' comp":'payroll')+' call has unsaved changes. Save it or click New prospect first, then open this record.','err');return;
+    setMsg('Your open '+LEAD_LABEL[t]+' call has unsaved changes. Save it or click New prospect first, then open this record.','err');return;
   }
   forms[t]={id:r.id,v:JSON.parse(JSON.stringify(r.values||{})),all:f.all,dirty:false,docs:{},track:JSON.parse(JSON.stringify(r.track||{}))};
   ['narrative','analysis','comparison'].forEach(k=>{if(r[k])forms[t].docs[k]=JSON.parse(JSON.stringify(r[k]))});
@@ -1280,11 +1477,11 @@ async function saveFile(filename,data){
 }
 
 $('#btnPdf').addEventListener('click',async()=>{
-  if(cur!=='payroll'&&cur!=='wc')return;
+  if(!CALL_TABS.includes(cur))return;
   if(!window.jspdf||!window.jspdf.jsPDF){setMsg('The PDF tool did not load. Check your connection and reload the page.','err');return}
   const tab=cur,f=forms[tab],v=f.v,company=(v.legal_name||v.company||'').trim();
   const out=buildCallPdf(tab,v,H.producer,H.date);
-  if(await saveFile('KeyHR_'+(tab==='wc'?'WC':'Payroll')+'_'+safeName(company)+'_'+(H.date||todayISO())+'.pdf',out)){
+  if(await saveFile('KeyHR_'+({payroll:'Payroll',wc:'WC',staffing:'Staffing'})[tab]+'_'+safeName(company)+'_'+(H.date||todayISO())+'.pdf',out)){
     logEvent('pdf_downloaded',{company,type:tab,recordId:f.id||''});
     if(f.id)upsertDoc('call',{tab,v:cleanValues(tab,v),producer:(H.producer||'').trim(),date:H.date},{recordId:f.id,company,type:tab});
   }
@@ -1305,16 +1502,17 @@ $('#btnXlsx').addEventListener('click',async()=>{
   const wb=XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb,sheetFor('payroll',records.filter(r=>r.type==='payroll')),'Payroll & PEO');
   XLSX.utils.book_append_sheet(wb,sheetFor('wc',records.filter(r=>r.type==='wc')),'Workers Comp');
+  XLSX.utils.book_append_sheet(wb,sheetFor('staffing',records.filter(r=>r.type==='staffing')),'Staffing');
   const jh=['Company','Type','Producer','Date of Call',...JOB_COLS.map(c=>c.l)],jr=[];
-  records.forEach(r=>arr((r.values||{}).jobs).forEach(row=>{if(!row||!Object.values(row).some(x=>String(x||'').trim()))return;jr.push([r.company||'',r.type==='wc'?"Workers' comp":'Payroll & PEO',r.producer||'',r.callDate||'',...JOB_COLS.map(c=>{const x=row[c.k]||'';return (c.num||c.money)&&toNum(x)!=null?toNum(x):x})])}));
+  records.forEach(r=>arr((r.values||{}).jobs).forEach(row=>{if(!row||!Object.values(row).some(x=>String(x||'').trim()))return;jr.push([r.company||'',TYPE_LABEL[r.type]||'',r.producer||'',r.callDate||'',...JOB_COLS.map(c=>{const x=row[c.k]||'';return (c.num||c.money)&&toNum(x)!=null?toNum(x):x})])}));
   const js=XLSX.utils.aoa_to_sheet([jh,...jr]);js['!cols']=jh.map(h=>({wch:Math.max(14,h.length+4)}));
   XLSX.utils.book_append_sheet(wb,js,'Job Types & Wages');
   const sum={};acts.forEach(a=>{const k=a.day+'|'+a.producer;const g=sum[k]=sum[k]||[a.day,a.producer,0,new Set(),0,0,0];if(a.action==='call_saved')g[2]++;if((a.action==='call_saved'||a.action==='call_updated')&&a.outcome==='Wants a quote')g[3].add(a.recordId||a.company);if(a.action==='call_updated')g[4]++;if(a.action==='acord_created')g[5]++;if(/_downloaded$/.test(a.action))g[6]++});
-  const sh=['Date','Producer','Calls logged','Want a quote','Updates','ACORD 130s','Downloads'];
+  const sh=['Date','Producer','Calls logged','Want a quote','Updates','RFPs','Downloads'];
   const sr=Object.values(sum).sort((a,b)=>b[0].localeCompare(a[0])||a[1].localeCompare(b[1])).map(g=>[g[0],g[1],g[2],g[3].size,g[4],g[5],g[6]]);
   const ss=XLSX.utils.aoa_to_sheet([sh,...sr]);ss['!cols']=sh.map(x=>({wch:Math.max(14,x.length+4)}));XLSX.utils.book_append_sheet(wb,ss,'Activity by Day');
   const lh=['Date','Time','Producer','Activity','Company','Type','Outcome'];
-  const lr=acts.slice().sort((a,b)=>String(b.at).localeCompare(String(a.at))).map(a=>{const d=new Date(a.at);return [a.day,isNaN(d)?'':d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}),a.producer,ACT_LABEL[a.action]||a.action,a.company||'',a.type==='wc'?"Workers' comp":a.type==='payroll'?'Payroll & PEO':'',a.outcome||'']});
+  const lr=acts.slice().sort((a,b)=>String(b.at).localeCompare(String(a.at))).map(a=>{const d=new Date(a.at);return [a.day,isNaN(d)?'':d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}),a.producer,ACT_LABEL[a.action]||a.action,a.company||'',TYPE_LABEL[a.type]||'',a.outcome||'']});
   const ls=XLSX.utils.aoa_to_sheet([lh,...lr]);ls['!cols']=lh.map((x,i)=>({wch:i===3||i===4?28:14}));XLSX.utils.book_append_sheet(wb,ls,'Activity Log');
   const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
   await saveFile('KeyHR_Prospects_'+todayISO()+'.xlsx',new Uint8Array(out));
@@ -1438,7 +1636,7 @@ function parseAddr(s){
 function addYear(iso){const d=iso?new Date(iso+'T12:00:00'):null;if(!d||isNaN(d))return '';d.setFullYear(d.getFullYear()+1);return d.toISOString().slice(0,10)}
 function acordFromCall(tab){
   const v=forms[tab].v,a={},put=(k,x)=>{if(!blank(x))a[k]=x};
-  const isWC=tab==='wc';
+  const isWC=tab!=='payroll';
   put('prod_name',(H.producer||'').trim());
   put('ni_name',(v.legal_name||v.company||'').trim());
   put('ni_phone',v.phone);put('ni_email',v.confirm_email||v.email);
@@ -1596,8 +1794,8 @@ function renderAcord(){
   const root=$('#form-acord');root.textContent='';root.dataset.rid=forms[lastCall].id||'';
   const v=acordState.v;
   const hs=el('section','sec');hs.id='sec-acord-review';
-  const hh=el('header');hh.appendChild(el('span','step','ACORD 130 · Workers Compensation Application'));hh.appendChild(el('h2',null,v.ni_name||acordState.company||'Applicant'));
-  hh.appendChild(el('p','blurb','Built from the '+(acordState.srcTab==='wc'?"Workers' Comp":'Payroll & PEO')+' call'+(acordState.producer?' by '+acordState.producer:'')+' on '+fmtDate(acordState.createdAt)+'. You only need to complete the sections in the menu. Fields marked FROM CALL were filled in for you. Key HR agency details and the producer name fill in automatically.'));
+  const hh=el('header');hh.appendChild(el('span','step','RFP · ACORD 130 Workers Compensation Application'));hh.appendChild(el('h2',null,v.ni_name||acordState.company||'Applicant'));
+  hh.appendChild(el('p','blurb','Built from the '+LEAD_LABEL[acordState.srcTab]+(acordState.producer?' by '+acordState.producer:'')+' on '+fmtDate(acordState.createdAt)+'. You only need to complete the sections in the menu. Fields marked FROM CALL were filled in for you. Key HR agency details and the producer name fill in automatically.'));
   hs.appendChild(hh);
   const body=el('div','body acbody');
   const mb=el('div','missbox');mb.id='acMiss';body.appendChild(mb);
@@ -1609,7 +1807,7 @@ function renderAcord(){
   ACORD.forEach(sec=>{
     if(sec.hidden)return;
     const s=el('section','sec');s.id='sec-acord-'+sec.id;
-    const h=el('header');h.appendChild(el('span','step','ACORD 130'));h.appendChild(el('h2',null,sec.title));if(sec.blurb)h.appendChild(el('p','blurb',sec.blurb));s.appendChild(h);
+    const h=el('header');h.appendChild(el('span','step','RFP'));h.appendChild(el('h2',null,sec.title));if(sec.blurb)h.appendChild(el('p','blurb',sec.blurb));s.appendChild(h);
     const b=el('div','body');let grid=null;
     sec.items.forEach(it=>{
       if(it.hide)return;
@@ -1625,29 +1823,27 @@ function renderAcord(){
 }
 function viewSecs(view){if(view==='acord:review')return ['review'];const k=view.split(':')[1];const sv=SUBVIEWS.find(x=>x[0]===k);return sv?sv[2]:['review']}
 function applySubView(){
-  const fa=$('#form-acord'),fn=$('#form-narrative');if(!fa||!fn)return;
-  const nar=subView==='narrative';fa.hidden=nar;fn.hidden=!nar;
+  const fa=$('#form-acord');if(!fa)return;
+  if(subView==='narrative')subView='acord:review';const nar=false;fa.hidden=false;
   if(!nar&&acordState){
     const v=acordState.v,show=viewSecs(subView);
     fa.querySelectorAll('section.sec').forEach(s=>{const id=s.id.replace('sec-acord-','');const sec=ACORD.find(x=>x.id===id);s.hidden=!(show.includes(id)&&(!sec||!sec.when||sec.when(v)))});
     const nav=$('#acNav');nav.textContent='';
-    const order=['acord:review',...SUBVIEWS.map(x=>'acord:'+x[0]),'narrative'],i=order.indexOf(subView);
-    const lab=x=>x==='acord:review'?'Overview':x==='narrative'?'Narrative':SUBVIEWS.find(s=>'acord:'+s[0]===x)[1];
+    const order=['acord:review',...SUBVIEWS.map(x=>'acord:'+x[0])],i=order.indexOf(subView);
+    const lab=x=>x==='acord:review'?'Overview':SUBVIEWS.find(s=>'acord:'+s[0]===x)[1];
     if(i>0){const b=el('button','sbtn','Back: '+lab(order[i-1]));b.type='button';b.dataset.sv=order[i-1];nav.appendChild(b)}
     if(i>=0&&i<order.length-1){const b=el('button','btn solid','Next: '+lab(order[i+1]));b.type='button';b.dataset.sv=order[i+1];nav.appendChild(b)}
   }
   const g=gateFor();
-  $('#btnAcordPdf').hidden=!(cur==='acord'&&!g&&!nar);
-  $('#btnDocPdf').hidden=!(cur==='acord'&&!g&&nar);
+  if(cur==='acord'){$('#btnAcordPdf').hidden=!!g;$('#btnDocPdf').hidden=true}
   updateSubMenu();
 }
 function buildSubMenu(){
   const m=$('#subMenu');m.textContent='';
-  m.appendChild(el('span','smlabel','SUBMISSION DOCS'));
+  m.appendChild(el('span','smlabel','RFP SECTIONS'));
   const mk=(view,label,cls)=>{const b=el('button','smbtn'+(cls?' '+cls:''));b.type='button';b.dataset.sv=view;b.appendChild(el('span','smn',label));b.appendChild(el('span','smst'));m.appendChild(b);return b};
-  mk('acord:review','ACORD 130','top');
+  mk('acord:review','RFP Overview','top');
   SUBVIEWS.forEach(([k,l])=>mk('acord:'+k,l,'sub'));
-  mk('narrative','Narrative','top');
 }
 function updateSubMenu(){
   const m=$('#subMenu');if(!m)return;
@@ -1663,18 +1859,18 @@ function updateSubMenu(){
 }
 function setSub(view){
   subView=view;saveDraft();
-  if(view==='narrative')renderNarrative();
-  else if($('#form-acord').dataset.rid!==(forms[lastCall].id||'')||!$('#sec-acord-review')){ensureAcord();renderAcord()}
+  if(view==='narrative'){subView=view='acord:review'}
+  if($('#form-acord').dataset.rid!==(forms[lastCall].id||'')||!$('#sec-acord-review')){ensureAcord();renderAcord()}
   applySubView();window.scrollTo({top:0});
-  setMsg(view==='narrative'?'Edit the narrative if needed, then download the PDF. Save prospect keeps your work.':'Complete each ACORD section in the menu, then download the ACORD 130. Save prospect keeps your work.');
+  setMsg(view==='narrative'?'Edit the narrative if needed, then download the PDF. Save prospect keeps your work.':'Complete each RFP section in the menu, then download the RFP. Save prospect keeps your work.');
 }
 function renderSubDocs(){
-  const menu=$('#subMenu'),fa=$('#form-acord'),fn=$('#form-narrative'),ctx=$('#subCtx');ctx.textContent='';
+  const menu=$('#subMenu'),fa=$('#form-acord'),ctx=$('#subCtx');ctx.textContent='';
+  if(subView==='narrative')subView='acord:review';
   const g=gateFor();
-  if(g){menu.hidden=true;fn.hidden=true;fa.hidden=false;fa.dataset.rid='';renderGate(fa,g);return}
+  if(g){menu.hidden=true;fa.hidden=false;fa.dataset.rid='';renderGate(fa,g);return}
   menu.hidden=false;ctx.appendChild(ctxStrip());buildSubMenu();
-  if(subView==='narrative'){renderNarrative();const A=(forms[lastCall].docs||{}).acord;if(A&&A.srcId===forms[lastCall].id)acordState=A}
-  else{ensureAcord();renderAcord()}
+  ensureAcord();renderAcord();
   applySubView();
 }
 function acRefresh(){
@@ -1690,7 +1886,7 @@ function acRefresh(){
   if(gq.length){const b=el('button','misschip',gq.length+' general question'+(gq.length===1?'':'s')+' unanswered');b.type='button';b.addEventListener('click',()=>go('general',gq[0].it.id));ul.appendChild(b)}
   mb.appendChild(ul);
 }
-function acChanged(){saveDraft();acRefresh();setMsg('ACORD 130 edits are kept in this browser. Click Save prospect to store them with the call.')}
+function acChanged(){saveDraft();acRefresh();setMsg('RFP edits are kept in this browser. Click Save prospect to store them with the call.')}
 (function bindAcord(){
   const root=$('#form-acord');
   root.addEventListener('input',e=>{
@@ -1719,7 +1915,7 @@ function acChanged(){saveDraft();acRefresh();setMsg('ACORD 130 edits are kept in
 })();
 function refillAcord(){
   if(!acordState)return;const t=acordState.srcTab;
-  if(forms[t].id!==acordState.srcId){setMsg('The call this ACORD came from is not open anymore. Open it from Saved Prospects first.','err');return}
+  if(forms[t].id!==acordState.srcId){setMsg('The call this RFP came from is not open anymore. Open it from Saved Prospects first.','err');return}
   const mapped=acordFromCall(t);let n=0;
   Object.keys(mapped).forEach(k=>{if(blank(acordState.v[k])){acordState.v[k]=mapped[k];if(!acordState.filled.includes(k))acordState.filled.push(k);n++}});
   saveDraft();renderAcord();setMsg(n?'Filled '+n+' blank items from the call.':'Nothing new to pull in. Every item from the call is already on the form.','ok');
@@ -1792,19 +1988,19 @@ $('#btnAcordPdf').addEventListener('click',async()=>{
   if(!acordState||gateFor())return;
   if(!(acordState.v.ni_name||'').trim()){setMsg('Enter the applicant name before downloading.','err');return}
   if(!window.PDFLib){setMsg('The PDF tool did not load. Check your connection and reload the page.','err');return}
-  const b=$('#btnAcordPdf');b.disabled=true;setMsg('Building the ACORD 130...');
+  const b=$('#btnAcordPdf');b.disabled=true;setMsg('Building the RFP...');
   try{
     const out=await buildAcordBytes(acordState);
     const miss=acReqMissing().length;
-    const ok=await saveFile('ACORD_130_'+safeName(acordState.v.ni_name)+'_'+todayISO()+'.pdf',out);
-    if(ok){markDone(acordState.srcTab,'acord');persistTrack(acordState.srcTab);logEvent('acord_downloaded',{company:acordState.v.ni_name,type:acordState.srcTab,recordId:acordState.srcId});upsertDoc('acord',{v:acordState.v,keep:acordState.keep!==false},{recordId:acordState.srcId,company:acordState.v.ni_name||acordState.company,type:acordState.srcTab});if(miss)setMsg('Downloaded the ACORD 130. '+miss+' required item'+(miss===1?' is':'s are')+' still blank.','ok')}
-  }catch(e){setMsg('Could not build the ACORD 130 ('+((e&&e.message)||'unknown error')+').','err')}
+    const ok=await saveFile('RFP_ACORD_130_'+safeName(acordState.v.ni_name)+'_'+todayISO()+'.pdf',out);
+    if(ok){markDone(acordState.srcTab,'acord');persistTrack(acordState.srcTab);logEvent('acord_downloaded',{company:acordState.v.ni_name,type:acordState.srcTab,recordId:acordState.srcId});upsertDoc('acord',{v:acordState.v,keep:acordState.keep!==false},{recordId:acordState.srcId,company:acordState.v.ni_name||acordState.company,type:acordState.srcTab});if(miss)setMsg('Downloaded the RFP. '+miss+' required item'+(miss===1?' is':'s are')+' still blank.','ok')}
+  }catch(e){setMsg('Could not build the RFP ('+((e&&e.message)||'unknown error')+').','err')}
   finally{b.disabled=false}
 });
 
 /* ================= activity log + admin ================= */
 const ACT_KEY='khr_call_portal_activity_v1';
-const ACT_LABEL={call_saved:'Saved a new prospect',call_updated:'Updated a prospect',acord_created:'Created ACORD 130',acord_downloaded:'Downloaded ACORD 130',pdf_downloaded:'Downloaded call PDF',narrative_downloaded:'Downloaded narrative',analysis_downloaded:'Downloaded analysis',comparison_downloaded:'Downloaded cost comparison',prospect_deleted:'Deleted a prospect'};
+const ACT_LABEL={call_saved:'Saved a new prospect',call_updated:'Updated a prospect',acord_created:'Created RFP',acord_downloaded:'Downloaded RFP',pdf_downloaded:'Downloaded call PDF',narrative_downloaded:'Downloaded narrative',analysis_downloaded:'Downloaded analysis',comparison_downloaded:'Downloaded cost comparison',prospect_deleted:'Deleted a prospect'};
 let acts=lsGet(ACT_KEY)||[];
 const dayISO=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 async function logEvent(action,info){
@@ -1832,9 +2028,9 @@ function renderAdmin(){
   const G=Object.values(groups).sort((a,b)=>b.day.localeCompare(a.day)||a.producer.localeCompare(b.producer));
   const tot=G.reduce((s,g)=>({saved:s.saved+g.saved,quote:s.quote+g.quote.size,acord:s.acord+g.acord}),{saved:0,quote:0,acord:0});
   const st=$('#aStats');st.textContent='';
-  [['Calls logged',tot.saved],['Want a quote',tot.quote],['ACORD 130s created',tot.acord],['Active producers',new Set(list.map(a=>a.producer)).size]].forEach(([l,n])=>{const d=el('div','stat');d.appendChild(el('span',null,l));d.appendChild(el('b',null,String(n)));st.appendChild(d)});
+  [['Calls logged',tot.saved],['Want a quote',tot.quote],['RFPs created',tot.acord],['Active producers',new Set(list.map(a=>a.producer)).size]].forEach(([l,n])=>{const d=el('div','stat');d.appendChild(el('span',null,l));d.appendChild(el('b',null,String(n)));st.appendChild(d)});
   const sb=$('#aSummary');sb.textContent='';
-  if(!G.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=7;td.appendChild(el('b',null,acts.length?'No activity in this range':'No activity yet'));td.appendChild(document.createTextNode(acts.length?'Try a different producer or date range.':'Each time a producer saves a call, creates an ACORD 130 or downloads a PDF, it shows up here.'));tr.appendChild(td);sb.appendChild(tr)}
+  if(!G.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=7;td.appendChild(el('b',null,acts.length?'No activity in this range':'No activity yet'));td.appendChild(document.createTextNode(acts.length?'Try a different producer or date range.':'Each time a producer saves a call, creates an RFP or downloads a PDF, it shows up here.'));tr.appendChild(td);sb.appendChild(tr)}
   G.forEach(g=>{const tr=el('tr');tr.appendChild(el('td',null,fmtDate(g.day)));const p=el('td');p.appendChild(el('b',null,g.producer));tr.appendChild(p);
     [g.saved,g.quote.size,g.updated,g.acord,g.dls].forEach(n=>tr.appendChild(el('td','num',String(n))));sb.appendChild(tr)});
   const lb=$('#aLog');lb.textContent='';
@@ -1842,7 +2038,7 @@ function renderAdmin(){
   if(!L.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=5;td.textContent='Nothing logged for this filter.';tr.appendChild(td);lb.appendChild(tr)}
   L.slice(0,300).forEach(a=>{const tr=el('tr');tr.appendChild(el('td',null,fmtDT(a.at)));tr.appendChild(el('td',null,a.producer));tr.appendChild(el('td',null,ACT_LABEL[a.action]||a.action));
     const c=el('td');c.appendChild(el('b',null,a.company||''));tr.appendChild(c);
-    const t=el('td');if(a.type)t.appendChild(el('span','tag '+a.type,a.type==='wc'?"WORKERS' COMP":'PAYROLL & PEO'));tr.appendChild(t);lb.appendChild(tr)});
+    const t=el('td');if(a.type)t.appendChild(el('span','tag '+a.type,TYPE_TAG[a.type]||a.type));tr.appendChild(t);lb.appendChild(tr)});
   if(L.length>300){const tr=el('tr'),td=el('td','emptyst');td.colSpan=5;td.textContent='Showing the latest 300. The spreadsheet has all '+L.length+'.';tr.appendChild(td);lb.appendChild(tr)}
 }
 ['#aProducer','#aFrom','#aTo'].forEach(s=>$(s).addEventListener('input',renderAdmin));
@@ -1869,7 +2065,7 @@ $('#btnReport').addEventListener('click',async()=>{
   const R=reportRows();
   if(!R.length){setMsg('Nothing to report for these filters yet.','err');return}
   const head=['Date','Producer','Prospect','Type','Activity','Time Started','Time Completed','Minutes','Status'];
-  const body=R.map(r=>[md(r.start),r.producer,r.prospect,r.type==='wc'?"Workers' comp":'Payroll & PEO',r.activity,md(r.start)+' '+tm(r.start),r.end?md(r.end)+' '+tm(r.end):'',r.mins==null?'':r.mins,r.end?'Completed':'In progress']);
+  const body=R.map(r=>[md(r.start),r.producer,r.prospect,TYPE_LABEL[r.type]||'',r.activity,md(r.start)+' '+tm(r.start),r.end?md(r.end)+' '+tm(r.end):'',r.mins==null?'':r.mins,r.end?'Completed':'In progress']);
   const pf=$('#aProducer').value,f=$('#aFrom').value,t=$('#aTo').value;
   const title=[['Key HR Producer Activity Report'],['Producer: '+(pf||'All producers')+'   |   Dates: '+(f?fmtDate(f):'All')+' to '+(t?fmtDate(t):'today')+'   |   Run '+fmtDT(new Date().toISOString())],[]];
   const ws=XLSX.utils.aoa_to_sheet([...title,head,...body]);
@@ -1889,7 +2085,7 @@ function setAdmin(on){$('#adminOnly').hidden=!on;$('#adminBtns').hidden=!on;if(o
 /* ================= prospect documents: gate, profile ================= */
 const DOC_TABS=['acord','narrative','analysis','compare'];
 const DOCS_KEY='khr_call_portal_docs_v1';
-const DOC_LABEL={call:'Call summary',acord:'ACORD 130',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
+const DOC_LABEL={call:'Call summary',acord:'RFP',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
 let docsList=Object.entries(lsGet(DOCS_KEY)||{}).map(([id,d])=>({id,...d}));
 let sampleFn=null;
 const money=n=>n==null||isNaN(n)?'':(n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
@@ -1911,11 +2107,11 @@ function renderGate(root,g){
   const s=el('section','sec gate');const h=el('header');
   h.appendChild(el('span','step','Save first'));
   h.appendChild(el('h2',null,g.kind==='empty'?'Start with a call':'Save this prospect first'));
-  h.appendChild(el('p','blurb',g.kind==='empty'?'The ACORD 130, narrative, analysis and cost comparison are built from a saved call. Fill in a call on the Payroll & PEO or Workers\' Comp tab, save it, then come back.':'So nothing gets lost, the prospect has to be saved before you build documents from it. Save it now and you will go straight to this tab.'));
+  h.appendChild(el('p','blurb',g.kind==='empty'?'The RFP, narrative, analysis and cost comparison are built from a saved call. Fill in a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab, save it, then come back.':'So nothing gets lost, the prospect has to be saved before you build documents from it. Save it now and you will go straight to this tab.'));
   s.appendChild(h);
   const row=el('div','gatebtns');
   if(g.kind==='unsaved'){const b=el('button','btn solid','Save prospect now');b.type='button';b.addEventListener('click',async()=>{if(await saveProspect(g.tab,['discovery']))showTab(cur)});row.appendChild(b)}
-  const go=el('button','sbtn','Go to the '+(g.tab==='wc'?"Workers' Comp":'Payroll & PEO')+' call');go.type='button';go.addEventListener('click',()=>showTab(g.tab));row.appendChild(go);
+  const go=el('button','sbtn','Go to the '+LEAD_LABEL[g.tab]);go.type='button';go.addEventListener('click',()=>showTab(g.tab));row.appendChild(go);
   s.appendChild(row);root.appendChild(s);
 }
 function ctxStrip(){
@@ -1923,16 +2119,16 @@ function ctxStrip(){
   const d=el('div','ctx');
   d.appendChild(el('span','lbl','PROSPECT'));
   const b=el('b',null,(v.legal_name||v.company||'').trim());d.appendChild(b);
-  d.appendChild(el('span','ctxm',(t==='wc'?"Workers' Comp call":'Payroll & PEO call')+(r.producer?' · '+r.producer:'')+(r.updatedAt?' · saved '+fmtDT(r.updatedAt):'')));
-  const o=t==='wc'?'payroll':'wc',fo=forms[o];
-  if(fo.id&&((fo.v.legal_name||fo.v.company||'').trim())){const sw=el('button','sbtn','Switch to '+(fo.v.legal_name||fo.v.company).trim());sw.type='button';sw.addEventListener('click',()=>{lastCall=o;saveDraft();showTab(cur)});d.appendChild(sw)}
+  d.appendChild(el('span','ctxm',LEAD_LABEL[t]+(r.producer?' · '+r.producer:'')+(r.updatedAt?' · saved '+fmtDT(r.updatedAt):'')));
+  CALL_TABS.filter(o=>o!==t).forEach(o=>{const fo=forms[o];
+  if(fo.id&&((fo.v.legal_name||fo.v.company||'').trim())){const sw=el('button','sbtn','Switch to '+(fo.v.legal_name||fo.v.company).trim());sw.type='button';sw.addEventListener('click',()=>{lastCall=o;saveDraft();showTab(cur)});d.appendChild(sw)}});
   return d;
 }
 function curDocs(){const f=forms[lastCall];f.docs=f.docs||{};return f.docs}
 function docMeta(){const f=forms[lastCall],v=f.v;return {recordId:f.id,company:(v.legal_name||v.company||'').trim(),type:lastCall}}
 
 function prof(t){
-  const v=forms[t].v,W=t==='wc';
+  const v=forms[t].v,W=t!=='payroll';
   const ad=parseAddr(v.address);
   const jobs=arr(v.jobs).filter(rowHas);
   const wages=jobs.reduce((s,r)=>s+(toNum(r.wages)||0),0);
@@ -1940,7 +2136,7 @@ function prof(t){
   const ex=arr(v.exposures);
   return {t,company:(v.legal_name||v.company||'').trim(),contact:v.contact||'',years:toNum(v.years),city:ad.city||'',state:ad.state||'',
     ops:(v.operations||v.est_ops||'').trim(),emp:toNum(v.emp_total)!=null?toNum(v.emp_total):toNum(v.est_emp),split:v.emp_split||'',jobs,wages,states,
-    locations:v.locations||'',staffing:v.staffing==='Yes',uses1099:v.uses_1099||'',n1099:v.n_1099||'',coi:v.coi||'',
+    locations:v.locations||'',staffing:v.staffing==='Yes'||t==='staffing',staffType:arr(v.staff_type),placement:arr(v.placement),nClients:toNum(v.n_clients),topClients:v.top_clients||'',internalStaff:v.internal_staff||'',factoring:v.factoring||'',factorCo:v.factor_co||'',factorRate:v.factor_rate||'',factorHappy:v.factor_happy||'',fundingQuote:v.funding_quote||'',clientSafety:v.client_safety||'',siteVisits:v.site_visits||'',uses1099:v.uses_1099||'',n1099:v.n_1099||'',coi:v.coi||'',
     carrier:(W?v.carrier:v.wc_carrier)||'',premium:toNum(W?v.premium:v.wc_premium),renewal:(W?v.renewal:v.wc_renewal)||'',emr:toNum(v.emr),structure:(W?v.structure:v.wc_structure)||'',
     claims:(W?v.claims:v.wc_claims)||'',claimsNotes:(W?v.claims_notes:v.wc_claims_notes)||'',openClaims:v.open_claims==='Yes',
     driving:W?v.driving==='Yes':ex.includes('Driving'),heights:W?v.heights==='Yes':ex.includes('Heights'),depth:W?v.depth==='Yes':ex.includes('Trenching / digging'),noExposure:W?(v.driving==='No'&&v.heights==='No'&&v.depth==='No'):ex.includes('None'),
@@ -1981,7 +2177,7 @@ function buildNarrativeText(p){
   if(p.years!=null)first+=p.years<1?', a new business in operation for less than a year,':', in business for '+p.years+' year'+(p.years===1?'':'s')+',';
   first+=loc?' is based in '+loc+'.':' is the applicant.';a.push(first);
   if(p.ops)a.push(/^(we|they|the company|it|our|this)\b/i.test(p.ops)?sent(p.ops):'Operations consist of '+lc1(stripDot(p.ops))+'.');
-  if(p.staffing)a.push('The company operates as a staffing or temporary labor provider, placing workers at client locations.');
+  if(p.staffing)a.push('The company operates as a staffing or temporary labor provider'+(p.staffType.length?' focused on '+listJoin(p.staffType.map(x=>x.toLowerCase()))+' staffing':'')+', placing workers at client locations'+(p.nClients?' for about '+p.nClients+' active clients':'')+(p.placement.length?' ('+listJoin(p.placement.map(x=>x.toLowerCase()))+')':'')+'.'+(p.internalStaff?' Internal staff: '+stripDot(p.internalStaff)+'.':'')+(p.clientSafety?' Safety training and equipment at job sites: '+p.clientSafety.toLowerCase()+'.':'')+(p.siteVisits==='Yes'?' Job sites are visited before workers are placed.':p.siteVisits==='No'?' Job sites are not visited before placement.':''));
   if(p.emp!=null)a.push('The company has '+p.emp+' W-2 employee'+(p.emp===1?'':'s')+(p.split?' ('+p.split+')':'')+(p.states.length>1?' working across '+listJoin(p.states):p.states.length?' in '+p.states[0]:'')+'.');
   if(p.jobs.length)a.push('The workforce includes '+listJoin(p.jobs.map(r=>(r.n?r.n+' ':'')+lc1(r.job||'employees')+(r.state&&p.states.length>1?' in '+(stateCode(r.state)||r.state):'')+(r.type&&r.type!=='Full-time'?' ('+r.type.toLowerCase()+')':'')))+(p.wages?', with estimated annual payroll of '+money(p.wages):'')+'.');
   if(p.locations)a.push('Additional locations: '+sent(p.locations));
@@ -1991,7 +2187,7 @@ function buildNarrativeText(p){
   if(p.driving){let s='Employees drive for work';if(p.vehicles)s+=' using '+p.vehicles.toLowerCase()+' vehicles';if(p.radius)s+=', typically '+p.radius.toLowerCase();if(p.driverCount)s+=' ('+stripDot(p.driverCount)+')';b.push(s+'.');if(p.mvr)b.push('Driving records: '+sent(p.mvr));if(p.groupRide)b.push('Group transportation: '+sent(p.groupRide))}
   if(p.heights){let s='Employees work at heights'+(p.heightMax?' of '+p.heightMax.replace(' ft',' feet'):'');if(p.heightAccess.length)s+=' using '+listJoin(p.heightAccess.map(x=>x.toLowerCase()));if(p.heightSafety.length)s+=', with '+listJoin(p.heightSafety.map(x=>x.toLowerCase()))+' in place';b.push(s+'.')}
   if(p.depth){let s='Some work is performed below grade'+(p.depthMax?' to depths of '+p.depthMax.replace(' ft',' feet'):'');if(p.depthSafety.length)s+=', with '+listJoin(p.depthSafety.map(x=>x.toLowerCase()))+' in place';b.push(s+'.')}
-  if(p.exposureDetail&&!(p.driving&&p.t==='wc'))b.push(sent(p.exposureDetail));
+  if(p.exposureDetail&&!(p.driving&&p.t!=='payroll'))b.push(sent(p.exposureDetail));
   if(p.noExposure)b.push('No driving, height or below-grade exposure was reported.');
   if(p.claims==='No')b.push('No workers compensation claims were reported in the past three years.');
   else if(p.claims==='Yes')b.push('The applicant reported workers compensation claims in the past three years'+(p.claimsNotes?': '+lc1(stripDot(p.claimsNotes)):'')+'.'+(p.openClaims?' At least one claim remains open.':''));
@@ -2007,7 +2203,8 @@ function buildNarrativeText(p){
 }
 function autoGrow(ta){ta.style.height='auto';ta.style.height=Math.max(ta.scrollHeight+2,120)+'px'}
 function renderNarrative(){
-  const root=$('#form-narrative');root.textContent='';
+  const root=$('#form-narrative');const g=gateFor();if(g){renderGate(root,g);return}
+  root.textContent='';root.appendChild(ctxStrip());
   const D=curDocs(),p=prof(lastCall);
   if(!D.narrative){markStart(lastCall,'narrative');D.narrative={text:buildNarrativeText(p),edited:false,builtAt:new Date().toISOString()};saveDraft()}
   const s=el('section','sec');const h=el('header');h.appendChild(el('span','step','Risk underwriting'));h.appendChild(el('h2',null,'Underwriting Narrative'));
@@ -2133,7 +2330,7 @@ function buildAnalysis(p,product,addons){
   if(!has('Applicant Tracking System')&&['Weekly','Monthly'].includes(p.hiringFreq))o.push('Applicant tracking: they hire '+p.hiringFreq.toLowerCase()+', so a system to post jobs and manage applicants will save time.');
   if(!has('Learning Management System')&&(p.safetyPlan==='No'||p.osha==='Yes'||/\bno\b/i.test(p.reviews)||p.claims==='Yes'))o.push('Learning management system: a simple way to deliver and document safety and compliance training.');
   if(p.offersBenefits!=='No'&&!p.benefitTypes.includes('401(k)'))o.push('401(k): Key HR\'s multiple employer plan gives them a retirement plan without running it themselves.');
-  if(p.staffing)o.push('Payroll funding: Key HR offers short-term payroll funding and payroll factoring for staffing companies.');
+  if(p.staffing)o.push('Payroll funding: '+(p.factoring==='Yes'?'they factor with '+(p.factorCo||'another company')+(p.factorRate?' at '+stripDot(p.factorRate):'')+(p.factorHappy&&p.factorHappy!=='Yes'?' and are not fully happy with it':'')+'. ':p.factoring==='No'?'they do not use factoring today. ':'')+(p.fundingQuote==='Yes'?'They are open to a new funding quote. ':'')+'Key HR offers short-term payroll funding and payroll factoring for staffing companies.');
   if(['Weekly','Monthly'].includes(p.hiringFreq))o.push('Recruiting support: Key HR can help with recruiting and talent acquisition when they need more hands.');
   if(p.payrollOther&&/account|book|admin|office/i.test(p.payrollOther))o.push('Back-office support: accounting, bookkeeping and administrative support are available if the office manager is stretched thin.');
   out.push({title:'Additional Opportunities',body:B(o)||'No other opportunities stood out from the call. Revisit after the proposal meeting.'});
@@ -2154,7 +2351,7 @@ function buildAnalysis(p,product,addons){
   // 6
   const ns=[];
   if(!PEO)ns.push('Payroll quote needs only company info, employee count and pay cycle.'+(p.payFreq&&p.emp!=null?' All three are captured.':' Confirm anything missing.'));
-  else{const D=forms[p.t].docs||{};ns.push('Complete the ACORD 130'+(D.acord?' (in progress)':'')+' and get loss runs for the last 3 to 5 years'+(p.lr?' (loss runs: '+p.lr.toLowerCase()+')':'')+'.')}
+  else{const D=forms[p.t].docs||{};ns.push('Complete the RFP (ACORD 130)'+(D.acord?' (in progress)':'')+' and get loss runs for the last 3 to 5 years'+(p.lr?' (loss runs: '+p.lr.toLowerCase()+')':'')+'.')}
   if(p.docsReq.length)ns.push('Documents requested: '+listJoin(p.docsReq)+(p.docsDue?', promised by '+fmtDate(p.docsDue):'')+'.');
   if(has('Benefits'))ns.push('Benefits quotes take about 2 weeks once the census is in. Set the proposal meeting accordingly.');
   if(PEO&&!has(EIS))ns.push('With workers\' comp in the quote, set the proposal at least 3 business days after documents are received.');
@@ -2219,51 +2416,83 @@ const PEO_SERVICES=[
 ];
 const PAYROLL_SERVICES=[['Payroll Processing',PEO_SERVICES[0][1]]];
 const COV_DEF={tax:true,comp:false,ui:false,pen:true,epli:true,hb:true,safety:true,benadm:true};
+const SUTA_NEW={AL:[2.7,8000],AK:[1.0,54200],AZ:[2.0,8000],AR:[2.0,7000],CA:[3.4,7000],CO:[3.05,30600],CT:[1.9,27000],DE:[1.0,14500],DC:['',9000],FL:[2.7,7000],GA:[2.7,9500],HI:[2.4,64500],ID:[1.0,58300],IL:[3.35,14250],IN:[2.5,9500],IA:[1.0,20400],KS:[1.75,15100],KY:[2.7,12000],LA:['',7000],ME:[2.54,12000],MD:[2.6,8500],MA:[2.42,15000],MI:[2.7,9000],MN:['',44000],MS:[1.0,14000],MO:[2.376,9000],MT:['',47300],NE:[1.25,9000],NV:[2.95,43700],NH:[1.7,14000],NJ:[2.8,44800],NM:['',30600],NY:[4.1,17600],NC:[1.0,34200],ND:[1.0,46600],OH:[2.85,9000],OK:[1.5,25000],OR:[2.4,56700],PA:[3.822,10000],RI:[1.21,30800],SC:[1.06,14000],SD:[1.2,15000],TN:[2.7,9000],TX:[2.7,9000],UT:[1.2,50700],VT:[1.0,15400],VA:[2.5,8000],WA:['',78200],WV:[2.7,9500],WI:[3.05,14000],WY:[1.69,33800]};
+const sutaFor=st=>SUTA_NEW[st]||['',7000];
+const ADMIN_UNITS=['Per employee per year','Per employee per check','% of gross wages'];
+function newRow(st){const s=sutaFor(st);return {state:st||'',code:'',desc:'',n:'',wages:'',cur_suta:'',cur_wc:'',suta:st?String(s[0]):'',base:String(s[1]),wc:''}}
 function newComparison(p){
-  const rows=p.jobs.length?p.jobs.slice(0,12).map(r=>({state:stateCode(r.state)||p.state||'',code:'',desc:r.job||'',n:r.n||'',wages:r.wages||'',suta:'',base:'7000',wc:''})):[{state:p.state||'',code:'',desc:'',n:p.emp!=null?String(p.emp):'',wages:p.wages?String(p.wages):'',suta:'',base:'7000',wc:''}];
-  return {mode:'PEO',emp:p.emp!=null?String(p.emp):'',freq:normFreq(p.payFreq),wages:p.wages?String(p.wages):'',
-    cur_run:'',cur_month:'',cur_ye:'',cur_other:'',pr_who:p.payrollPerson||'',pr_hrs:p.payrollHours!=null?String(p.payrollHours):'',pr_rate:'',pr_salary:'',
-    tax_who:'',tax_cost:'',comp_who:'',comp_cost:'',ui_who:'',ui_cost:'',pen:'',sys:[{name:p.timekeeping||'',monthly:'',rep:true},{name:'',monthly:'',rep:true}],
-    hr_who:p.hrWho||'',hr_hrs:'',hr_rate:'',hr_salary:'',wc_prem:p.premium!=null?String(p.premium):'',suta_cur:'',suta_base:'7000',epli:'',benadm:'',hb:'',safety:'',
-    kh_check:'',kh_run:'',kh_setup:'',kh_w2:'',kh_tk:'',kh_other:'',hrs_after:'1',
-    rows,kh_admin:'17.50',kh_setup_peo:'500',kh_eap:'',kh_life:'',kh_other_peo:'',cov:Object.assign({},COV_DEF,{comp:true,ui:true}),states:p.states};
+  const rows=p.jobs.length?p.jobs.slice(0,12).map(r=>{const st=stateCode(r.state)||p.state||'';return Object.assign(newRow(st),{desc:r.job||'',n:r.n||'',wages:r.wages||''})}):[Object.assign(newRow(p.state||''),{n:p.emp!=null?String(p.emp):'',wages:p.wages?String(p.wages):''})];
+  return normComp({mode:'PEO',emp:p.emp!=null?String(p.emp):'',freq:normFreq(p.payFreq),wages:p.wages?String(p.wages):'',
+    pr_who:p.payrollPerson||'',pr_hrs:p.payrollHours!=null?String(p.payrollHours):'',hr_who:p.hrWho||'',wc_prem:p.premium!=null?String(p.premium):'',
+    sys:[{name:p.timekeeping||'',monthly:'',rep:true},{name:'',monthly:'',rep:true}],rows,states:p.states});
+}
+function normComp(c){
+  const d={mode:'PEO',emp:'',freq:'',wages:'',cur_run:'',cur_month:'',cur_ye:'',cur_other:'',cur_admin:'',cur_admin_unit:ADMIN_UNITS[0],
+    pr_who:'',pr_hrs:'',pr_rate:'',pr_salary:'',tax_who:'',tax_cost:'',comp_who:'',comp_cost:'',ui_who:'',ui_cost:'',pen:'',sys:[],
+    hr_who:'',hr_hrs:'',hr_rate:'',hr_salary:'',wc_prem:'',epli:'',benadm:'',hb:'',safety:'',
+    kh_check:'',kh_run:'',kh_setup:'',kh_w2:'',kh_other:'',hrs_after:'1',rows:[],
+    kh_admin_pepy:'650',kh_setup_peo:'500',kh_eap:'',kh_life:'',kh_other_peo:'',
+    tk_on:false,tk_setup:'500',tk_pepm:'5.50',lms_on:false,lms_setup:'500',lms_pepy:'5.00',
+    cov:Object.assign({},COV_DEF,{comp:true,ui:true}),states:[]};
+  const o=Object.assign(d,c||{});
+  o.rows=arr(o.rows).map(r=>Object.assign(newRow(''),{base:String(sutaFor(r.state)[1])},r));
+  if(!o.rows.length)o.rows=[newRow('')];
+  return o;
 }
 function computeCompare(c){
-  const N=x=>toNum(x)||0;const n=N(c.emp),checks=CHECKS[c.freq]||26;
+  c=normComp(c);
+  const N=x=>toNum(x)||0;const checks=CHECKS[c.freq]||26;
   const hourly=(r,s)=>N(r)||(N(s)?N(s)/2080:0);
   const prH=hourly(c.pr_rate,c.pr_salary),hrH=hourly(c.hr_rate,c.hr_salary);
   const sysAll=arr(c.sys).reduce((s,r)=>s+N(r.monthly)*12,0),sysKept=arr(c.sys).filter(r=>!r.rep).reduce((s,r)=>s+N(r.monthly)*12,0);
   const prov=N(c.cur_run)*checks+N(c.cur_month)*12+N(c.cur_ye)+N(c.cur_other);
   const cov=Object.assign({},COV_DEF,c.cov||{});
-  const L=[];const add=(label,cur,kh,note)=>{if(cur||kh)L.push({label,cur,kh,note})};
-  let setup=0,rows=[],tax={fica:0,futa:0,suta:0,wc:0,admin:0,wages:0},kTotal=0,cTotal=0;
+  const L=[];const add=(label,cur,kh,note,o={})=>{if(cur||kh||o.tbd)L.push(Object.assign({label,cur,kh,note},o))};
+  const rowsIn=arr(c.rows).filter(r=>N(r.wages)||r.desc||r.code);
+  const W=rowsIn.length?rowsIn.reduce((s,r)=>s+N(r.wages),0):N(c.wages);
+  const n=rowsIn.length&&rowsIn.some(r=>N(r.n))?rowsIn.reduce((s,r)=>s+(N(r.n)||0),0):N(c.emp);
+  const addons=[];
+  if(c.tk_on)addons.push({label:'Timekeeping',annual:N(c.tk_pepm)*n*12,setup:N(c.tk_setup),note:money2(N(c.tk_pepm))+' per employee per month'});
+  if(c.lms_on)addons.push({label:'Learning management system',annual:N(c.lms_pepy)*n,setup:N(c.lms_setup),note:money2(N(c.lms_pepy))+' per employee per year'});
+  let setup=0,rows=[],tax={fica:0,futa:0,suta:0,wc:0,admin:0,wages:0},kTotal=0,cTotal=0,wcTbd=false,adminPct=0;
+  const staffNote=h=>h?h+' hrs/week today, '+N(c.hrs_after)+' with Key HR':'';
   if(c.mode==='Payroll Only'){
-    const khFees=N(c.kh_check)*n*checks+N(c.kh_run)*checks+N(c.kh_w2)*n+N(c.kh_tk)*n*12+N(c.kh_other);
-    add('Payroll provider fees',prov,khFees,'Key HR: '+[N(c.kh_check)?money2(N(c.kh_check))+' per employee per check':'',N(c.kh_run)?money2(N(c.kh_run))+' per payroll':'',N(c.kh_w2)?money2(N(c.kh_w2))+' per W-2':'',N(c.kh_tk)?money2(N(c.kh_tk))+' PEPM timekeeping':''].filter(Boolean).join(', '));
-    add('Staff time on payroll',N(c.pr_hrs)*52*prH,N(c.hrs_after)*52*prH,N(c.pr_hrs)?N(c.pr_hrs)+' hrs/week today, '+N(c.hrs_after)+' with Key HR':'');
+    const khFees=N(c.kh_check)*n*checks+N(c.kh_run)*checks+N(c.kh_w2)*n+N(c.kh_other);
+    add('Payroll provider fees',prov,khFees,'Key HR: '+([N(c.kh_check)?money2(N(c.kh_check))+' per employee per check':'',N(c.kh_run)?money2(N(c.kh_run))+' per payroll':'',N(c.kh_w2)?money2(N(c.kh_w2))+' per W-2':''].filter(Boolean).join(', ')||'enter pricing'));
+    add('Staff time on payroll',N(c.pr_hrs)*52*prH,N(c.hrs_after)*52*prH,staffNote(N(c.pr_hrs)));
     add('Payroll tax filing',N(c.tax_cost),cov.tax?0:N(c.tax_cost),'');
     add('Compliance support',N(c.comp_cost),cov.comp?0:N(c.comp_cost),'');
     add('Unemployment claims',N(c.ui_cost),cov.ui?0:N(c.ui_cost),'');
     add('Systems & software',sysAll,sysKept,sysAll!==sysKept?'Replaced systems drop off':'');
     add('Penalties & corrections',N(c.pen),cov.pen?0:N(c.pen),'');
-    setup=N(c.kh_setup);
+    addons.forEach(a=>add(a.label,0,a.annual,a.note));
+    setup=N(c.kh_setup)+addons.reduce((s,a)=>s+a.setup,0);
   }else{
-    const W=N(c.wages)||arr(c.rows).reduce((s,r)=>s+N(r.wages),0);
-    rows=arr(c.rows).filter(r=>N(r.wages)||r.desc||r.code).map(r=>{
-      const w=N(r.wages),e=N(r.n)||1,avg=w/e;const base=N(r.base)||7000;
-      const fica=w*0.0765,futa=0.006*Math.min(avg,7000)*e,cr=String(r.suta).trim()==='',sutaR=N(r.suta)/100,suta=cr?0:sutaR*Math.min(avg,base)*e,wc=w*N(r.wc)/100,admin=N(c.kh_admin)*e*checks;
-      const total=fica+futa+suta+wc+admin;
-      return Object.assign({},r,{w,e,fica,futa,sutaAmt:suta,cr,wcAmt:wc,admin,total,bill:w?(7.65+0.6+(cr?0:N(r.suta))+N(r.wc))+admin/w*100:0,after:w?total/w*100:0});
+    const pepy=N(c.kh_admin_pepy),adminTotal=pepy*n;adminPct=W?adminTotal/W*100:0;
+    let curTax=0,curWcRows=0,curWcAny=false;
+    rows=rowsIn.map(r=>{
+      const w=N(r.wages),e=N(r.n)||1,avg=w/e,base=N(r.base)||sutaFor(r.state)[1];
+      const fica=w*0.0765,futa=0.006*Math.min(avg,7000)*e;
+      const cr=String(r.suta).trim()==='',suta=cr?0:N(r.suta)/100*Math.min(avg,base)*e;
+      const tbd=String(r.wc).trim()==='';if(tbd)wcTbd=true;const wc=tbd?0:w*N(r.wc)/100;
+      const admin=w*adminPct/100,total=fica+futa+suta+wc+admin;
+      const curS=String(r.cur_suta).trim()===''?(cr?0:N(r.suta)):N(r.cur_suta);
+      curTax+=fica+futa+curS/100*Math.min(avg,base)*e;
+      if(String(r.cur_wc).trim()!==''){curWcAny=true;curWcRows+=w*N(r.cur_wc)/100}
+      return Object.assign({},r,{w,e,fica,futa,sutaAmt:suta,cr,wcAmt:wc,tbd,admin,total,bill:w?(7.65+0.6+(cr?0:N(r.suta))+(tbd?0:N(r.wc))+adminPct):0,after:w?total/w*100:0});
     });
     rows.forEach(r=>{tax.fica+=r.fica;tax.futa+=r.futa;tax.suta+=r.sutaAmt;tax.wc+=r.wcAmt;tax.admin+=r.admin;tax.wages+=r.w});
-    const empAll=n||rows.reduce((s,r)=>s+r.e,0);const avgAll=empAll?W/empAll:0;
-    const curTaxes=W*0.0765+0.006*Math.min(avgAll,7000)*empAll+N(c.suta_cur)/100*Math.min(avgAll,N(c.suta_base)||7000)*empAll;
-    const extras=(N(c.kh_eap)+N(c.kh_life))*empAll*12+N(c.kh_other_peo);
+    if(!rows.length){const avg=n?W/n:0;tax.fica=W*0.0765;tax.futa=0.006*Math.min(avg,7000)*n;curTax=tax.fica+tax.futa;tax.wages=W;wcTbd=true}
+    tax.admin=adminTotal;
+    const curAdmin=c.cur_admin===''?0:(c.cur_admin_unit==='% of gross wages'?N(c.cur_admin)/100*W:c.cur_admin_unit==='Per employee per check'?N(c.cur_admin)*n*checks:N(c.cur_admin)*n);
+    const curWc=curWcAny?curWcRows:N(c.wc_prem);
+    const extras=(N(c.kh_eap)+N(c.kh_life))*n*12+N(c.kh_other_peo);
+    add('Employer payroll taxes (FICA, FUTA, SUTA)',curTax,tax.fica+tax.futa+tax.suta,'Key HR SUTA at new employer rates unless edited'+(rows.some(r=>r.cr)?'; client-reporting states not included':''));
+    add('Administrative fee',curAdmin,adminTotal,money(pepy)+' per employee per year ('+pct(adminPct)+' of gross wages)'+(curAdmin?'':'; no PEO fee today'));
     add('Payroll provider fees',prov,0,'Replaced by the Key HR admin fee');
-    add('Employer payroll taxes (FICA, FUTA, SUTA)',curTaxes,tax.fica+tax.futa+tax.suta,'Key HR rates by state'+(rows.some(r=>r.cr)?'; client-reporting SUTA not included':''));
-    add("Workers' comp",N(c.wc_prem),tax.wc,'Pay-as-you-go, no deposit');
-    add('Key HR administrative fee',0,tax.admin,money2(N(c.kh_admin))+' per employee per check');
-    add('Staff time on payroll',N(c.pr_hrs)*52*prH,N(c.hrs_after)*52*prH,N(c.pr_hrs)?N(c.pr_hrs)+' hrs/week today':'');
+    if(wcTbd&&!tax.wc)add("Workers' comp",curWc,0,'Key HR rate to be determined. Not included in either total.',{tbd:true,exclude:true});
+    else add("Workers' comp",curWc,tax.wc,wcTbd?'Some classes TBD':'Pay-as-you-go, no deposit');
+    add('Staff time on payroll',N(c.pr_hrs)*52*prH,N(c.hrs_after)*52*prH,staffNote(N(c.pr_hrs)));
     add('Staff time on HR',N(c.hr_hrs)*52*hrH,0,N(c.hr_hrs)?N(c.hr_hrs)+' hrs/week today':'');
     add('Payroll tax filing',N(c.tax_cost),cov.tax?0:N(c.tax_cost),'');
     add('Compliance & HR consulting',N(c.comp_cost),cov.comp?0:N(c.comp_cost),'');
@@ -2274,21 +2503,21 @@ function computeCompare(c){
     add('Safety training & programs',N(c.safety),cov.safety?0:N(c.safety),'');
     add('Systems & software',sysAll,sysKept,sysAll!==sysKept?'Replaced systems drop off':'');
     add('Penalties & corrections',N(c.pen),cov.pen?0:N(c.pen),'');
+    addons.forEach(a=>add(a.label,0,a.annual,a.note));
     add('Optional extras (EAP, life, other)',0,extras,'');
-    setup=N(c.kh_setup_peo);
+    setup=N(c.kh_setup_peo)+addons.reduce((s,a)=>s+a.setup,0);
   }
-  L.forEach(l=>{cTotal+=l.cur||0;kTotal+=l.kh||0});
+  L.forEach(l=>{if(l.exclude)return;cTotal+=l.cur||0;kTotal+=l.kh||0});
   const save=cTotal-kTotal;
   const hoursBack=Math.max(0,(N(c.pr_hrs)+(c.mode==='PEO'?N(c.hr_hrs):0)-N(c.hrs_after))*52);
-  return {lines:L,cur:cTotal,kh:kTotal,save,pct:cTotal?save/cTotal*100:0,setup,rows,tax,checks,hoursBack,
-    statutory:tax.fica+tax.futa+tax.suta+tax.wc,admin:tax.admin};
+  return {lines:L,cur:cTotal,kh:kTotal,save,pct:cTotal?save/cTotal*100:0,setup,rows,tax,checks,hoursBack,wcTbd,adminPct,n,W,addons,c};
 }
 function cField(c,k,label,o={}){
   const w=el('div','ctl'+(o.full?' full':''));const id='cmp_'+k;const lab=el('label','lbl',label);lab.htmlFor=id;w.appendChild(lab);
   let i;
-  if(o.opts){i=el('select','in');['',...o.opts].forEach(x=>{const op=el('option',null,x||'Select');op.value=x;i.appendChild(op)});i.value=c[k]||''}
+  if(o.opts){i=el('select','in');(o.noBlank?o.opts:['',...o.opts]).forEach(x=>{const op=el('option',null,x||'Select');op.value=x;i.appendChild(op)});i.value=c[k]||''}
   else{i=el('input','in');i.type='text';if(o.money||o.num){i.inputMode='decimal'}if(o.ph)i.placeholder=o.ph;else if(o.money)i.placeholder='$';i.value=c[k]||''}
-  i.id=id;i.dataset.ck=k;w.appendChild(i);if(o.help)w.appendChild(el('span','tip',o.help));return w;
+  i.id=id;i.dataset.ck=k;w.appendChild(i);if(o.help){const t=el('span','tip',o.help);if(o.helpId)t.id=o.helpId;w.appendChild(t)}return w;
 }
 function cQ(c,say,fields,cov){
   const d=el('div','q cq');const left=el('div');left.appendChild(lineEl(say));d.appendChild(left);
@@ -2296,26 +2525,45 @@ function cQ(c,say,fields,cov){
   if(cov){const lab=el('label','covchk');const cb=el('input');cb.type='checkbox';cb.dataset.cov=cov[0];cb.checked=!!(Object.assign({},COV_DEF,c.cov||{}))[cov[0]];lab.appendChild(cb);lab.appendChild(document.createTextNode(' '+cov[1]));g.appendChild(lab)}
   d.appendChild(g);return d;
 }
+function addonRow(c,key,label,fields){
+  const d=el('div','addon');const lab=el('label','addchk');const cb=el('input');cb.type='checkbox';cb.dataset.ctog=key;cb.checked=!!c[key];lab.appendChild(cb);lab.appendChild(el('b',null,' '+label));d.appendChild(lab);
+  const g=el('div','cqf');fields.forEach(f=>g.appendChild(cField(c,f[0],f[1],f[2]||{})));d.appendChild(g);return d;
+}
 function renderCompare(){
   const root=$('#form-compare');const g=gateFor();if(g){renderGate(root,g);return}
   root.textContent='';root.appendChild(ctxStrip());
   const D=curDocs();if(!D.comparison){markStart(lastCall,'comparison');D.comparison=newComparison(prof(lastCall));saveDraft()}
+  D.comparison=normComp(D.comparison);
   const c=D.comparison;const PEO=c.mode==='PEO';
   // setup
-  const s0=el('section','sec');const h0=el('header');h0.appendChild(el('span','step','Cost comparison'));h0.appendChild(el('h2',null,'Set Up the Comparison'));h0.appendChild(el('p','blurb','Choose what you are quoting. Numbers from the call are filled in. Ask the questions below, then enter Key HR pricing.'));s0.appendChild(h0);
+  const s0=el('section','sec');const h0=el('header');h0.appendChild(el('span','step','Cost comparison'));h0.appendChild(el('h2',null,'Set Up the Comparison'));h0.appendChild(el('p','blurb','Choose what you are quoting. Numbers from the call are filled in. Enter what they pay today and the Key HR pricing.'));s0.appendChild(h0);
   const b0=el('div','body docbody');const mp=el('div','pills');['PEO','Payroll Only'].forEach(o=>{const b=el('button','pill',o);b.type='button';b.dataset.cmode=o;b.setAttribute('aria-pressed',c.mode===o?'true':'false');mp.appendChild(b)});
   const m=el('div','ctl');m.appendChild(el('span','lbl','QUOTING'));m.appendChild(mp);b0.appendChild(m);
-  const gr=el('div','grid');gr.appendChild(cField(c,'emp','Employees',{num:true}));gr.appendChild(cField(c,'freq','Pay cycle',{opts:FREQS}));gr.appendChild(cField(c,'wages','Annual gross wages',{money:true,help:PEO?'Defaults to the total of the rate table.':''}));b0.appendChild(gr);
+  const gr=el('div','grid');gr.appendChild(cField(c,'emp','Employees',{num:true,help:PEO?'Uses the rate table headcount when filled in.':''}));gr.appendChild(cField(c,'freq','Pay cycle',{opts:FREQS}));gr.appendChild(cField(c,'wages','Annual gross wages',{money:true,help:PEO?'Uses the rate table total when filled in.':''}));b0.appendChild(gr);
   s0.appendChild(b0);root.appendChild(s0);
-  // current
+  // rates table (PEO): prospect current + Key HR
+  if(PEO){
+    const sR=el('section','sec');const hR=el('header');hR.appendChild(el('span','step','Rates'));hR.appendChild(el('h2',null,'Current Rates and Key HR Rates'));
+    hR.appendChild(el('p','blurb','One row per state and comp code. Enter what they pay today and the Key HR rates. Key HR SUTA starts at the state new employer rate as a placeholder; edit it as needed. Leave Key HR W/C blank while the rate is TBD.'));sR.appendChild(hR);
+    const bR=el('div','body docbody');
+    const t=el('table','ratetbl');const hd=el('thead');
+    const g1=el('tr');[['',5],['TODAY',2],['KEY HR',3],['',1]].forEach(([x,span])=>{const th=el('th',x?'grp':null,x);th.colSpan=span;g1.appendChild(th)});hd.appendChild(g1);
+    const hr=el('tr');['State','Comp code','Description','# EEs','Est. gross wages','Current SUTA %','Current W/C %','Key HR SUTA %','SUTA wage base','Key HR W/C %',''].forEach(x=>hr.appendChild(el('th',null,x)));hd.appendChild(hr);t.appendChild(hd);
+    const bd=el('tbody');
+    c.rows.forEach((r,i)=>{const tr=el('tr');[['state',60,['',...STATES]],['code',64],['desc',180],['n',50],['wages',110],['cur_suta',70],['cur_wc',70],['suta',70],['base',84],['wc',70]].forEach(([k,w,opts])=>{const td=el('td');if(k==='cur_suta'||k==='cur_wc')td.className='cur';if(k==='suta'||k==='base'||k==='wc')td.className='kh';let x;if(opts){x=el('select');opts.forEach(o=>{const op=el('option',null,o||'--');op.value=o;x.appendChild(op)});x.value=r[k]||''}else{x=el('input');x.type='text';x.value=r[k]||'';x.style.minWidth=w+'px';if(k!=='code'&&k!=='desc'){x.inputMode='decimal';x.style.textAlign='right'}if(k==='wc')x.placeholder='TBD';if(k==='suta'&&r.state&&sutaFor(r.state)[0]==='')x.placeholder='varies'}x.dataset.crow=i;x.dataset.f=k;x.setAttribute('aria-label',k+' row '+(i+1));td.appendChild(x);tr.appendChild(td)});
+      const td=el('td');const rm=el('button','rm','×');rm.type='button';rm.dataset.crowrm=i;rm.setAttribute('aria-label','Remove row '+(i+1));td.appendChild(rm);tr.appendChild(td);bd.appendChild(tr)});
+    t.appendChild(bd);const sc=el('div','tscroll');sc.appendChild(t);bR.appendChild(sc);const ad2=el('button','addrow','+ Add a state or comp code');ad2.type='button';ad2.dataset.crowadd='1';bR.appendChild(ad2);
+    sR.appendChild(bR);root.appendChild(sR);
+  }
+  // current costs
   const s1=el('section','sec');const h1=el('header');h1.appendChild(el('span','step','Ask the prospect'));h1.appendChild(el('h2',null,'What They Pay Today'));h1.appendChild(el('p','blurb','Read each question. Rough numbers are fine. Leave anything blank that does not apply.'));s1.appendChild(h1);
   const b1=el('div','body');
+  if(PEO)b1.appendChild(cQ(c,'Are you with a PEO today? What is their admin fee, and how is it charged?',[['cur_admin','Current admin fee',{money:true}],['cur_admin_unit','Charged as',{opts:ADMIN_UNITS,noBlank:true}]]));
   b1.appendChild(cQ(c,'What do you pay your payroll company? Per payroll run, any monthly fee, and year-end W-2 fees?',[['cur_run','Per payroll run',{money:true}],['cur_month','Monthly fee',{money:true}],['cur_ye','Year-end fees (per year)',{money:true}],['cur_other','Other fees (per year)',{money:true}]]));
   b1.appendChild(cQ(c,'Who manages your payroll? About how much of their time does it take each week? What is their hourly rate, or annual salary?',[['pr_who','Who'],['pr_hrs','Hours per week',{num:true}],['pr_rate','Hourly rate',{money:true}],['pr_salary','Or annual salary',{money:true}]]));
   b1.appendChild(cQ(c,'Who handles your payroll tax filings? What does that cost you a year?',[['tax_who','Who'],['tax_cost','Cost per year',{money:true}]],['tax','Key HR covers this']));
   b1.appendChild(cQ(c,'Who handles compliance, like labor law posters, new hire reporting and wage and hour rules? Any cost for that?',[['comp_who','Who'],['comp_cost','Cost per year',{money:true}]],['comp','Key HR covers this']));
   b1.appendChild(cQ(c,'Who handles unemployment claims when someone leaves? Any cost or time for that?',[['ui_who','Who'],['ui_cost','Cost per year',{money:true}]],['ui','Key HR covers this']));
-  // systems
   const sq=el('div','q cq');const sl=el('div');sl.appendChild(lineEl('What systems do you use for time clocks, HR, onboarding or scheduling? What does each cost per month?'));sq.appendChild(sl);
   const sb=el('div','cqf');const tb=el('table','systbl');const th=el('thead');const thr=el('tr');['System','Monthly cost','Key HR replaces it',''].forEach(x=>thr.appendChild(el('th',null,x)));th.appendChild(thr);tb.appendChild(th);const tbo=el('tbody');
   arr(c.sys).forEach((r,i)=>{const tr=el('tr');const a=el('input');a.type='text';a.value=r.name||'';a.dataset.csys=i;a.dataset.f='name';a.setAttribute('aria-label','System '+(i+1));const b=el('input');b.type='text';b.inputMode='decimal';b.placeholder='$';b.value=r.monthly||'';b.dataset.csys=i;b.dataset.f='monthly';b.setAttribute('aria-label','Monthly cost '+(i+1));
@@ -2326,7 +2574,7 @@ function renderCompare(){
   b1.appendChild(cQ(c,'In the last year, did you pay any penalties or fees to fix payroll or tax mistakes? About how much?',[['pen','Amount',{money:true}]]));
   if(PEO){
     b1.appendChild(cQ(c,'Who handles HR for you? How many hours a week does it take, and what is their hourly rate or salary?',[['hr_who','Who'],['hr_hrs','Hours per week',{num:true}],['hr_rate','Hourly rate',{money:true}],['hr_salary','Or annual salary',{money:true}]]));
-    b1.appendChild(cQ(c,'What do you pay for workers\' comp each year? And what is your state unemployment (SUTA) rate?',[['wc_prem','Workers\' comp per year',{money:true}],['suta_cur','Current SUTA rate %',{num:true}],['suta_base','SUTA wage base',{money:true,help:'Florida is $7,000.'}]]));
+    b1.appendChild(cQ(c,'What do you pay for workers\' comp each year?',[['wc_prem','Workers\' comp per year',{money:true,help:'Used when current W/C rates are not entered in the rate table.'}]]));
     b1.appendChild(cQ(c,'Do you carry employment practices liability (EPLI)? What does it cost?',[['epli','Cost per year',{money:true}]],['epli','Included with Key HR']));
     b1.appendChild(cQ(c,'Do you pay a broker or anyone to administer your benefits?',[['benadm','Cost per year',{money:true}]],['benadm','Included with Key HR']));
     b1.appendChild(cQ(c,'Do you pay for handbook updates, HR consulting or legal reviews?',[['hb','Cost per year',{money:true}]],['hb','Included with Key HR']));
@@ -2334,51 +2582,57 @@ function renderCompare(){
   }
   s1.appendChild(b1);root.appendChild(s1);
   // Key HR pricing
-  const s2=el('section','sec');const h2=el('header');h2.appendChild(el('span','step','Your pricing'));h2.appendChild(el('h2',null,'Key HR Rates'));h2.appendChild(el('p','blurb',PEO?'One row per state and comp code. Leave SUTA blank for client-reporting states. Comp rate is a percent of gross wages.':'Enter the payroll pricing you are proposing.'));s2.appendChild(h2);
+  const s2=el('section','sec');const h2=el('header');h2.appendChild(el('span','step','Your pricing'));h2.appendChild(el('h2',null,'Key HR Pricing'));h2.appendChild(el('p','blurb',PEO?'Total pricing includes FICA, FUTA, SUTA and the admin fee. Workers\' comp is TBD until rated.':'Enter the payroll pricing you are proposing.'));s2.appendChild(h2);
   const b2=el('div','body docbody');
+  const g2=el('div','grid');
   if(PEO){
-    const t=el('table','ratetbl');const hd=el('thead');const hr=el('tr');['State','Comp code','Description','# EEs','Est. gross wages','SUTA %','SUTA wage base','W/C %',''].forEach(x=>hr.appendChild(el('th',null,x)));hd.appendChild(hr);t.appendChild(hd);const bd=el('tbody');
-    arr(c.rows).forEach((r,i)=>{const tr=el('tr');[['state',60,['',...STATES]],['code',70],['desc',200],['n',56],['wages',120],['suta',70],['base',90],['wc',70]].forEach(([k,w,opts])=>{const td=el('td');let x;if(opts){x=el('select');opts.forEach(o=>{const op=el('option',null,o||'--');op.value=o;x.appendChild(op)});x.value=r[k]||''}else{x=el('input');x.type='text';x.value=r[k]||'';x.style.minWidth=w+'px';if(['n','wages','suta','base','wc'].includes(k)){x.inputMode='decimal';x.style.textAlign='right'}}x.dataset.crow=i;x.dataset.f=k;x.setAttribute('aria-label',k+' row '+(i+1));td.appendChild(x);tr.appendChild(td)});
-      const td=el('td');const rm=el('button','rm','×');rm.type='button';rm.dataset.crowrm=i;rm.setAttribute('aria-label','Remove row '+(i+1));td.appendChild(rm);tr.appendChild(td);bd.appendChild(tr)});
-    t.appendChild(bd);const sc=el('div','tscroll');sc.appendChild(t);b2.appendChild(sc);const ad2=el('button','addrow','+ Add a state or comp code');ad2.type='button';ad2.dataset.crowadd='1';b2.appendChild(ad2);
-    const g2=el('div','grid');g2.appendChild(cField(c,'kh_admin','Admin fee (per EE per check)',{money:true}));g2.appendChild(cField(c,'kh_setup_peo','Setup fee (one time)',{money:true}));g2.appendChild(cField(c,'kh_eap','EAP (PEPM, optional)',{money:true,ph:'2.50'}));g2.appendChild(cField(c,'kh_life','$25K life & AD&D (PEPM, optional)',{money:true,ph:'5.48'}));g2.appendChild(cField(c,'kh_other_peo','Other Key HR charges (per year)',{money:true}));g2.appendChild(cField(c,'hrs_after','Their hours/week with Key HR',{num:true}));b2.appendChild(g2);
+    const R0=computeCompare(c);
+    g2.appendChild(cField(c,'kh_admin_pepy','Admin fee (per employee per year)',{money:true,help:'= '+pct(R0.adminPct)+' of gross wages',helpId:'adminPctHelp'}));
+    g2.appendChild(cField(c,'kh_setup_peo','Setup fee (one time)',{money:true}));g2.appendChild(cField(c,'kh_eap','EAP (PEPM, optional)',{money:true,ph:'2.50'}));g2.appendChild(cField(c,'kh_life','$25K life & AD&D (PEPM, optional)',{money:true,ph:'5.48'}));g2.appendChild(cField(c,'kh_other_peo','Other Key HR charges (per year)',{money:true}));g2.appendChild(cField(c,'hrs_after','Their hours/week with Key HR',{num:true}));
   }else{
-    const g2=el('div','grid');g2.appendChild(cField(c,'kh_check','Per employee per check',{money:true}));g2.appendChild(cField(c,'kh_run','Base fee per payroll',{money:true}));g2.appendChild(cField(c,'kh_w2','Per W-2 (year end)',{money:true}));g2.appendChild(cField(c,'kh_tk','Timekeeping (PEPM, optional)',{money:true}));g2.appendChild(cField(c,'kh_other','Other Key HR charges (per year)',{money:true}));g2.appendChild(cField(c,'kh_setup','Setup fee (one time)',{money:true}));g2.appendChild(cField(c,'hrs_after','Their hours/week with Key HR',{num:true}));b2.appendChild(g2);
+    g2.appendChild(cField(c,'kh_check','Per employee per check',{money:true}));g2.appendChild(cField(c,'kh_run','Base fee per payroll',{money:true}));g2.appendChild(cField(c,'kh_w2','Per W-2 (year end)',{money:true}));g2.appendChild(cField(c,'kh_other','Other Key HR charges (per year)',{money:true}));g2.appendChild(cField(c,'kh_setup','Setup fee (one time)',{money:true}));g2.appendChild(cField(c,'hrs_after','Their hours/week with Key HR',{num:true}));
   }
+  b2.appendChild(g2);
+  b2.appendChild(el('span','lbl','ADD-ON SOLUTIONS'));
+  b2.appendChild(addonRow(c,'tk_on','Timekeeping',[['tk_setup','Setup fee',{money:true}],['tk_pepm','Per employee per month',{money:true}]]));
+  b2.appendChild(addonRow(c,'lms_on','Learning Management System',[['lms_setup','Setup fee',{money:true}],['lms_pepy','Per employee per year',{money:true}]]));
   s2.appendChild(b2);root.appendChild(s2);
   const s3=el('section','sec');s3.id='cmpOut';root.appendChild(s3);paintCompare();
   root.oninput=e=>{const t=e.target;
     if(t.dataset.ck){c[t.dataset.ck]=t.value}
     else if(t.dataset.csys!=null&&t.dataset.f){const r=c.sys[+t.dataset.csys];r[t.dataset.f]=t.type==='checkbox'?t.checked:t.value}
-    else if(t.dataset.crow!=null&&t.dataset.f){c.rows[+t.dataset.crow][t.dataset.f]=t.value}
+    else if(t.dataset.crow!=null&&t.dataset.f){const r=c.rows[+t.dataset.crow];r[t.dataset.f]=t.value;
+      if(t.dataset.f==='state'&&e.type==='change'){const s=sutaFor(t.value);r.suta=String(s[0]);r.base=String(s[1]);saveDraft();renderCompare();return}}
     else if(t.dataset.cov){c.cov=Object.assign({},COV_DEF,c.cov||{});c.cov[t.dataset.cov]=t.checked}
+    else if(t.dataset.ctog){c[t.dataset.ctog]=t.checked}
     else return;
     saveDraft();paintCompare();
+    const ah=$('#adminPctHelp');if(ah)ah.textContent='= '+pct(computeCompare(c).adminPct)+' of gross wages';
   };
   root.onchange=root.oninput;
   root.onclick=e=>{const b=e.target.closest('button');if(!b)return;
     if(b.dataset.cmode){c.mode=b.dataset.cmode;saveDraft();renderCompare();return}
     if(b.dataset.csysadd){c.sys.push({name:'',monthly:'',rep:true});saveDraft();renderCompare();return}
     if(b.dataset.csysrm!=null){c.sys.splice(+b.dataset.csysrm,1);saveDraft();renderCompare();return}
-    if(b.dataset.crowadd){c.rows.push({state:'',code:'',desc:'',n:'',wages:'',suta:'',base:'7000',wc:''});saveDraft();renderCompare();return}
-    if(b.dataset.crowrm!=null){c.rows.splice(+b.dataset.crowrm,1);if(!c.rows.length)c.rows.push({state:'',base:'7000'});saveDraft();renderCompare();return}
+    if(b.dataset.crowadd){const last=c.rows[c.rows.length-1];c.rows.push(newRow(last?last.state:''));saveDraft();renderCompare();return}
+    if(b.dataset.crowrm!=null){c.rows.splice(+b.dataset.crowrm,1);if(!c.rows.length)c.rows.push(newRow(''));saveDraft();renderCompare();return}
   };
 }
 function paintCompare(){
   const s=$('#cmpOut');if(!s)return;const c=curDocs().comparison,R=computeCompare(c);s.textContent='';
-  const h=el('header');h.appendChild(el('span','step','Preview'));h.appendChild(el('h2',null,'Cost Comparison'));h.appendChild(el('p','blurb','Updates as you type. This is what prints on the PDF.'));s.appendChild(h);
+  const h=el('header');h.appendChild(el('span','step','Preview'));h.appendChild(el('h2',null,'Cost Comparison'));h.appendChild(el('p','blurb','Updates as you type. This is what prints on the PDF.'+(R.wcTbd&&c.mode==='PEO'?' Workers\' comp is TBD and left out of both totals.':'')));s.appendChild(h);
   const b=el('div','body docbody');
   const tiles=el('div','stats');[['Current annual cost',money(R.cur)],['Key HR annual cost',money(R.kh)],[R.save>=0?'Estimated annual savings':'Annual difference',money(Math.abs(R.save))+(R.cur?' ('+pct(Math.abs(R.pct),1)+')':'')],['Hours back per year',R.hoursBack?Math.round(R.hoursBack).toLocaleString('en-US'):'0']].forEach(([l,v],i)=>{const d=el('div','stat'+(i===2&&R.save>0?' good':''));d.appendChild(el('span',null,l));d.appendChild(el('b',null,v));tiles.appendChild(d)});b.appendChild(tiles);
   if(c.mode==='PEO'&&R.rows.length){
-    const t=el('table','list cmptbl');const hd=el('thead');const hr=el('tr');['State & code','Description','Est. gross wages','FICA','FUTA','SUTA','W/C','Admin','Billing rate','After tax limits'].forEach((x,i)=>{const th=el('th',i>1?'r':null,x);hr.appendChild(th)});hd.appendChild(hr);t.appendChild(hd);const bd=el('tbody');
-    R.rows.forEach(r=>{const tr=el('tr');[[(r.state||'')+' '+(r.code||'')],[(r.desc||'')+(r.e?' ('+r.e+')':'')],[money2(r.w),'r'],['7.65%','r'],['0.60%','r'],[r.cr?'C.R.':pct(toNum(r.suta)),'r'],[pct(toNum(r.wc)),'r'],[money2(toNum(c.kh_admin))+'/check','r'],[pct(r.bill),'r hot'],[pct(r.after),'r']].forEach(([v,cl])=>tr.appendChild(el('td',cl||null,v)));bd.appendChild(tr)});
+    const t=el('table','list cmptbl');const hd=el('thead');const hr=el('tr');['State & code','Description','Est. gross wages','FICA','FUTA','SUTA','W/C','Admin','Billing rate','After tax limits'].forEach((x,i)=>{hr.appendChild(el('th',i>1?'r':null,x))});hd.appendChild(hr);t.appendChild(hd);const bd=el('tbody');
+    R.rows.forEach(r=>{const tr=el('tr');[[(r.state||'')+' '+(r.code||'')],[(r.desc||'')+(r.e?' ('+r.e+')':'')],[money2(r.w),'r'],['7.65%','r'],['0.60%','r'],[r.cr?'C.R.':pct(toNum(r.suta)),'r'],[r.tbd?'TBD':pct(toNum(r.wc)),'r'],[pct(R.adminPct),'r'],[pct(r.bill)+(r.tbd?' + W/C':''),'r hot'],[pct(r.after),'r']].forEach(([v,cl])=>tr.appendChild(el('td',cl||null,v)));bd.appendChild(tr)});
     t.appendChild(bd);const sc=el('div','listwrap');sc.appendChild(t);b.appendChild(sc);
   }
   const t2=el('table','list cmptbl');const h2=el('thead');const r2=el('tr');['Cost','Today','With Key HR','Difference'].forEach((x,i)=>r2.appendChild(el('th',i?'r':null,x)));h2.appendChild(r2);t2.appendChild(h2);const b2=el('tbody');
-  R.lines.forEach(l=>{const tr=el('tr');const td=el('td');td.appendChild(el('b',null,l.label));if(l.note)td.appendChild(el('span','cnote',l.note));tr.appendChild(td);tr.appendChild(el('td','r',money(l.cur)));tr.appendChild(el('td','r',l.kh===0&&l.cur?'Included':money(l.kh)));tr.appendChild(el('td','r'+((l.cur-l.kh)>0?' good':''),money(l.cur-l.kh)));b2.appendChild(tr)});
-  const tf=el('tr','tot');[['Total annual cost'],[money(R.cur),'r'],[money(R.kh),'r'],[money(R.save),'r'+(R.save>0?' good':'')]].forEach(([v,cl])=>tf.appendChild(el('td',cl||null,v)));b2.appendChild(tf);
+  R.lines.forEach(l=>{const tr=el('tr');const td=el('td');td.appendChild(el('b',null,l.label));if(l.note)td.appendChild(el('span','cnote',l.note));tr.appendChild(td);tr.appendChild(el('td','r',money(l.cur)));tr.appendChild(el('td','r',l.tbd?'TBD':l.kh===0&&l.cur?'Included':money(l.kh)));tr.appendChild(el('td','r'+(!l.tbd&&(l.cur-l.kh)>0?' good':''),l.tbd?'':money(l.cur-l.kh)));b2.appendChild(tr)});
+  const tf=el('tr','tot');[['Total annual cost'+(R.wcTbd&&c.mode==='PEO'?' (W/C TBD)':'')],[money(R.cur),'r'],[money(R.kh),'r'],[money(R.save),'r'+(R.save>0?' good':'')]].forEach(([v,cl])=>tf.appendChild(el('td',cl||null,v)));b2.appendChild(tf);
   t2.appendChild(b2);const sc2=el('div','listwrap');sc2.appendChild(t2);b.appendChild(sc2);
-  if(R.setup)b.appendChild(el('p','tip','(One-time setup fee of '+money(R.setup)+' is not included in the annual totals.)'));
+  if(R.setup)b.appendChild(el('p','tip','(One-time setup fees of '+money(R.setup)+' are not included in the annual totals.)'));
   s.appendChild(b);
 }
 
@@ -2437,18 +2691,18 @@ function buildAnalysisPdf(s){
   pdfFoot(doc,'For internal and proposal use');return doc.output('arraybuffer');
 }
 function buildComparePdf(s){
-  const c=s.c,R=computeCompare(c),PEO=c.mode==='PEO';const doc=newDoc();const W=doc.internal.pageSize.getWidth(),PH=doc.internal.pageSize.getHeight(),M=40;
+  const c=normComp(s.c),R=computeCompare(c),PEO=c.mode==='PEO';const doc=newDoc();const W=doc.internal.pageSize.getWidth(),PH=doc.internal.pageSize.getHeight(),M=40;
   let y=pdfHead(doc,PEO?'PEO services':'Payroll services','Cost Comparison',[['Date',fmtDate(s.day)||''],['Valid for','30 Days']]);
   y=pdfPrepared(doc,y,s.company,(toNum(c.emp)!=null?toNum(c.emp)+' Employees':''),[c.freq?c.freq+' Payroll':'',arr(s.states).join(' & ')].filter(Boolean).join(' · ').replace(/·/g,'-'));
   if(PEO&&R.rows.length){
     doc.autoTable({startY:y,margin:{left:M,right:M},head:[['STATE & COMP CODE','DESCRIPTION','EST. GROSS WAGES','FICA','FUTA','SUTA','W/C','ADMIN','TOTAL BILLING RATE','AFTER TAX LIMITS']],
-      body:[...R.rows.map(r=>[ascii((r.state||'')+' '+(r.code||'')),ascii((r.desc||'')+(r.e?' ('+r.e+')':'')),money2(r.w),'7.65%','0.60%',r.cr?'C.R.':pct(toNum(r.suta)),pct(toNum(r.wc)),money2(toNum(c.kh_admin))+'/check',pct(r.bill),pct(r.after)]),[{content:'',styles:{}},{content:'Total ('+R.rows.reduce((a,r)=>a+r.e,0)+' employees)',styles:{fontStyle:'bold'}},{content:money2(R.tax.wages),styles:{fontStyle:'bold'}},'','','','','','','']],
+      body:[...R.rows.map(r=>[ascii((r.state||'')+' '+(r.code||'')),ascii((r.desc||'')+(r.e?' ('+r.e+')':'')),money2(r.w),'7.65%','0.60%',r.cr?'C.R.':pct(toNum(r.suta)),r.tbd?'TBD':pct(toNum(r.wc)),pct(R.adminPct),pct(r.bill)+(r.tbd?' + W/C':''),pct(r.after)]),[{content:'',styles:{}},{content:'Total ('+R.rows.reduce((a,r)=>a+r.e,0)+' employees)',styles:{fontStyle:'bold'}},{content:money2(R.tax.wages),styles:{fontStyle:'bold'}},'','','','','','','']],
       theme:'plain',headStyles:{fillColor:INK,textColor:255,fontSize:6.5,fontStyle:'bold',halign:'right'},styles:{fontSize:8,cellPadding:4,textColor:INK,halign:'right'},columnStyles:{0:{halign:'left',fontStyle:'bold'},1:{halign:'left'},8:{textColor:RED,fontStyle:'bold'}},
       didParseCell:d=>{if(d.section==='head'&&d.column.index===8)d.cell.styles.fillColor=RED;if(d.section==='head'&&d.column.index<2)d.cell.styles.halign='left'},didDrawCell:d=>{if(d.section==='body'){doc.setDrawColor(...LN);doc.line(d.cell.x,d.cell.y+d.cell.height,d.cell.x+d.cell.width,d.cell.y+d.cell.height)}}});
     y=doc.lastAutoTable.finalY+16;
   }
   doc.autoTable({startY:y,margin:{left:M,right:M},head:[['COST','TODAY','WITH KEY HR','DIFFERENCE']],
-    body:[...R.lines.map(l=>[{content:ascii(l.label)+(l.note?'\n'+ascii(l.note):''),styles:{}},money(l.cur),l.kh===0&&l.cur?'Included':money(l.kh),money(l.cur-l.kh)]),[{content:'Total annual cost',styles:{fontStyle:'bold'}},{content:money(R.cur),styles:{fontStyle:'bold'}},{content:money(R.kh),styles:{fontStyle:'bold'}},{content:money(R.save),styles:{fontStyle:'bold',textColor:R.save>0?[11,107,99]:INK}}]],
+    body:[...R.lines.map(l=>[{content:ascii(l.label)+(l.note?'\n'+ascii(l.note):''),styles:{}},money(l.cur),l.tbd?'TBD':(l.kh===0&&l.cur?'Included':money(l.kh)),l.tbd?'':money(l.cur-l.kh)]),[{content:'Total annual cost'+(PEO&&R.wcTbd?' (W/C TBD)':''),styles:{fontStyle:'bold'}},{content:money(R.cur),styles:{fontStyle:'bold'}},{content:money(R.kh),styles:{fontStyle:'bold'}},{content:money(R.save),styles:{fontStyle:'bold',textColor:R.save>0?[11,107,99]:INK}}]],
     theme:'plain',headStyles:{fillColor:INK,textColor:255,fontSize:7,fontStyle:'bold',halign:'right'},styles:{fontSize:9,cellPadding:5,textColor:INK,halign:'right'},columnStyles:{0:{halign:'left',cellWidth:240}},
     didParseCell:d=>{if(d.section==='head'&&d.column.index===0)d.cell.styles.halign='left'},didDrawCell:d=>{if(d.section==='body'){doc.setDrawColor(...LN);doc.line(d.cell.x,d.cell.y+d.cell.height,d.cell.x+d.cell.width,d.cell.y+d.cell.height)}}});
   y=doc.lastAutoTable.finalY+18;
@@ -2457,14 +2711,14 @@ function buildComparePdf(s){
   const drawGroup=(g,x,yy,idx)=>{doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...RED);doc.text(String(idx).padStart(2,'0'),x,yy);doc.setTextColor(...INK);doc.text(ascii(g[0]),x+16,yy);yy+=6;doc.setDrawColor(...INK);doc.setLineWidth(.8);doc.line(x,yy,x+colW,yy);yy+=10;
     doc.setFontSize(7.5);g[1].forEach(([k,v])=>{doc.setFont('helvetica','normal');doc.setTextColor(...INK);doc.text(ascii(k),x,yy);if(v){const inc=v==='Included';doc.setFont('helvetica',inc?'normal':'bold');doc.setTextColor(...(inc?MUT:RED));doc.text(ascii(inc?'Included':v),x+colW,yy,{align:'right'})}doc.setDrawColor(...LN);doc.setLineWidth(.4);doc.line(x,yy+3,x+colW,yy+3);yy+=11.5});return yy};
   const needH=g=>26+g[1].length*11.5;
-  const notes=[R.hoursBack?'Gives back about '+Math.round(R.hoursBack).toLocaleString('en-US')+' hours a year of staff time, valued at their hourly rate.':'',PEO?'FICA 7.65% of gross wages; FUTA 0.60% of the first $7,000 per employee; SUTA on each state wage base.':'',R.setup?'One-time setup fee of '+money(R.setup)+' is not included in annual totals.':'',PEO&&R.rows.some(r=>r.cr)?'Client-reporting (C.R.) SUTA states are not included in these totals.':'','Estimates are based on information provided by the prospect. Pricing valid 30 days from date issued.'].filter(Boolean);
+  const notes=[R.hoursBack?'Gives back about '+Math.round(R.hoursBack).toLocaleString('en-US')+' hours a year of staff time, valued at their hourly rate.':'',PEO?'Admin fee: '+money(toNum(c.kh_admin_pepy)||0)+' per employee per year, equal to '+pct(R.adminPct)+' of gross wages.':'',PEO?'FICA 7.65% of gross wages; FUTA 0.60% of the first $7,000 per employee; SUTA at each state new employer rate unless noted, on the state wage base.':'',PEO&&R.wcTbd?'Workers\' comp rates are to be determined and are not included in either total.':'',R.addons.length?'Add-ons: '+R.addons.map(a=>a.label.toLowerCase()+' ('+a.note+')').join('; ')+'.':'',R.setup?'One-time setup fees of '+money(R.setup)+' are not included in annual totals.':'',PEO&&R.rows.some(r=>r.cr)?'Client-reporting (C.R.) SUTA states are not included in these totals.':'','Estimates are based on information provided by the prospect. Pricing valid 30 days from date issued.'].filter(Boolean);
   const box=(bx,by)=>{
     doc.setFillColor(...INK);doc.roundedRect(bx,by,260,150,4,4,'F');
     doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(200,195,193);doc.text('E S T I M A T E D   C O S T   S U M M A R Y',bx+14,by+18);
     const rowS=(lab,sub,val,yy,big,color)=>{doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(ascii(lab),bx+14,yy);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(200,195,193);if(sub)doc.text(ascii(sub),bx+14,yy+10);doc.setFont('helvetica','bold');doc.setFontSize(big?17:12);doc.setTextColor(...(color||[255,255,255]));doc.text(ascii(val),bx+246,yy+4,{align:'right'})};
     rowS(R.save>=0?'Estimated Annual Savings':'Annual Difference',R.cur?pct(Math.abs(R.pct),1)+' vs. today':'',money(Math.abs(R.save)),by+42,true,R.save>=0?[255,90,80]:[255,255,255]);
     rowS('Current Annual Cost','What they pay today',money(R.cur),by+70);
-    rowS('Key HR Annual Cost',PEO?'Admin, taxes, W/C and extras':'Payroll fees and remaining costs',money(R.kh),by+96);
+    rowS('Key HR Annual Cost',PEO?(R.wcTbd?'Admin, taxes and extras. W/C TBD':'Admin, taxes, W/C and extras'):'Payroll fees and remaining costs',money(R.kh),by+96);
     rowS('Monthly with Key HR','',money(R.kh/12),by+122);
   };
   const notesAt=(nx,ny,nw)=>{doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...INK);doc.text('How we figured it',nx,ny);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...MUT);let yy=ny+16;notes.forEach(n=>{doc.splitTextToSize(ascii(n),nw).forEach(l=>{doc.text(l,nx,yy);yy+=11});yy+=3});return yy};
@@ -2534,7 +2788,7 @@ function pdfFor(kind,s){
   if(kind==='analysis')return buildAnalysisPdf(s);
   if(kind==='comparison')return buildComparePdf(s);
 }
-function docFileName(kind,company,producer,day,data){return [({call:'Call_Summary',acord:'ACORD_130',narrative:'Narrative',analysis:'Analysis',comparison:'Cost_Comparison'+(data&&data.c?(data.c.mode==='PEO'?'_PEO':'_Payroll'):'')})[kind],safeName(company),safeName(producer||'Producer'),day||todayISO()].join('_')+'.pdf'}
+function docFileName(kind,company,producer,day,data){return [({call:'Call_Summary',acord:'RFP_ACORD_130',narrative:'Narrative',analysis:'Analysis',comparison:'Cost_Comparison'+(data&&data.c?(data.c.mode==='PEO'?'_PEO':'_Payroll'):'')})[kind],safeName(company),safeName(producer||'Producer'),day||todayISO()].join('_')+'.pdf'}
 async function upsertDoc(kind,snap,meta){
   if(!meta.recordId)return;
   const id=meta.recordId+'_'+kind+(kind==='comparison'&&snap&&snap.c?'_'+(snap.c.mode==='PEO'?'peo':'payroll'):''),now=new Date();
@@ -2558,7 +2812,7 @@ function renderDocsAdmin(){
   const p=$('#aProducer').value,f=$('#aFrom').value,t=$('#aTo').value;
   const L=docsList.filter(d=>(!p||d.producer===p)&&(!f||d.day>=f)&&(!t||d.day<=t)).sort((a,b)=>String(b.at).localeCompare(String(a.at)));
   const tb=$('#aDocs');tb.textContent='';
-  if(!L.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=5;td.appendChild(el('b',null,docsList.length?'No documents in this range':'No saved documents yet'));td.appendChild(document.createTextNode(docsList.length?'Try a different producer or date range.':'Every ACORD 130, narrative, analysis, cost comparison and call PDF a producer downloads or saves is kept here.'));tr.appendChild(td);tb.appendChild(tr);return}
+  if(!L.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=5;td.appendChild(el('b',null,docsList.length?'No documents in this range':'No saved documents yet'));td.appendChild(document.createTextNode(docsList.length?'Try a different producer or date range.':'Every RFP, narrative, analysis, cost comparison and call PDF a producer downloads or saves is kept here.'));tr.appendChild(td);tb.appendChild(tr);return}
   L.forEach(d=>{const tr=el('tr');const c=el('td');c.appendChild(el('b',null,d.company||''));tr.appendChild(c);tr.appendChild(el('td',null,(DOC_LABEL[d.kind]||d.kind)+(d.kind==='comparison'&&d.data&&d.data.c?' ('+d.data.c.mode+')':'')));tr.appendChild(el('td',null,d.producer||''));tr.appendChild(el('td',null,fmtDT(d.at)));
     const a=el('td');const bx=el('div','act');const btn=el('button','sbtn','Download');btn.type='button';btn.setAttribute('aria-label','Download '+(DOC_LABEL[d.kind]||'')+' for '+(d.company||''));
     btn.addEventListener('click',async()=>{btn.disabled=true;try{const out=await pdfFor(d.kind,d.data||{});await saveFile(docFileName(d.kind,d.company,d.producer,d.day,d.data),out)}catch(e){setMsg('Could not rebuild that document ('+((e&&e.message)||'unknown')+').','err')}finally{btn.disabled=false}});
@@ -2566,8 +2820,8 @@ function renderDocsAdmin(){
 }
 
 /* ================= boot ================= */
-renderForm('payroll');renderForm('wc');
-bindForm('payroll');bindForm('wc');
+CALL_TABS.forEach(renderForm);
+CALL_TABS.forEach(bindForm);
 loadLocalRecords();
 showTab(cur);
 function storeLabel(t,d){$('#storeState').innerHTML='';const b=el('b',null,t);$('#storeState').appendChild(b);$('#storeState').appendChild(document.createTextNode(d))}
