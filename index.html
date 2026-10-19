@@ -100,6 +100,31 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (max-width:980px){.jump,.jumph{display:none!important}.allrow{margin-top:0!important;padding-top:0!important;border-top:0!important}}
 .allrow{display:flex;gap:8px;align-items:center;font-size:12.5px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);cursor:pointer}
 .faq{display:flex;flex-direction:column;gap:6px;padding:16px 0 14px}
+.faqsec.closed{padding-bottom:0}
+.faqsec.closed > header{border-bottom:0;padding-bottom:18px}
+.faqtog{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;font:inherit;color:inherit}
+.faqtog:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}
+.faqtog .faqn{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.2px}
+.faqtog .chev{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:17px;color:var(--brand);flex:0 0 30px}
+.faqtog:hover .chev{border-color:var(--brand)}
+.faqbody .blurb{margin:12px 0 0}
+.benreq{display:flex;flex-direction:column}
+.benreq .rr{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.benreq .rr:first-child{border-top:0}
+.benreq input[type=checkbox]{width:20px;height:20px;margin:1px 0 0;accent-color:var(--brand)}
+.benreq .rt{font-weight:600;font-size:14px}
+.benreq .rd{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.bdg{align-self:start;font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.bdg.need{background:var(--chip-stop);color:var(--stop-ink)}
+.bdg.opt{background:var(--field);color:var(--muted);border:1px solid var(--line)}
+.bdg.ok{background:var(--chip-ok);color:var(--ok-ink)}
+.bensub{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:6px 0 0}
+.phq{font-size:12.5px;color:var(--muted);line-height:1.5;border-left:3px solid var(--line2);padding:2px 0 2px 12px}
+.carvebox{border:1px solid var(--line);border-radius:10px;background:var(--field);padding:14px 16px;margin-bottom:14px}
+.carvebox .pills{margin-top:8px}
+.carvebox .cnote{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.45}
+.carvebox.on{border-color:var(--brand)}
+.carvebox.on .cnote{color:var(--ink)}
 .faq summary{font-size:14px!important;padding:11px 12px!important}
 .faq .a{font-size:15.5px!important;max-width:68ch}
 .faq details{border:1px solid var(--line);border-radius:8px;background:var(--field)}
@@ -217,6 +242,24 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
 .sbtn{border:1px solid var(--line2);background:var(--field);border-radius:7px;padding:6px 11px;font-size:12.5px;font-weight:600;cursor:pointer}
 .sbtn:hover{border-color:var(--hover)}
 .sbtn.danger{color:var(--stop-ink)}
+.mback{position:fixed;inset:0;background:rgba(10,8,8,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60}
+.mdl{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;max-width:520px;width:100%;max-height:calc(100vh - 32px);overflow:auto;padding:22px 22px 18px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.mdl h2{font-family:var(--serif);font-size:21px;margin:0}
+.mdl .mto{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.mdl .mto b{color:var(--ink)}
+.mdl ol{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.mdl li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.mdl .num{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.mdl li.ok .num{background:var(--ok-ink);color:var(--surface)}
+.mdl .st{font-weight:600;font-size:14px;margin:2px 0 6px}
+.mdl .sd{font-size:12.5px;color:var(--muted);margin:0 0 8px;word-break:break-word}
+.mdl .row{display:flex;flex-wrap:wrap;gap:8px}
+.mdl a.sbtn{text-decoration:none;color:var(--ink);display:inline-block}
+.mdl a.sbtn.go{background:var(--brand);border-color:var(--brand);color:#fff}
+.mdl .mfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.mdl .sent{color:var(--ok-ink);font-weight:600}
+td .em{font-size:12px;color:var(--muted)}
+td .em.ok{color:var(--ok-ink);font-weight:600}
 .sbtn.dangerfill{background:var(--brand);border-color:var(--brand);color:#fff}
 .sbtn:focus-visible{outline:2px solid var(--focus)}
 .empty{padding:36px 20px;text-align:center;color:var(--muted)}
@@ -382,6 +425,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
       <button class="tab" role="tab" id="tab-staffing" data-tab="staffing" aria-controls="pane-staffing" aria-selected="false">Staffing Lead</button>
       <button class="tab" role="tab" id="tab-acord" data-tab="acord" aria-controls="pane-acord" aria-selected="false">RFP</button>
       <button class="tab" role="tab" id="tab-narrative" data-tab="narrative" aria-controls="pane-narrative" aria-selected="false">Narrative</button>
+      <button class="tab" role="tab" id="tab-benefits" data-tab="benefits" aria-controls="pane-benefits" aria-selected="false">Benefits</button>
       <button class="tab" role="tab" id="tab-analysis" data-tab="analysis" aria-controls="pane-analysis" aria-selected="false">Analysis</button>
       <button class="tab" role="tab" id="tab-compare" data-tab="compare" aria-controls="pane-compare" aria-selected="false">Cost Comparison</button>
       <button class="tab" role="tab" id="tab-admin" data-tab="admin" aria-controls="pane-admin" aria-selected="false">Admin <small id="savedCount">0</small></button>
@@ -419,6 +463,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
   </main>
 </div>
 
+<div class="wrap docpane" id="pane-benefits" role="tabpanel" aria-labelledby="tab-benefits" hidden><main id="form-benefits" aria-label="Health underwriting checklist"></main></div>
 <div class="wrap docpane" id="pane-narrative" role="tabpanel" aria-labelledby="tab-narrative" hidden><main id="form-narrative" aria-label="Underwriting narrative"></main></div>
 <div class="wrap docpane" id="pane-analysis" role="tabpanel" aria-labelledby="tab-analysis" hidden><main id="form-analysis" aria-label="Prospect analysis"></main></div>
 <div class="wrap docpane" id="pane-compare" role="tabpanel" aria-labelledby="tab-compare" hidden><main id="form-compare" aria-label="Cost comparison"></main></div>
@@ -455,7 +500,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
   <div class="stats" id="aStats"></div>
   <h3 class="ah">Saved documents</h3>
   <div class="listwrap"><table class="list" aria-label="Saved documents">
-    <thead><tr><th>Company</th><th>Document</th><th>Producer</th><th>Saved</th><th></th></tr></thead>
+    <thead><tr><th>Company</th><th>Document</th><th>Producer</th><th>Saved</th><th>Sent to Sales</th><th></th></tr></thead>
     <tbody id="aDocs"></tbody></table></div>
   <h3 class="ah">Activity by producer and date</h3>
   <div class="listwrap"><table class="list" aria-label="Activity by producer and date">
@@ -483,6 +528,7 @@ tfoot td{background:var(--field);font-weight:700;font-variant-numeric:tabular-nu
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<div class="mback" id="mailBack" hidden><div class="mdl" id="mailDlg" role="dialog" aria-modal="true" aria-labelledby="mailTtl"></div></div>
 <script>
 (function(){
 "use strict";
@@ -503,12 +549,14 @@ const JOB_COLS=[{k:'state',l:'State',w:70},{k:'job',l:'Job title / type of work'
 const STAGES=['Initial appointment','Discovery','RFP submitted','Proposal'];
 const FOLLOW=['Lead created in Salesforce','Follow-up email sent','Calendar invite sent','Submission emailed to submissions@keyhro.com'];
 
+function empTotal(v){const ft=toNum(v.emp_total),pt=toNum(v.emp_pt);if(ft==null&&pt==null)return toNum(v.est_emp);return (ft||0)+(pt||0)}
 const callInfo=()=>SEC('call','Call Info',{step:'Before you dial',blurb:'Fill in what you know from your research. Confirm the rest on the call.',items:[
   TXT('company','Company name',null,null,{req:true,ph:'As listed'}),
   TXT('contact','Contact name',null,null,{ph:'First and last'}),
   TXT('title','Contact title'),
   TXT('phone','Phone',null,null,{ph:'(407) 555-0100',inputmode:'tel'}),
   TXT('email','Email',null,null,{ph:'name@company.com',inputmode:'email'}),
+  TXT('fein','FEIN',null,null,{ph:'XX-XXXXXXX'}),
   ONE('lead_source','Lead source',null,null,LEAD,{select:true}),
   NUM('est_emp','Estimated employees',null,null,{ph:'Best guess from research'}),
   AREA('est_ops','Description of operations',null,null,{full:true,ph:'What the company does day to day'}),
@@ -550,8 +598,8 @@ const PAYROLL=[
   ONE('multi_state','Employees in other states',"Do you have any employees working in other states?",null,YN,{fu:{Yes:["About how many employees are in each state? Do they work remotely, or at a location there? What type of work are they performing?","(Each state has its own payroll tax and workers' comp rules. Get the headcount and type of work for each one.)"]}}),
   TXT('states','Which states',null,null,{when:s=>s.multi_state==='Yes'}),
   ONE('same_fein','All under one FEIN',"Are all your locations under the same company tax ID number, your FEIN?","(If not, write down each company name. More than one company is fine, we just need to know.)",['Yes','No','Not sure'],{fu:{No:["What are the names of the other companies? Do they all have the same owners?",null],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]}}),
-  NUM('emp_total','Total employees',"How many employees do you have on payroll right now?",null,{req:true}),
-  TXT('emp_split','Full-time / part-time',"About how many are full-time, and how many are part-time?",null,{ph:'e.g. 18 FT / 6 PT'}),
+  NUM('emp_total','Full-time employees',"How many full-time employees do you have on payroll right now?",null,{req:true}),
+  NUM('emp_pt','Part-time employees',"How many part-time employees do you have?"),
   ONE('frequency','Pay cycle',"How often do you pay your employees? Weekly, every two weeks, twice a month, or monthly?","(Company info, employee count and pay cycle are all you need for a payroll-only quote.)",['Weekly','Bi-weekly','Semi-monthly','Monthly'],{req:true}),
   ONE('uses_1099','Uses 1099 contractors',"Do you use any independent contractors, people who get a 1099 instead of a W-2?","(If yes, ask how many and what kind of work they do.)",YN,{fu:{Yes:["Do you collect proof of insurance from each of them? Have any of them ever been added to your bill at audit?","(Contractors without their own coverage get charged back at audit. That's a pain point we can solve.)"]}}),
   TXT('n_1099','1099 count and work',null,null,{when:s=>s.uses_1099==='Yes',ph:'e.g. 4, delivery drivers'}),
@@ -577,6 +625,7 @@ const PAYROLL=[
   ONE('used_peo','Used a PEO before',"Have you ever worked with a PEO before?","(If yes, ask what they liked and didn't like. It tells you what to avoid.)",YN,{fu:{Yes:["Which PEO was it? What did you like about it, and why did you leave?",null],No:["Have you ever looked into one? What questions or concerns came up?",null]}}),
  ]}),
  SEC('wc','Workers\' Comp',{step:'Step 5 · Full PEO opportunity',when:pYes,items:[
+  ONE('wc_carve',"Workers' comp carve out",null,"(Pick one only if Key HR is not providing workers' comp. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions']),
   SAY("That's really helpful, thank you. A lot of business owners I talk to are also juggling workers' comp, benefits, and HR with separate companies. Do you mind if I ask a few quick questions about those? Putting them together is usually where the biggest savings are.","(This is the move from payroll to a full PEO quote. Keep it casual. Most of the long-term value is here.)"),
   TXT('wc_carrier',"Workers' comp carrier","Who is your workers' comp insurance with?"),
   TXT('wc_agent','Agent / broker',"Do you work with an agent for that?"),
@@ -675,7 +724,6 @@ const WC=[
  ]}),
  SEC('company','Company Details',{step:'Step 3',when:wNow,items:[
   TXT('legal_name','Legal company name',"What's the full legal name of the business?"),
-  TXT('fein','FEIN',"Do you have your FEIN handy? It's your federal tax ID number.","(If they don't have it, you can get it from their policy paperwork later.)"),
   TXT('address','Main address',"What's the address of your main location?"),
   AREA('operations','What the company does',"In your own words, what does your company do day to day?","(Get details. This is how underwriting picks the right job codes, and it's the biggest factor in price.)"),
   ONE('staffing','Staffing company',"Do you place your workers at other companies' job sites, like a staffing or temp agency?","(Staffing accounts need a staffing supplemental and an end client list.)",YN),
@@ -789,7 +837,6 @@ const STAFFING=[
  ]}),
  SEC('company','Company Details',{step:'Step 3',when:sNow,items:[
   TXT('legal_name','Legal company name',"What's the full legal name of the business?"),
-  TXT('fein','FEIN',"Do you have your FEIN handy? It's your federal tax ID number.","(If they don't have it, you can get it from their policy paperwork later.)"),
   TXT('address','Main address',"What's the address of your main office?"),
   AREA('operations','What the company does',"In your own words, what does your company do, and what industries do you serve?","(Get details. Underwriting prices staffing by the work done at each client.)"),
   NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
@@ -807,6 +854,7 @@ const STAFFING=[
   ONE('contracts','Client agreements',"Do you have written agreements with your clients that cover safety and workers' comp?",null,YN),
  ]}),
  SEC('coverage','Current Coverage',{step:'Step 5',when:sNow,items:[
+  ONE('wc_carve',"Workers' comp carve out",null,"(Pick one only if Key HR is not providing workers' comp. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions']),
   TXT('carrier','Current carrier',"Who is your workers' comp with right now?"),
   TXT('agent','Agent / broker',"Do you work with an agent or broker?"),
   TXT('premium','Annual premium',"About how much do you pay for workers' comp each year?"),
@@ -927,7 +975,7 @@ const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=
     CALL_TABS.forEach(t=>{if(d.forms&&d.forms[t]){forms[t].id=d.forms[t].id||null;forms[t].v=d.forms[t].v||{};forms[t].all=!!d.forms[t].all;forms[t].dirty=!!d.forms[t].dirty;forms[t].docs=d.forms[t].docs||{};forms[t].track=d.forms[t].track||{}}});
     if(CALL_TABS.includes(d.lastCall))lastCall=d.lastCall;
     if(typeof d.subView==='string'&&/^(acord:\w+|narrative)$/.test(d.subView))pendingSub=d.subView;
-    if(d.tab&&['payroll','wc','staffing','acord','narrative','analysis','compare','saved','admin'].includes(d.tab))cur=d.tab==='narrative'?'acord':d.tab==='saved'?'admin':d.tab;
+    if(d.tab&&['payroll','wc','staffing','acord','narrative','benefits','analysis','compare','saved','admin'].includes(d.tab))cur=d.tab==='narrative'?'acord':d.tab==='saved'?'admin':d.tab;
     if(d.acord&&d.acord.v&&forms[d.acord.srcTab]&&forms[d.acord.srcTab].id===d.acord.srcId&&!forms[d.acord.srcTab].docs.acord)forms[d.acord.srcTab].docs.acord=d.acord;
   }
 })();
@@ -1059,7 +1107,7 @@ function reqDocsEl(tab){
 }
 function updateReqDocs(tab){
   const box=document.querySelector('#form-'+tab+' [data-reqdocs]');if(!box)return;const v=forms[tab].v;
-  const ok={company:!!((v.legal_name||v.company||'').trim()&&(v.address||'').trim()),emp:toNum(v.emp_total)!=null||toNum(v.est_emp)!=null,freq:!!v.frequency};
+  const ok={company:!!((v.legal_name||v.company||'').trim()&&(v.address||'').trim()),emp:empTotal(v)!=null,freq:!!v.frequency};
   box.querySelectorAll('li[data-req]').forEach(li=>{const k=li.dataset.req;li.classList.toggle('ok',!!ok[k]);li.querySelector('.rq').textContent=ok[k]?'Done':'Needed'});
   const st=box.querySelector('[data-acst]'),A=(forms[tab].docs||{}).acord;
   if(!A||A.srcId!==forms[tab].id)st.textContent='Not started';else{const m=acReqMissing(A).length;st.textContent=m?m+' item'+(m===1?'':'s')+' left':'Complete'}
@@ -1136,6 +1184,7 @@ function calcMarkup(){
 }
 
 function renderForm(tab){
+  {const vv=forms[tab].v;if(!(vv.operations||'').trim()&&(vv.est_ops||'').trim())vv.operations=vv.est_ops}
   const root=$('#form-'+tab);root.textContent='';whenMap[tab]=[];
   SCHEMA[tab].forEach(sec=>{
     const s=el('section','sec');s.id='sec-'+tab+'-'+sec.id;s.setAttribute('aria-labelledby','h-'+tab+'-'+sec.id);
@@ -1183,16 +1232,21 @@ function jump(tab){
     if(items.length){a.appendChild(el('span','c',n+'/'+items.length));if(n===items.length)a.classList.add('done')}
     a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById('sec-'+tab+'-'+sec.id);if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
     nav.appendChild(a);
-    if(sec.id===FAQ_AFTER[tab]){const q=el('a');q.href='#sec-'+tab+'-faq';q.appendChild(el('span','n','Quick Answers'));q.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById('sec-'+tab+'-faq');if(t)t.scrollIntoView({block:'start'})});nav.appendChild(q)}
+    if(sec.id===FAQ_AFTER[tab]){const q=el('a');q.href='#sec-'+tab+'-faq';q.appendChild(el('span','n','Quick Answers'));q.addEventListener('click',e=>{e.preventDefault();setFaq(tab,true);const t=document.getElementById('sec-'+tab+'-faq');if(t)t.scrollIntoView({block:'start'})});nav.appendChild(q)}
   });
 }
 
 function daysUntil(iso){if(!iso)return null;const d=new Date(iso+'T12:00:00');if(isNaN(d))return null;const t=new Date();t.setHours(12,0,0,0);return Math.round((d-t)/864e5)}
+function setFaq(tab,open){const s=document.getElementById('sec-'+tab+'-faq');if(!s)return;const fb=s.querySelector('.faqbody'),tg=s.querySelector('.faqtog');fb.hidden=!open;s.classList.toggle('closed',!open);tg.setAttribute('aria-expanded',String(open));tg.querySelector('.chev').textContent=open?'\u2212':'+'}
 function faqSection(tab){
-  const s=el('section','sec');s.id='sec-'+tab+'-faq';s.setAttribute('aria-labelledby','h-'+tab+'-faq');
-  const hd=el('header');hd.appendChild(el('span','step','If they push back'));const h2=el('h2',null,'Quick Answers');h2.id='h-'+tab+'-faq';hd.appendChild(h2);
-  hd.appendChild(el('p','blurb','Common questions and objections. Tap one to see what to say.'));s.appendChild(hd);
-  const box=el('div','faq');s.appendChild(box);
+  const s=el('section','sec faqsec closed');s.id='sec-'+tab+'-faq';s.setAttribute('aria-labelledby','h-'+tab+'-faq');
+  const hd=el('header');hd.appendChild(el('span','step','If they push back'));const h2=el('h2');h2.id='h-'+tab+'-faq';
+  const tg=el('button','faqtog');tg.type='button';tg.setAttribute('aria-expanded','false');tg.setAttribute('aria-controls','faqb-'+tab);
+  tg.appendChild(el('span',null,'Quick Answers'));tg.appendChild(el('span','faqn',FAQ[tab].length+' answers'));tg.appendChild(el('span','chev','+'));h2.appendChild(tg);hd.appendChild(h2);s.appendChild(hd);
+  const fb=el('div','faqbody');fb.id='faqb-'+tab;fb.hidden=true;
+  fb.appendChild(el('p','blurb','Common questions and objections. Tap one to see what to say.'));
+  const box=el('div','faq');fb.appendChild(box);s.appendChild(fb);
+  tg.addEventListener('click',()=>setFaq(tab,fb.hidden));
   FAQ[tab].forEach(([q,a,tip])=>{const d=el('details');d.appendChild(el('summary',null,'"'+q+'"'));const body=el('div','a',a);if(tip)body.appendChild(el('span','tip',tip));d.appendChild(body);box.appendChild(d)});
   return s;
 }
@@ -1204,6 +1258,7 @@ function bindForm(tab){
   root.addEventListener('input',e=>{
     const t=e.target,v=forms[tab].v;
     if(t.dataset.tbl){const rows=v[t.dataset.tbl];rows[+t.dataset.r][t.dataset.c]=t.value;const it=findItem(tab,t.dataset.tbl);updateTotals(t.closest('[data-table]'),it,rows);changed(tab);return}
+    if(t.dataset.k==='est_ops'){const old=v.est_ops||'';if(!(v.operations||'').trim()||v.operations===old){v.operations=t.value;const o=document.getElementById(tab+'__operations');if(o)o.value=t.value}}
     if(t.dataset.k){v[t.dataset.k]=t.value;changed(tab)}
   });
   root.addEventListener('change',e=>{const t=e.target;if(t.tagName==='SELECT'){if(t.dataset.tbl){forms[tab].v[t.dataset.tbl][+t.dataset.r][t.dataset.c]=t.value}else if(t.dataset.k){forms[tab].v[t.dataset.k]=t.value}changed(tab)}});
@@ -1240,15 +1295,15 @@ hp.addEventListener('input',()=>{H.producer=hp.value;CALL_TABS.forEach(placehold
 hd.addEventListener('input',()=>{H.date=hd.value;saveDraft()});
 
 /* tabs */
-const PANES=['payroll','wc','staffing','acord','narrative','analysis','compare','admin'];
-const DOC_MSG={acord:'Pick a section from the menu on the left. Complete each RFP section, then download the RFP.',narrative:'Edit the narrative if needed, then download the PDF.',analysis:'Pick the service and add-ons, build the analysis, then download the PDF.',compare:'Ask the cost questions, enter Key HR rates, then download the PDF.'};
+const PANES=['payroll','wc','staffing','acord','narrative','benefits','analysis','compare','admin'];
+const DOC_MSG={acord:'Pick a section from the menu on the left. Complete each RFP section, then download the RFP.',narrative:'Edit the narrative if needed, then download the PDF.',benefits:'Complete every item on the health underwriting checklist, then download the PDF.',analysis:'Pick the service and add-ons, build the analysis, then download the PDF.',compare:'Ask the cost questions, enter Key HR rates, then download the PDF.'};
 function showTab(t){
   if(t==='saved')t='admin';
   if(!PANES.includes(t)||$('#tab-'+t).hidden)t='payroll';
   cur=t;if(CALL_TABS.includes(t))lastCall=t;
   document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t?'true':'false'));
   PANES.forEach(x=>{$('#pane-'+x).hidden=x!==t});
-  const call=CALL_TABS.includes(t),doc=['acord','narrative','analysis','compare'].includes(t),g=doc?gateFor():null;
+  const call=CALL_TABS.includes(t),doc=DOC_TABS.includes(t),g=doc?gateFor():null;
   docGated=!!g;
   $('#btnNew').hidden=!call;$('#btnPdf').hidden=!call;
   $('#btnAcordPdf').hidden=!(t==='acord'&&!g);
@@ -1256,7 +1311,7 @@ function showTab(t){
   $('#btnSave').hidden=!(call||(doc&&!g));
   if(t==='admin'){renderList();if(!$('#adminOnly').hidden)renderAdmin();setMsg(records.length?'Open any saved prospect to keep working on it.':'Saved calls from every producer show up here.')}
   else if(doc){
-    if(t==='acord')renderSubDocs();else if(t==='narrative')renderNarrative();else if(t==='analysis')renderAnalysis();else renderCompare();
+    if(t==='acord')renderSubDocs();else if(t==='narrative')renderNarrative();else if(t==='benefits')renderBenefits();else if(t==='analysis')renderAnalysis();else renderCompare();
     setMsg(g?(g.kind==='empty'?'Start a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab first.':'Save the prospect to continue.'):DOC_MSG[t]+' Save prospect keeps your work and adds it to Admin documents.');
   }
   else setMsg(forms[t].id?'Editing a saved prospect. Click Save prospect to update it.':'Your current call is kept as a draft in this browser while you type. Click Save prospect to add it to the team list.');
@@ -1287,13 +1342,13 @@ function cleanValues(tab,v){
 function buildRecord(tab){
   const f=forms[tab],v=f.v,prev=records.find(r=>r.id===f.id);
   const rec={type:tab,producer:(H.producer||'').trim(),callDate:H.date||'',company:((v.legal_name||v.company)||'').trim(),contact:(v.contact||'').trim(),
-    employees:v.emp_total||v.est_emp||'',outcome:outcomeOf(tab,v),stage:v.stage||'',updatedAt:new Date().toISOString(),values:cleanValues(tab,v)};
+    employees:empTotal(v)!=null?String(empTotal(v)):'',outcome:outcomeOf(tab,v),stage:v.stage||'',updatedAt:new Date().toISOString(),values:cleanValues(tab,v)};
   rec.createdAt=prev&&prev.createdAt?prev.createdAt:rec.updatedAt;
   const D=f.docs||{};
   rec.track=JSON.parse(JSON.stringify(Object.assign({},(prev&&prev.track)||{},f.track||{})));
   if(D.acord&&D.acord.srcId===f.id)rec.acord=Object.assign({},D.acord.v,{_meta:{createdAt:D.acord.createdAt,producer:D.acord.producer||'',filled:D.acord.filled,keep:D.acord.keep!==false}});
   else if(prev&&prev.acord)rec.acord=prev.acord;
-  ['narrative','analysis','comparison'].forEach(k=>{if(D[k])rec[k]=JSON.parse(JSON.stringify(D[k]));else if(prev&&prev[k])rec[k]=prev[k]});
+  ['narrative','analysis','comparison','benefits'].forEach(k=>{if(D[k])rec[k]=JSON.parse(JSON.stringify(D[k]));else if(prev&&prev[k])rec[k]=prev[k]});
   if(uid){rec.updatedBy=uid;rec.createdBy=prev&&prev.createdBy?prev.createdBy:uid}
   return rec;
 }
@@ -1324,7 +1379,7 @@ async function del(id){
   setMsg('Record deleted.','ok');
 }
 
-const TRACK_LABEL={discovery:'Discovery questionnaire',acord:'RFP',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
+const TRACK_LABEL={discovery:'Discovery questionnaire',acord:'RFP',narrative:'Underwriting narrative',benefits:'Benefits checklist',analysis:'Prospect analysis',comparison:'Cost comparison'};
 function trk(tab){const f=forms[tab];f.track=f.track||{};return f.track}
 function markStart(tab,kind){const T=trk(tab);if(!T[kind]){T[kind]={start:new Date().toISOString(),producer:(H.producer||'').trim()};saveDraft();if(forms[tab].id&&records.some(r=>r.id===forms[tab].id))persistTrack(tab)}}
 function markDone(tab,kind){const T=trk(tab),now=new Date().toISOString();if(!T[kind])T[kind]={start:now};T[kind].end=now;if(!T[kind].producer)T[kind].producer=(H.producer||'').trim();saveDraft()}
@@ -1352,12 +1407,12 @@ async function saveProspect(tab,done){
 }
 $('#btnSave').addEventListener('click',async()=>{
   const t=cur;
-  if(['acord','narrative','analysis','compare'].includes(t)){
+  if(DOC_TABS.includes(t)){
     if(gateFor())return;
     const kd=t==='acord'&&subView==='narrative'?'narrative':KIND_OF[t];
     const ok=await saveProspect(lastCall,[kd]);if(!ok)return;
     const kind=kd,D=curDocs();
-    if(kind&&D[kind==='comparison'?'comparison':kind]){upsertDoc(kind,snapFor(kind),docMeta());setMsg('Saved the prospect and the '+DOC_LABEL[kind].toLowerCase()+'. It is in Admin documents.','ok')}
+    if(kind&&D[kind==='comparison'?'comparison':kind]){upsertDoc(kind,snapFor(kind),docMeta()).then(r=>offerEmail(r,false));setMsg('Saved the prospect and the '+DOC_LABEL[kind].toLowerCase()+'. It is in Admin documents.','ok')}
     return;
   }
   if(!CALL_TABS.includes(t))return;
@@ -1384,7 +1439,7 @@ function afterRecords(){
   const sel=$('#fProducer'),curv=sel.value,names=[...new Set(records.map(r=>r.producer).filter(Boolean))].sort();
   sel.textContent='';const o0=el('option',null,'All producers');o0.value='';sel.appendChild(o0);names.forEach(n=>{const o=el('option',null,n);o.value=n;sel.appendChild(o)});sel.value=names.includes(curv)?curv:'';
   if(cur==='admin')renderList();
-  if(docGated&&['acord','narrative','analysis','compare'].includes(cur)&&!gateFor())showTab(cur);
+  if(docGated&&DOC_TABS.includes(cur)&&!gateFor())showTab(cur);
   localBanner();
 }
 let confirmId=null;
@@ -1432,7 +1487,7 @@ function openRecord(r){
     setMsg('Your open '+LEAD_LABEL[t]+' call has unsaved changes. Save it or click New prospect first, then open this record.','err');return;
   }
   forms[t]={id:r.id,v:JSON.parse(JSON.stringify(r.values||{})),all:f.all,dirty:false,docs:{},track:JSON.parse(JSON.stringify(r.track||{}))};
-  ['narrative','analysis','comparison'].forEach(k=>{if(r[k])forms[t].docs[k]=JSON.parse(JSON.stringify(r[k]))});
+  ['narrative','analysis','comparison','benefits'].forEach(k=>{if(r[k])forms[t].docs[k]=JSON.parse(JSON.stringify(r[k]))});
   if(r.acord){const av=JSON.parse(JSON.stringify(r.acord)),m=av._meta||{};delete av._meta;forms[t].docs.acord={srcTab:t,srcId:r.id,company:r.company,producer:m.producer||r.producer||'',createdAt:m.createdAt||r.updatedAt,v:av,filled:m.filled||[],keep:m.keep!==false}}
   if(r.producer){H.producer=r.producer;hp.value=r.producer}
   if(r.callDate){H.date=r.callDate;hd.value=r.callDate}
@@ -1483,7 +1538,7 @@ $('#btnPdf').addEventListener('click',async()=>{
   const out=buildCallPdf(tab,v,H.producer,H.date);
   if(await saveFile('KeyHR_'+({payroll:'Payroll',wc:'WC',staffing:'Staffing'})[tab]+'_'+safeName(company)+'_'+(H.date||todayISO())+'.pdf',out)){
     logEvent('pdf_downloaded',{company,type:tab,recordId:f.id||''});
-    if(f.id)upsertDoc('call',{tab,v:cleanValues(tab,v),producer:(H.producer||'').trim(),date:H.date},{recordId:f.id,company,type:tab});
+    if(f.id)upsertDoc('call',{tab,v:cleanValues(tab,v),producer:(H.producer||'').trim(),date:H.date},{recordId:f.id,company,type:tab}).then(r=>offerEmail(r,true));
   }
 });
 
@@ -1596,14 +1651,14 @@ const ACORD=[
   AT('ni_web','Website','NamedInsured_Primary_WebsiteAddress_A',{req:true,ph:'www.company.com or None'}),
   AC('ni_entity','Legal entity',Object.keys(LEGAL),afMapOf(LEGAL,'NamedInsured_LegalEntity_'),{full:true,req:true}),
   AT('ni_entity_other','If Other, describe the entity','NamedInsured_LegalEntity_OtherDescription_A',{wide:true}),
-  AT('ni_fein','FEIN','NamedInsured_TaxIdentifier_A',{hide:true}),
+  AT('ni_fein','FEIN','NamedInsured_TaxIdentifier_A',{ph:'XX-XXXXXXX'}),
   AT('ni_email','Email','NamedInsured_Primary_EmailAddress_A',{hide:true}),
  ]},
  {id:'submission',title:'Submission & Policy',blurb:'Date completed, status of submission, proposed effective date and the Part 1 states.',items:[
   AD('form_date','Date completed','Form_CompletionDate_A',{req:true}),
   AD('eff','Proposed effective date','Policy_EffectiveDate_A',{req:true}),
   AC('status','Status of submission',['Quote','Issue policy','Bound','Assigned risk'],{'Quote':'Policy_Status_QuoteIndicator_A[0]','Issue policy':'Policy_Status_IssueIndicator_A[0]','Bound':'Policy_Status_BoundIndicator_A[0]','Assigned risk':'Policy_Status_AssignedRiskIndicator_A[0]'},{full:true,req:true}),
-  AT('part1','Part 1 states (workers comp)',null,{t:'states',req:true,full:true,afList:ROWL.slice(0,10).split('').map(L=>'WorkersCompensation_PartOne_StateOrProvinceCode_'+L+'[0]'),help:'Every state where they have employees. State codes separated by commas, up to 10.',ph:'FL, GA'}),
+  AT('part1','Part 1 states (workers comp)',null,{wc:true,t:'states',req:true,full:true,afList:ROWL.slice(0,10).split('').map(L=>'WorkersCompensation_PartOne_StateOrProvinceCode_'+L+'[0]'),help:'Every state where they have employees. State codes separated by commas, up to 10.',ph:'FL, GA'}),
   AD('exp','Proposed expiration date','Policy_ExpirationDate_A',{hide:true}),
  ]},
  {id:'locations',title:'Locations',blurb:'Every location: number, highest floor, street, city, county, state and zip. The form holds three. Attach an ACORD 101 for more.',items:[
@@ -1621,7 +1676,16 @@ const ACORD=[
  ]},
  {id:'general',title:'General Information',blurb:'Page 3. Answer all 24 questions. Explain every Yes.',items:GQ.map(([n,code,key,label])=>({t:'gq',n,id:'q'+n,label,af:LOB+'Question_'+code+'Code_A',exp:{id:'q'+n+'_exp',af:LOB+key+'Explanation_'+(n===23?'W':'A')}}))},
 ];
-const SUBVIEWS=[['applicant','Applicant',['applicant']],['submission','Submission & Policy',['submission']],['locations','Locations',['locations']],['contacts','Contact Information',['contacts']],['rating','Rating Information',['ws1','ws2','ws3']],['nature','Nature of Business',['nature']],['general','General Information',['general']]];
+const carveOn=v=>!!(v&&v.carve);
+const CARVE_OPTS=['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions'];
+const WC_SECS=['ws1','ws2','ws3','prior','general'];
+ACORD.forEach(sec=>{if(WC_SECS.includes(sec.id)){const w=sec.when;sec.when=v=>!carveOn(v)&&(!w||w(v))}});
+ACORD.splice(ACORD.findIndex(s=>s.id==='nature'),0,{id:'carveinfo',title:'Employees & Payroll',blurb:'Included on the Key HR RFP when workers\' comp is carved out.',when:v=>carveOn(v),items:[
+  AN('emp_ct','Total employees',null,{req:true}),AC('pay_freq','Pay cycle',['Weekly','Bi-weekly','Semi-monthly','Monthly'],null,{req:true}),AT('cur_provider','Current payroll / PEO provider',null,{wide:true}),
+]});
+const SUBVIEWS_ALL=[['applicant','Applicant',['applicant']],['submission','Submission & Policy',['submission']],['locations','Locations',['locations']],['contacts','Contact Information',['contacts']],['rating','Rating Information',['ws1','ws2','ws3']],['nature','Nature of Business',['nature']],['general','General Information',['general']]];
+const SUBVIEWS=SUBVIEWS_ALL;
+function subviews(){const c=carveOn(acordState&&acordState.v);return SUBVIEWS_ALL.filter(x=>c?!['rating','general'].includes(x[0]):true).flatMap(x=>c&&x[0]==='nature'?[['carveinfo','Employees & Payroll',['carveinfo']],x]:[x])}
 function acordDefaults(){return {form_date:todayISO(),agency_name:'Key HR',agency_addr1:'605 E. Robinson St., Suite 500',agency_city:'Orlando',agency_state:'FL',agency_zip:'32801',prod_phone:'800.922.4133',prod_email:'sales@keyhro.com',status:'Quote',ws_count:'1'}}
 function findA(id){for(const s of ACORD)for(const it of s.items){if(it.id===id)return it;if(it.exp&&it.exp.id===id)return it.exp}return null}
 const blank=x=>x==null||x===''||(Array.isArray(x)&&!x.some(r=>r&&(typeof r!=='object'||Object.values(r).some(y=>String(y||'').trim()))));
@@ -1640,7 +1704,10 @@ function acordFromCall(tab){
   put('prod_name',(H.producer||'').trim());
   put('ni_name',(v.legal_name||v.company||'').trim());
   put('ni_phone',v.phone);put('ni_email',v.confirm_email||v.email);
-  if(isWC){put('ni_web',v.website);put('ni_fein',v.fein)}
+  if(isWC)put('ni_web',v.website);
+  put('ni_fein',v.fein);put('carve',v.wc_carve);
+  {const ec=empTotal(v);if(ec!=null)put('emp_ct',String(ec))}
+  put('pay_freq',v.frequency);put('cur_provider',v.payroll_provider||v.provider);
   put('ni_years',v.years);
   const ad=parseAddr(v.address);
   put('ni_addr1',ad.street);put('ni_city',ad.city);put('ni_state',ad.state);put('ni_zip',ad.zip);
@@ -1694,6 +1761,7 @@ function ensureAcord(){
     markStart(t,'acord');saveDraft();logEvent('acord_created',{company:f.docs.acord.company,type:t,recordId:f.id});
   }
   acordState=f.docs.acord;
+  const cc=f.v.wc_carve||'';if(acordState.callCarve!==cc){acordState.v.carve=cc;acordState.callCarve=cc;if(cc){const ec=empTotal(f.v);if(blank(acordState.v.emp_ct)&&ec!=null)acordState.v.emp_ct=String(ec);if(blank(acordState.v.pay_freq)&&f.v.frequency)acordState.v.pay_freq=f.v.frequency}}
 }
 
 /* --- ACORD review form --- */
@@ -1782,11 +1850,11 @@ function gqEl(it){
 function acReqMissing(A){
   A=A||acordState;if(!A)return [];const v=A.v,miss=[];
   ACORD.forEach(sec=>{if(sec.hidden||(sec.when&&!sec.when(v)))return;sec.items.forEach(it=>{
-    if(!it.req||it.hide)return;
+    if(!it.req||it.hide||(it.wc&&carveOn(v)))return;
     if(it.t==='table'){const rows=arr(v[it.id]).filter(rowHas);if(it.id.endsWith('_classes')?!(rows.length&&rows.every(r=>!(r.duties||r.ft||r.pt||r.payroll)||(r.cls&&r.payroll))&&rows.some(r=>r.cls&&r.payroll)):!rows.length)miss.push({it,sec})}
     else if(blank(v[it.id]))miss.push({it,sec});
   })});
-  ACORD.find(s=>s.id==='general').items.forEach(it=>{if(!v[it.id])miss.push({it:{id:it.id,label:'Question '+it.n},sec:{id:'general'}})});
+  if(!carveOn(v))ACORD.find(s=>s.id==='general').items.forEach(it=>{if(!v[it.id])miss.push({it:{id:it.id,label:'Question '+it.n},sec:{id:'general'}})});
   return miss;
 }
 let subView=pendingSub||'acord:review';
@@ -1794,13 +1862,20 @@ function renderAcord(){
   const root=$('#form-acord');root.textContent='';root.dataset.rid=forms[lastCall].id||'';
   const v=acordState.v;
   const hs=el('section','sec');hs.id='sec-acord-review';
-  const hh=el('header');hh.appendChild(el('span','step','RFP · ACORD 130 Workers Compensation Application'));hh.appendChild(el('h2',null,v.ni_name||acordState.company||'Applicant'));
+  const CV=carveOn(v);
+  const hh=el('header');hh.appendChild(el('span','step',CV?'RFP · Key HR Request for Proposal':'RFP · ACORD 130 Workers Compensation Application'));hh.appendChild(el('h2',null,v.ni_name||acordState.company||'Applicant'));
   hh.appendChild(el('p','blurb','Built from the '+LEAD_LABEL[acordState.srcTab]+(acordState.producer?' by '+acordState.producer:'')+' on '+fmtDate(acordState.createdAt)+'. You only need to complete the sections in the menu. Fields marked FROM CALL were filled in for you. Key HR agency details and the producer name fill in automatically.'));
   hs.appendChild(hh);
   const body=el('div','body acbody');
+  const cb0=el('div','carvebox'+(CV?' on':''));cb0.appendChild(el('span','lbl',"WORKERS' COMP"));
+  const pg=el('div','pills');pg.setAttribute('role','group');pg.setAttribute('aria-label',"Workers' comp carve out");
+  CARVE_OPTS.forEach(o=>{const x=el('button','pill',o);x.type='button';x.setAttribute('aria-pressed',v.carve===o?'true':'false');x.addEventListener('click',()=>{v.carve=v.carve===o?'':o;saveDraft();buildSubMenu();renderAcord();setMsg(v.carve?'Comp carve out selected. The RFP will download as a Key HR PDF with no workers\' comp sections.':'Carve out cleared. The RFP will download as the ACORD 130.','ok')});pg.appendChild(x)});
+  cb0.appendChild(pg);
+  cb0.appendChild(el('p','cnote',CV?(v.carve===CARVE_OPTS[1]?'Workers\' comp is placed separately with Enwage Insurance Solutions. ':'The client keeps its existing workers\' comp policy. ')+'Rating Information, General Information and every workers\' comp item are removed. Download RFP produces a Key HR RFP PDF instead of the ACORD 130.':'Select one if Key HR is not providing workers\' comp. Leave both off to produce the ACORD 130.'));
+  body.appendChild(cb0);
   const mb=el('div','missbox');mb.id='acMiss';body.appendChild(mb);
   const opts=el('div','acopts');
-  const lab=el('label','chk');const cb=el('input');cb.type='checkbox';cb.id='acKeep';cb.checked=acordState.keep!==false;lab.appendChild(cb);lab.appendChild(document.createTextNode(' Keep PDF fields editable, so you can keep adding to it in Adobe'));opts.appendChild(lab);
+  const lab=el('label','chk');lab.hidden=CV;const cb=el('input');cb.type='checkbox';cb.id='acKeep';cb.checked=acordState.keep!==false;lab.appendChild(cb);lab.appendChild(document.createTextNode(' Keep PDF fields editable, so you can keep adding to it in Adobe'));opts.appendChild(lab);
   const rf=el('button','sbtn','Refill blanks from the call');rf.type='button';rf.id='acRefill';opts.appendChild(rf);
   const st=el('button','btn solid','Start with Applicant');st.type='button';st.dataset.sv='acord:applicant';opts.appendChild(st);
   body.appendChild(opts);hs.appendChild(body);root.appendChild(hs);
@@ -1810,7 +1885,7 @@ function renderAcord(){
     const h=el('header');h.appendChild(el('span','step','RFP'));h.appendChild(el('h2',null,sec.title));if(sec.blurb)h.appendChild(el('p','blurb',sec.blurb));s.appendChild(h);
     const b=el('div','body');let grid=null;
     sec.items.forEach(it=>{
-      if(it.hide)return;
+      if(it.hide||(it.wc&&carveOn(v)))return;
       if(it.t==='gq'){grid=null;b.appendChild(gqEl(it));return}
       if(it.t==='table'){grid=null;const w=el('div','acwide');w.appendChild(acCtl(it));b.appendChild(w);return}
       if(!grid){grid=el('div','grid');b.appendChild(grid)}
@@ -1821,7 +1896,7 @@ function renderAcord(){
   const nav=el('div','secnav');nav.id='acNav';root.appendChild(nav);
   acRefresh();
 }
-function viewSecs(view){if(view==='acord:review')return ['review'];const k=view.split(':')[1];const sv=SUBVIEWS.find(x=>x[0]===k);return sv?sv[2]:['review']}
+function viewSecs(view){if(view==='acord:review')return ['review'];const k=view.split(':')[1];if(k==='carveinfo')return ['carveinfo'];const sv=SUBVIEWS.find(x=>x[0]===k);return sv?sv[2]:['review']}
 function applySubView(){
   const fa=$('#form-acord');if(!fa)return;
   if(subView==='narrative')subView='acord:review';const nar=false;fa.hidden=false;
@@ -1829,8 +1904,9 @@ function applySubView(){
     const v=acordState.v,show=viewSecs(subView);
     fa.querySelectorAll('section.sec').forEach(s=>{const id=s.id.replace('sec-acord-','');const sec=ACORD.find(x=>x.id===id);s.hidden=!(show.includes(id)&&(!sec||!sec.when||sec.when(v)))});
     const nav=$('#acNav');nav.textContent='';
-    const order=['acord:review',...SUBVIEWS.map(x=>'acord:'+x[0])],i=order.indexOf(subView);
-    const lab=x=>x==='acord:review'?'Overview':SUBVIEWS.find(s=>'acord:'+s[0]===x)[1];
+    const SV=subviews();if(subView!=='acord:review'&&!SV.some(x=>'acord:'+x[0]===subView)){subView='acord:review';return applySubView()}
+    const order=['acord:review',...SV.map(x=>'acord:'+x[0])],i=order.indexOf(subView);
+    const lab=x=>x==='acord:review'?'Overview':SV.find(s=>'acord:'+s[0]===x)[1];
     if(i>0){const b=el('button','sbtn','Back: '+lab(order[i-1]));b.type='button';b.dataset.sv=order[i-1];nav.appendChild(b)}
     if(i>=0&&i<order.length-1){const b=el('button','btn solid','Next: '+lab(order[i+1]));b.type='button';b.dataset.sv=order[i+1];nav.appendChild(b)}
   }
@@ -1843,7 +1919,7 @@ function buildSubMenu(){
   m.appendChild(el('span','smlabel','RFP SECTIONS'));
   const mk=(view,label,cls)=>{const b=el('button','smbtn'+(cls?' '+cls:''));b.type='button';b.dataset.sv=view;b.appendChild(el('span','smn',label));b.appendChild(el('span','smst'));m.appendChild(b);return b};
   mk('acord:review','RFP Overview','top');
-  SUBVIEWS.forEach(([k,l])=>mk('acord:'+k,l,'sub'));
+  subviews().forEach(([k,l])=>mk('acord:'+k,l,'sub'));
 }
 function updateSubMenu(){
   const m=$('#subMenu');if(!m)return;
@@ -1869,19 +1945,19 @@ function renderSubDocs(){
   if(subView==='narrative')subView='acord:review';
   const g=gateFor();
   if(g){menu.hidden=true;fa.hidden=false;fa.dataset.rid='';renderGate(fa,g);return}
-  menu.hidden=false;ctx.appendChild(ctxStrip());buildSubMenu();
-  ensureAcord();renderAcord();
+  menu.hidden=false;ctx.appendChild(ctxStrip());
+  ensureAcord();buildSubMenu();renderAcord();
   applySubView();
 }
 function acRefresh(){
   if(!acordState)return;
   applySubView();
   const miss=acReqMissing(),mb=$('#acMiss');if(!mb)return;mb.textContent='';
-  if(!miss.length){mb.appendChild(el('div','reqok','Every highlighted section is complete and all 24 general questions are answered. Ready to download for underwriting.'));return}
+  if(!miss.length){mb.appendChild(el('div','reqok',carveOn(acordState.v)?'Every section is complete. Ready to download the Key HR RFP.':'Every highlighted section is complete and all 24 general questions are answered. Ready to download for underwriting.'));return}
   const req=miss.filter(m=>m.sec.id!=='general'),gq=miss.filter(m=>m.sec.id==='general');
   mb.appendChild(el('span','lbl','STILL NEEDED FOR UNDERWRITING'));
   const ul=el('div','misslist');
-  const go=(secId,fid)=>{const sv=SUBVIEWS.find(x=>x[2].includes(secId));setSub('acord:'+(sv?sv[0]:'applicant'));const t=document.querySelector('#form-acord [data-af="'+fid+'"]');if(t){t.scrollIntoView({block:'center'});const x=t.querySelector('input,select,textarea,button');if(x)x.focus({preventScroll:true})}};
+  const go=(secId,fid)=>{const sv=subviews().find(x=>x[2].includes(secId));setSub('acord:'+(sv?sv[0]:'applicant'));const t=document.querySelector('#form-acord [data-af="'+fid+'"]');if(t){t.scrollIntoView({block:'center'});const x=t.querySelector('input,select,textarea,button');if(x)x.focus({preventScroll:true})}};
   req.forEach(m=>{const b=el('button','misschip',m.it.label);b.type='button';b.addEventListener('click',()=>go(m.sec.id,m.it.id));ul.appendChild(b)});
   if(gq.length){const b=el('button','misschip',gq.length+' general question'+(gq.length===1?'':'s')+' unanswered');b.type='button';b.addEventListener('click',()=>go('general',gq[0].it.id));ul.appendChild(b)}
   mb.appendChild(ul);
@@ -1959,8 +2035,39 @@ function fillItems(items,v,W){
     (Array.isArray(it.af)?it.af:[it.af]).forEach(n=>W.setT(n,acordValue(it.t,x)));
   });
 }
+function buildCarveRfpPdf(A){
+  const v=A.v,doc=newDoc(),W=doc.internal.pageSize.getWidth(),PH=doc.internal.pageSize.getHeight(),M=40;
+  let y=pdfHead(doc,'Request for proposal','RFP',[['Producer',v.prod_name||''],['Date',fmtDate(v.form_date)||fmtDate(todayISO())]]);
+  y=pdfPrepared(doc,y,v.ni_name,toNum(v.emp_ct)!=null?toNum(v.emp_ct)+' Employees':'',[v.pay_freq?v.pay_freq+' Payroll':'',v.ni_state||''].filter(Boolean).join(' - '));
+  doc.setFillColor(...RED);doc.rect(M,y,W-2*M,40,'F');doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,226,224);doc.text("W O R K E R S '   C O M P",M+12,y+15);
+  doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text(ascii(v.carve),M+12,y+30);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(ascii(v.carve===CARVE_OPTS[1]?'Placed separately with Enwage Insurance Solutions':'Client keeps its existing policy'),W-M-12,y+30,{align:'right'});
+  y+=54;
+  const tbl=(title,rows,head)=>{
+    rows=rows.filter(r=>r.some(c=>String(c==null?'':c).trim()));if(!rows.length)return;
+    if(y>PH-110){doc.addPage();y=60}
+    doc.autoTable({startY:y,margin:{left:M,right:M},head:[[{content:title,colSpan:head?head.length:2}],...(head?[head]:[])],body:rows.map(r=>r.map(c=>ascii(String(c==null?'':c)))),theme:'grid',
+      headStyles:{fillColor:INK,textColor:255,fontSize:8.5,fontStyle:'bold'},styles:{fontSize:9.5,cellPadding:5,lineColor:LN,lineWidth:.6,textColor:INK},columnStyles:head?{}:{0:{cellWidth:170,fontStyle:'bold',textColor:MUT}},
+      didParseCell:d=>{if(head&&d.section==='head'&&d.row.index===1){d.cell.styles.fillColor=SOFT;d.cell.styles.textColor=MUT;d.cell.styles.fontSize=7.5}}});
+    y=doc.lastAutoTable.finalY+14;
+  };
+  const addr=[v.ni_addr1,v.ni_addr2,[v.ni_city,[v.ni_state,v.ni_zip].filter(Boolean).join(' ')].filter(Boolean).join(', ')].filter(Boolean).join('\n');
+  tbl('APPLICANT',[['Applicant name',v.ni_name],['Mailing address',addr],['Office phone',v.ni_phone],['Email',v.ni_email],['Website',v.ni_web],['FEIN',v.ni_fein],['Years in business',v.ni_years],['Legal entity',v.ni_entity==='Other'&&v.ni_entity_other?'Other: '+v.ni_entity_other:v.ni_entity],['SIC',v.ni_sic],['NAICS',v.ni_naics]]);
+  tbl('SUBMISSION',[['Date completed',fmtDate(v.form_date)],['Proposed effective date',fmtDate(v.eff)],['Status of submission',v.status],["Workers' comp",v.carve]]);
+  tbl('EMPLOYEES & PAYROLL',[['Total employees',v.emp_ct],['Pay cycle',v.pay_freq],['Current payroll / PEO provider',v.cur_provider]]);
+  const locs=arr(v.locs).filter(rowHas).map(r=>[r.loc||'',r.street||'',r.city||'',r.county||'',r.state||'',r.zip||'']);
+  tbl('LOCATIONS',locs,['Loc #','Street','City','County','State','Zip']);
+  const cons=arr(v.contacts).filter(rowHas).map(r=>[r.name||'',r.phone||'',r.email||'']);
+  tbl('CONTACTS',cons,['Name','Office phone','Email']);
+  if(String(v.ops||'').trim()){if(y>PH-120){doc.addPage();y=60}doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...RED);doc.text('NATURE OF BUSINESS',M,y+6);doc.setDrawColor(...LN);doc.line(M,y+11,W-M,y+11);y=pdfParas(doc,y+28,v.ops,11)}
+  tbl('SUBMITTED BY',[['Agency',[v.agency_name,v.agency_addr1,[v.agency_city,[v.agency_state,v.agency_zip].filter(Boolean).join(' ')].filter(Boolean).join(', ')].filter(Boolean).join(', ')],['Producer',v.prod_name],['Phone',v.prod_phone],['Email',v.prod_email]]);
+  pdfFoot(doc,"Request for proposal - workers' comp carved out");
+  doc.setProperties({title:'Key HR RFP'+(v.ni_name?' - '+ascii(v.ni_name):'')});
+  return doc.output('arraybuffer');
+}
 async function buildAcordBytes(A){
   A=A||acordState;
+  if(carveOn(A.v))return buildCarveRfpPdf(A);
   const {PDFDocument,StandardFonts}=window.PDFLib;
   const bytes=await getTemplate(),v=A.v;
   const count=Math.max(1,Math.min(3,Number(v.ws_count||1)));
@@ -1987,20 +2094,20 @@ async function buildAcordBytes(A){
 $('#btnAcordPdf').addEventListener('click',async()=>{
   if(!acordState||gateFor())return;
   if(!(acordState.v.ni_name||'').trim()){setMsg('Enter the applicant name before downloading.','err');return}
-  if(!window.PDFLib){setMsg('The PDF tool did not load. Check your connection and reload the page.','err');return}
+  if(carveOn(acordState.v)?!window.jspdf:!window.PDFLib){setMsg('The PDF tool did not load. Check your connection and reload the page.','err');return}
   const b=$('#btnAcordPdf');b.disabled=true;setMsg('Building the RFP...');
   try{
     const out=await buildAcordBytes(acordState);
     const miss=acReqMissing().length;
-    const ok=await saveFile('RFP_ACORD_130_'+safeName(acordState.v.ni_name)+'_'+todayISO()+'.pdf',out);
-    if(ok){markDone(acordState.srcTab,'acord');persistTrack(acordState.srcTab);logEvent('acord_downloaded',{company:acordState.v.ni_name,type:acordState.srcTab,recordId:acordState.srcId});upsertDoc('acord',{v:acordState.v,keep:acordState.keep!==false},{recordId:acordState.srcId,company:acordState.v.ni_name||acordState.company,type:acordState.srcTab});if(miss)setMsg('Downloaded the RFP. '+miss+' required item'+(miss===1?' is':'s are')+' still blank.','ok')}
+    const ok=await saveFile((carveOn(acordState.v)?'RFP_':'RFP_ACORD_130_')+safeName(acordState.v.ni_name)+'_'+todayISO()+'.pdf',out);
+    if(ok){markDone(acordState.srcTab,'acord');persistTrack(acordState.srcTab);logEvent('acord_downloaded',{company:acordState.v.ni_name,type:acordState.srcTab,recordId:acordState.srcId});upsertDoc('acord',{v:acordState.v,keep:acordState.keep!==false},{recordId:acordState.srcId,company:acordState.v.ni_name||acordState.company,type:acordState.srcTab}).then(r=>offerEmail(r,true));if(miss)setMsg('Downloaded the RFP. '+miss+' required item'+(miss===1?' is':'s are')+' still blank.','ok')}
   }catch(e){setMsg('Could not build the RFP ('+((e&&e.message)||'unknown error')+').','err')}
   finally{b.disabled=false}
 });
 
 /* ================= activity log + admin ================= */
 const ACT_KEY='khr_call_portal_activity_v1';
-const ACT_LABEL={call_saved:'Saved a new prospect',call_updated:'Updated a prospect',acord_created:'Created RFP',acord_downloaded:'Downloaded RFP',pdf_downloaded:'Downloaded call PDF',narrative_downloaded:'Downloaded narrative',analysis_downloaded:'Downloaded analysis',comparison_downloaded:'Downloaded cost comparison',prospect_deleted:'Deleted a prospect'};
+const ACT_LABEL={call_saved:'Saved a new prospect',call_updated:'Updated a prospect',acord_created:'Created RFP',acord_downloaded:'Downloaded RFP',pdf_downloaded:'Downloaded call PDF',narrative_downloaded:'Downloaded narrative',benefits_downloaded:'Downloaded benefits checklist',analysis_downloaded:'Downloaded analysis',comparison_downloaded:'Downloaded cost comparison',prospect_deleted:'Deleted a prospect',doc_emailed:'Emailed a document to Sales'};
 let acts=lsGet(ACT_KEY)||[];
 const dayISO=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 async function logEvent(action,info){
@@ -2048,7 +2155,7 @@ function reportRows(){
   records.forEach(r=>{
     const T=Object.assign({},r.track||{});
     if(!T.discovery&&(r.createdAt||r.updatedAt))T.discovery={start:r.createdAt||r.updatedAt,end:r.createdAt||r.updatedAt,producer:r.producer};
-    ['discovery','acord','narrative','analysis','comparison'].forEach(k=>{
+    ['discovery','acord','narrative','benefits','analysis','comparison'].forEach(k=>{
       const x=T[k];if(!x||!x.start)return;
       const st=new Date(x.start),en=x.end?new Date(x.end):null;if(isNaN(st))return;
       const day=dayISO(st),prod=x.producer||r.producer||'';
@@ -2083,9 +2190,9 @@ $('#subMenu').addEventListener('click',e=>{const b=e.target.closest('button[data
 function setAdmin(on){$('#adminOnly').hidden=!on;$('#adminBtns').hidden=!on;if(on&&cur==='admin')renderAdmin()}
 
 /* ================= prospect documents: gate, profile ================= */
-const DOC_TABS=['acord','narrative','analysis','compare'];
+const DOC_TABS=['acord','narrative','benefits','analysis','compare'];
 const DOCS_KEY='khr_call_portal_docs_v1';
-const DOC_LABEL={call:'Call summary',acord:'RFP',narrative:'Underwriting narrative',analysis:'Prospect analysis',comparison:'Cost comparison'};
+const DOC_LABEL={call:'Call summary',acord:'RFP',narrative:'Underwriting narrative',benefits:'Benefits checklist',analysis:'Prospect analysis',comparison:'Cost comparison'};
 let docsList=Object.entries(lsGet(DOCS_KEY)||{}).map(([id,d])=>({id,...d}));
 let sampleFn=null;
 const money=n=>n==null||isNaN(n)?'':(n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
@@ -2107,7 +2214,7 @@ function renderGate(root,g){
   const s=el('section','sec gate');const h=el('header');
   h.appendChild(el('span','step','Save first'));
   h.appendChild(el('h2',null,g.kind==='empty'?'Start with a call':'Save this prospect first'));
-  h.appendChild(el('p','blurb',g.kind==='empty'?'The RFP, narrative, analysis and cost comparison are built from a saved call. Fill in a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab, save it, then come back.':'So nothing gets lost, the prospect has to be saved before you build documents from it. Save it now and you will go straight to this tab.'));
+  h.appendChild(el('p','blurb',g.kind==='empty'?'The RFP, narrative, benefits checklist, analysis and cost comparison are built from a saved call. Fill in a call on the Payroll / PEO, Workers\' Comp or Staffing Lead tab, save it, then come back.':'So nothing gets lost, the prospect has to be saved before you build documents from it. Save it now and you will go straight to this tab.'));
   s.appendChild(h);
   const row=el('div','gatebtns');
   if(g.kind==='unsaved'){const b=el('button','btn solid','Save prospect now');b.type='button';b.addEventListener('click',async()=>{if(await saveProspect(g.tab,['discovery']))showTab(cur)});row.appendChild(b)}
@@ -2135,7 +2242,7 @@ function prof(t){
   const states=[...new Set([ad.state,...parseStates(v.states),...jobs.map(r=>stateCode(r.state))].filter(Boolean))];
   const ex=arr(v.exposures);
   return {t,company:(v.legal_name||v.company||'').trim(),contact:v.contact||'',years:toNum(v.years),city:ad.city||'',state:ad.state||'',
-    ops:(v.operations||v.est_ops||'').trim(),emp:toNum(v.emp_total)!=null?toNum(v.emp_total):toNum(v.est_emp),split:v.emp_split||'',jobs,wages,states,
+    ops:(v.operations||v.est_ops||'').trim(),emp:empTotal(v),split:toNum(v.emp_pt)!=null?(toNum(v.emp_total)||0)+' FT / '+toNum(v.emp_pt)+' PT':(v.emp_split||''),jobs,wages,states,
     locations:v.locations||'',staffing:v.staffing==='Yes'||t==='staffing',staffType:arr(v.staff_type),placement:arr(v.placement),nClients:toNum(v.n_clients),topClients:v.top_clients||'',internalStaff:v.internal_staff||'',factoring:v.factoring||'',factorCo:v.factor_co||'',factorRate:v.factor_rate||'',factorHappy:v.factor_happy||'',fundingQuote:v.funding_quote||'',clientSafety:v.client_safety||'',siteVisits:v.site_visits||'',uses1099:v.uses_1099||'',n1099:v.n_1099||'',coi:v.coi||'',
     carrier:(W?v.carrier:v.wc_carrier)||'',premium:toNum(W?v.premium:v.wc_premium),renewal:(W?v.renewal:v.wc_renewal)||'',emr:toNum(v.emr),structure:(W?v.structure:v.wc_structure)||'',
     claims:(W?v.claims:v.wc_claims)||'',claimsNotes:(W?v.claims_notes:v.wc_claims_notes)||'',openClaims:v.open_claims==='Yes',
@@ -2772,11 +2879,156 @@ function buildCallPdf(tab,v,producer,date){
   return doc.output('arraybuffer');
 }
 
+/* ================= benefits: health underwriting checklist ================= */
+const BEN_REQ=['Major Medical','Complete Ancillary Package','Benefits AOR Takeover','401(k)'];
+const BEN_PLAN=['Open market (fully insured)','PEO plan','Level funded','Self-insured'];
+const benTotal=v=>{const a=toNum(v.ft),b=toNum(v.pt);return a==null&&b==null?null:(a||0)+(b||0)};
+const benDays=v=>{if(!v.eff)return null;const d=new Date(v.eff+'T12:00:00');return isNaN(d)?null:Math.round((d-new Date())/86400000)};
+const BEN_DOCS=[
+ {k:'r_census',l:'Key HR Dependent Level Census',d:'Data must be consistent across all forms. Using a non-Key HR census may delay the quote.',need:()=>true,must:true},
+ {k:'r_summaries',l:'Current Plan Summaries',d:'Employee benefits kits are commonly used.',need:v=>v.has_health==='Yes'||v.has_anc==='Yes'},
+ {k:'r_register',l:'Current Benefits Register / Report',d:'Full detail of current enrollment.',need:v=>v.has_health==='Yes'||v.has_anc==='Yes'},
+ {k:'r_invoice',l:'Current Carrier Invoice(s)',d:'If open market.',need:v=>v.plan===BEN_PLAN[0]},
+ {k:'r_renewal',l:'Formal Detailed Renewal',d:'If within 90 days. Master UW may request it outside 90 days if the risk profile warrants it.',need:v=>v.has_health==='Yes'&&benDays(v)!=null&&benDays(v)<=90},
+ {k:'r_claims',l:'Claims Report (Premium vs. Claims & RX)',d:'50+ groups or if level funded / self-insured. Rolling 12 months.',need:v=>v.has_health==='Yes'&&((benTotal(v)||0)>=50||v.plan===BEN_PLAN[2]||v.plan===BEN_PLAN[3])},
+ {k:'r_mlr',l:'Medical Loss Ratio (MLR) Summary Report',d:'If open market. Rolling 12 months. Large group 100+ and self-insured.',need:v=>v.has_health==='Yes'&&((benTotal(v)||0)>=100||v.plan===BEN_PLAN[3])},
+ {k:'r_large',l:'Large Claims Detail Report',d:'Rolling 12 months. Large group 100+ and self-insured.',need:v=>v.has_health==='Yes'&&((benTotal(v)||0)>=100||v.plan===BEN_PLAN[3])},
+];
+const BEN_INFO=[['company','Company name',{req:1}],['eff','Proposed effective date',{req:1,date:1}],['dba','DBA'],['fein','FEIN',{req:1,ph:'XX-XXXXXXX'}],['address','Address',{req:1}],['csz','City, state, zip',{req:1,ph:'Orlando, FL 32801'}],['contact','Contact name',{req:1}],['title','Title',{req:1}],['email','Email address',{req:1,mode:'email'}],['phone','Phone number',{req:1,mode:'tel'}],['ft','# of full-time employees',{req:1,num:1}],['pt','# of part-time employees',{req:1,num:1,ph:'0 if none'}],['states','What state(s) are there employees working in?',{req:1,full:1,ph:'FL, GA'}]];
+function benFromCall(t){
+  const v=forms[t].v,b={},put=(k,x)=>{if(x!=null&&String(x).trim()!=='')b[k]=String(x).trim()};
+  put('company',v.legal_name||v.company);put('dba',v.dba);put('fein',v.fein);
+  const ad=parseAddr(v.address);put('address',ad.street);if(ad.city||ad.state)put('csz',[ad.city,[ad.state,ad.zip].filter(Boolean).join(' ')].filter(Boolean).join(', '));
+  put('contact',v.contact);put('title',v.title);put('email',v.confirm_email||v.email);put('phone',v.phone);
+  if(toNum(v.emp_total)!=null)put('ft',toNum(v.emp_total));if(toNum(v.emp_pt)!=null)put('pt',toNum(v.emp_pt));
+  const st=[...new Set([ad.state,...parseStates(v.states),...arr(v.jobs).map(r=>stateCode(r&&r.state))].filter(Boolean))];if(st.length)put('states',st.join(', '));
+  if(v.offers_benefits==='Yes'||v.offers_benefits==='No'){const types=arr(v.benefit_types);
+    const med=v.offers_benefits==='No'?'No':(!types.length||types.includes('Medical')?'Yes':'No');put('has_health',med);
+    if(med==='Yes')put('health_provider',v.ben_carrier);
+    if(v.offers_benefits==='No')put('has_anc','No');else if(types.some(x=>['Dental','Vision','Life','Disability'].includes(x)))put('has_anc','Yes');
+    put('eff',v.ben_renewal)}
+  return b;
+}
+function ensureBenefits(){
+  const t=lastCall,f=forms[t],D=curDocs();
+  if(!D.benefits||D.benefits.srcId!==f.id){const m=benFromCall(t);D.benefits={srcId:f.id,builtAt:new Date().toISOString(),filled:Object.keys(m),v:Object.assign({request:[]},m)};markStart(t,'benefits');saveDraft()}
+  return D.benefits;
+}
+function benMissing(B){
+  B=B||curDocs().benefits;if(!B)return [];const v=B.v,m=[],bl=k=>v[k]==null||String(v[k]).trim()==='';
+  BEN_INFO.forEach(([k,l,o])=>{if(o&&o.req&&bl(k))m.push({k,l})});
+  if(!v.pregnant)m.push({k:'pregnant',l:'Anyone pregnant'});else if(v.pregnant==='Yes'&&bl('due'))m.push({k:'due',l:'Due date(s)'});
+  if(!v.has_health)m.push({k:'has_health',l:'Currently provide group health'});else if(v.has_health==='Yes'){if(bl('enrolled'))m.push({k:'enrolled',l:'EEs currently enrolled'});if(bl('health_provider'))m.push({k:'health_provider',l:'Current health provider'});if(bl('health_reason'))m.push({k:'health_reason',l:'Health reason for change'})}
+  if(!v.has_anc)m.push({k:'has_anc',l:'Currently offer ancillary'});else if(v.has_anc==='Yes'){if(bl('anc_provider'))m.push({k:'anc_provider',l:'Current ancillary provider'});if(bl('anc_reason'))m.push({k:'anc_reason',l:'Ancillary reason for change'})}
+  if(!arr(v.request).length)m.push({k:'request',l:'Benefits request'});
+  if(!v.r_census)m.push({k:'r_census',l:'Key HR dependent level census'});
+  return m;
+}
+function benField(v,k,l,o){
+  o=o||{};const c=el('div','ctl'+(o.full?' full':''));c.dataset.bf=k;const lab=el('label','lbl',l);lab.htmlFor='ben__'+k;if(o.req)lab.appendChild(el('span','req',' *'));
+  const B=curDocs().benefits;if(B&&B.filled&&B.filled.includes(k))lab.appendChild(el('span','fromcall','FROM CALL'));c.appendChild(lab);
+  const i=el(o.area?'textarea':'input','in');if(!o.area)i.type=o.date?'date':'text';else i.rows=o.rows||2;if(o.num||o.mode){i.inputMode=o.num?'numeric':o.mode}
+  if(o.ph)i.placeholder=o.ph;i.id='ben__'+k;i.dataset.bk=k;i.value=v[k]==null?'':v[k];c.appendChild(i);return c;
+}
+function benPills(v,k,l,opts,o){
+  o=o||{};const c=el('div','ctl'+(o.full?' full':''));c.dataset.bf=k;const lab=el('span','lbl',l);if(o.req)lab.appendChild(el('span','req',' *'));c.appendChild(lab);
+  const g=el('div','pills');g.setAttribute('role','group');g.setAttribute('aria-label',l);
+  opts.forEach(x=>{const b=el('button','pill',x);b.type='button';b.dataset.bk=k;b.dataset.val=x;if(o.many)b.dataset.many='1';b.setAttribute('aria-pressed',(o.many?arr(v[k]).includes(x):v[k]===x)?'true':'false');g.appendChild(b)});
+  c.appendChild(g);return c;
+}
+function renderBenefits(){
+  const root=$('#form-benefits');const g=gateFor();if(g){renderGate(root,g);return}
+  const B=ensureBenefits(),v=B.v;root.textContent='';root.appendChild(ctxStrip());
+  const sec=(step,title,blurb)=>{const s=el('section','sec');const hd=el('header');if(step)hd.appendChild(el('span','step',step));hd.appendChild(el('h2',null,title));if(blurb)hd.appendChild(el('p','blurb',blurb));s.appendChild(hd);const b=el('div','body docbody');s.appendChild(b);root.appendChild(s);return b};
+  const b0=sec('Health underwriting','New Submission Checklist','A completed checklist must go with every benefits submission. Incomplete submissions will not be processed by Underwriting. Items marked FROM CALL were filled in for you.');
+  const mb=el('div','missbox');mb.id='benMiss';b0.appendChild(mb);
+  const rw=el('div','docbtns');const rf=el('button','sbtn','Refill blanks from the call');rf.type='button';rf.id='benRefill';rw.appendChild(rf);b0.appendChild(rw);
+  const b1=sec('Section 1','Prospect Information');const g1=el('div','grid');BEN_INFO.forEach(([k,l,o])=>g1.appendChild(benField(v,k,l,o)));b1.appendChild(g1);
+  const g1b=el('div','grid');g1b.appendChild(benPills(v,'pregnant','Is anyone currently pregnant?',YN,{req:1}));if(v.pregnant==='Yes')g1b.appendChild(benField(v,'due','Due date(s)',{req:1,ph:'e.g. 03/2027, 05/2027'}));b1.appendChild(g1b);
+  const b2=sec('Section 2','Current Benefits');
+  b2.appendChild(el('p','bensub','Group health'));const g2=el('div','grid');g2.appendChild(benPills(v,'has_health','Do they currently provide group health for their employees?',YN,{req:1,full:1}));
+  if(v.has_health==='Yes'){g2.appendChild(benField(v,'enrolled','How many EEs currently enrolled',{req:1,num:1}));g2.appendChild(benField(v,'health_provider','Current provider(s)',{req:1}));g2.appendChild(benPills(v,'plan','Plan type',BEN_PLAN,{full:1}));g2.appendChild(benField(v,'health_reason','Reason for change',{req:1,full:1,area:1}))}
+  b2.appendChild(g2);
+  b2.appendChild(el('p','bensub','Ancillary'));const g3=el('div','grid');g3.appendChild(benPills(v,'has_anc','Do they currently offer ancillary benefits for their employees?',YN,{req:1,full:1}));
+  if(v.has_anc==='Yes'){g3.appendChild(benField(v,'anc_provider','Current provider(s)',{req:1,full:1}));g3.appendChild(benField(v,'anc_reason','Reason for change',{req:1,full:1,area:1}))}
+  b2.appendChild(g3);
+  const b3=sec('Section 3','Benefits Request','Select everything they want quoted.');
+  b3.appendChild(benPills(v,'request','Benefits requested',BEN_REQ,{many:1,req:1}));
+  const mm=el('div','callout');mm.id='benMM';b3.appendChild(mm);
+  const b4=sec('Section 4','Submission Requirements','Check each document as you receive it. NEEDED is based on the answers above.');
+  const rl=el('div','benreq');BEN_DOCS.forEach(d=>{const r=el('div','rr');r.dataset.bf=d.k;const cb=el('input');cb.type='checkbox';cb.id='ben__'+d.k;cb.dataset.bchk=d.k;cb.checked=!!v[d.k];r.appendChild(cb);
+    const t=el('label');t.htmlFor=cb.id;t.appendChild(el('span','rt',d.l+(d.must?' *':'')));t.appendChild(el('span','rd',d.d));r.appendChild(t);r.appendChild(el('span','bdg'));rl.appendChild(r)});
+  b4.appendChild(rl);
+  const b5=sec(null,'Notes');b5.appendChild(benField(v,'notes','Notes for underwriting',{area:1,rows:4,full:1}));
+  b5.appendChild(el('p','phq','Personal Health Questionnaire (PHQ): not required with the initial submission. It may be required later for groups under 50 or virgin groups.'));
+  benRefresh(false);
+}
+function benRefresh(focusFirst){
+  const B=curDocs().benefits;if(!B||!$('#benMiss'))return;const v=B.v,miss=benMissing(B),mb=$('#benMiss');mb.textContent='';
+  if(!miss.length)mb.appendChild(el('div','reqok','The checklist is complete. Download the PDF and send it with the benefits submission.'));
+  else{mb.appendChild(el('span','lbl','STILL NEEDED BEFORE DOWNLOAD'));const ul=el('div','misslist');miss.forEach(m=>{const b=el('button','misschip',m.l);b.type='button';b.addEventListener('click',()=>benGo(m.k));ul.appendChild(b)});mb.appendChild(ul)}
+  document.querySelectorAll('#form-benefits .benreq .rr').forEach(r=>{const d=BEN_DOCS.find(x=>x.k===r.dataset.bf),bd=r.querySelector('.bdg'),got=!!v[d.k],nd=d.need(v);bd.className='bdg '+(got?'ok':nd?'need':'opt');bd.textContent=got?'Received':nd?'Needed':'If applicable'});
+  const mm=$('#benMM');if(mm){const ft=toNum(v.ft);const show=arr(v.request).includes('Major Medical')&&ft!=null&&ft<10;mm.hidden=!show;mm.textContent=show?'Major medical requires a minimum of 10 full-time employees. This group shows '+ft+'.':''}
+  if(focusFirst&&miss.length)benGo(miss[0].k);
+}
+function benGo(k){const t=document.querySelector('#form-benefits [data-bf="'+k+'"]');if(t){t.scrollIntoView({block:'center'});const x=t.querySelector('input,textarea,button');if(x)x.focus({preventScroll:true})}}
+(function bindBenefits(){
+  const root=$('#form-benefits');
+  const touch=()=>{saveDraft();benRefresh(false);setMsg('Checklist edits are kept in this browser. Click Save prospect to store them.')};
+  root.addEventListener('input',e=>{const t=e.target,B=curDocs().benefits;if(!B)return;if(t.dataset.bk){B.v[t.dataset.bk]=t.value;touch()}});
+  root.addEventListener('change',e=>{const t=e.target,B=curDocs().benefits;if(!B)return;if(t.dataset.bchk){B.v[t.dataset.bchk]=t.checked;touch()}});
+  root.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;const B=curDocs().benefits;if(!B)return;
+    if(b.id==='benRefill'){const m=benFromCall(lastCall);let n=0;Object.keys(m).forEach(k=>{if(B.v[k]==null||String(B.v[k]).trim()===''){B.v[k]=m[k];if(!B.filled.includes(k))B.filled.push(k);n++}});saveDraft();renderBenefits();setMsg(n?'Filled '+n+' blank items from the call.':'Nothing new to pull in from the call.','ok');return}
+    if(!b.dataset.bk||b.dataset.val==null)return;
+    const k=b.dataset.bk,x=b.dataset.val;
+    if(b.dataset.many){let a=arr(B.v[k]).slice();a=a.includes(x)?a.filter(y=>y!==x):[...a,x];B.v[k]=a;b.setAttribute('aria-pressed',a.includes(x)?'true':'false');touch();return}
+    B.v[k]=B.v[k]===x?'':x;saveDraft();const y=window.scrollY;renderBenefits();window.scrollTo({top:y});setMsg('Checklist edits are kept in this browser. Click Save prospect to store them.');
+  });
+})();
+function buildBenefitsPdf(s){
+  const v=s.v||{},doc=newDoc(),W=doc.internal.pageSize.getWidth(),PH=doc.internal.pageSize.getHeight(),M=40;
+  let y=pdfHead(doc,'Health underwriting','New Submission Checklist',[['Producer',s.producer||''],['Date',fmtDate(s.day)||'']]);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...MUT);
+  doc.text('Please ensure that a completed checklist is submitted with all benefits submissions. Incomplete submissions will not be processed by Underwriting.',M,y+2);y+=16;
+  const head=t=>{if(y>PH-110){doc.addPage();y=60}doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...RED);doc.text(t.toUpperCase(),M,y+6);doc.setDrawColor(...LN);doc.setLineWidth(.8);doc.line(M,y+10,W-M,y+10);y+=17};
+  const A=x=>ascii(x==null?'':String(x));
+  const grid=rows=>{doc.autoTable({startY:y,margin:{left:M,right:M},body:rows,theme:'grid',styles:{fontSize:8.5,cellPadding:{top:3.5,bottom:3.5,left:5,right:5},lineColor:LN,lineWidth:.6,textColor:INK,valign:'middle'},
+    columnStyles:{0:{cellWidth:128,fontStyle:'bold',textColor:MUT,fontSize:7.5},1:{cellWidth:142},2:{cellWidth:118,fontStyle:'bold',textColor:MUT,fontSize:7.5}}});y=doc.lastAutoTable.finalY+12};
+  const yn=x=>x==='Yes'?'Yes':x==='No'?'No':'';
+  head('Prospect Information');
+  grid([['Company name',A(v.company),'Proposed eff. date',A(fmtDate(v.eff))],['DBA',A(v.dba),'FEIN',A(v.fein)],['Address',A(v.address),'City, state, zip',A(v.csz)],['Contact name',A(v.contact),'Title',A(v.title)],['Email address',A(v.email),'Phone number',A(v.phone)],['# of full-time employees',A(v.ft),'# of part-time employees',A(v.pt)],
+    ['State(s) with employees working',{content:A(v.states),colSpan:3}],['Anyone currently pregnant?',{content:A(yn(v.pregnant)+(v.pregnant==='Yes'&&v.due?'  |  Due date(s): '+v.due:'')),colSpan:3}]]);
+  head('Current Benefits');
+  grid([['Provide group health?',A(yn(v.has_health)),'EEs currently enrolled',A(v.has_health==='Yes'?v.enrolled:'')],
+    ...(v.has_health==='Yes'?[['Current provider(s)',{content:A(v.health_provider)+(v.plan?'  ('+A(v.plan)+')':''),colSpan:3}],['Reason for change',{content:A(v.health_reason),colSpan:3}]]:[]),
+    ['Offer ancillary benefits?',{content:A(yn(v.has_anc)),colSpan:3}],
+    ...(v.has_anc==='Yes'?[['Current provider(s)',{content:A(v.anc_provider),colSpan:3}],['Reason for change',{content:A(v.anc_reason),colSpan:3}]]:[])]);
+  const box=(x,yy,on)=>{doc.setDrawColor(...INK);doc.setLineWidth(.8);if(on){doc.setFillColor(...RED);doc.setDrawColor(...RED);doc.rect(x,yy-8.5,10,10,'FD');doc.setDrawColor(255,255,255);doc.setLineWidth(1.5);doc.line(x+2.2,yy-3.6,x+4.3,yy-1.4);doc.line(x+4.3,yy-1.4,x+8,yy-6.6)}else doc.rect(x,yy-8.5,10,10)};
+  head('Benefits Request');
+  const req=arr(v.request),XO=[0,128,300,438];doc.setFontSize(9);
+  BEN_REQ.forEach((o,i)=>{const x=M+XO[i];box(x,y+4,req.includes(o));doc.setFont('helvetica',req.includes(o)?'bold':'normal');doc.setTextColor(...INK);doc.text(o,x+16,y+4);if(o==='Major Medical'){doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...MUT);doc.text("Requires minimum 10 FTE's",x+16,y+14);doc.setFontSize(9)}});
+  y+=24;
+  head('Submission Requirements');
+  BEN_DOCS.forEach(d=>{if(y>PH-80){doc.addPage();y=60}const on=!!v[d.k];box(M,y+4,on);doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(...INK);doc.text(d.l,M+18,y+4);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...MUT);const lines=doc.splitTextToSize(d.d,W-2*M-110);doc.text(lines,M+18,y+15);
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...(on?[11,107,99]:MUT));doc.text(on?'INCLUDED':'NOT INCLUDED',W-M,y+4,{align:'right'});
+    y+=15+lines.length*9.5});
+  y+=6;head('Notes');
+  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(...INK);const nl=doc.splitTextToSize(A(v.notes||'None'),W-2*M);nl.forEach(l=>{if(y>PH-70){doc.addPage();y=60}doc.text(l,M,y+4);y+=13});
+  y+=4;doc.setFontSize(7.5);const pt='Personal Health Questionnaire (PHQ): not required with the initial submission. It may be required later for groups under 50 or virgin groups.';const pl=doc.splitTextToSize(pt,W-2*M-20);const bh=pl.length*9.5+11;if(y+bh>PH-40){doc.addPage();y=60}
+  doc.setFillColor(...SOFT);doc.rect(M,y,W-2*M,bh,'F');doc.setTextColor(...MUT);doc.text(pl,M+10,y+12.5);
+  pdfFoot(doc,'Health underwriting new submission checklist');
+  doc.setProperties({title:'Health Underwriting Checklist'+(v.company?' - '+ascii(v.company):'')});
+  return doc.output('arraybuffer');
+}
+
 /* ================= snapshots, saving and admin documents ================= */
 function snapFor(kind){
   const t=lastCall,f=forms[t],v=f.v,D=curDocs(),p=prof(t),day=dayISO(new Date()),producer=(H.producer||'').trim(),company=p.company;
   if(kind==='call')return {tab:t,v:cleanValues(t,v),producer,date:H.date};
   if(kind==='acord')return {v:D.acord.v,keep:D.acord.keep!==false};
+  if(kind==='benefits')return {v:JSON.parse(JSON.stringify(D.benefits.v)),company:D.benefits.v.company||company,producer,day};
   if(kind==='narrative')return {text:D.narrative.text,facts:factsOf(p),company,producer,day,emp:p.emp,sub:[p.states.join(' & '),p.carrier?'Current carrier: '+p.carrier:''].filter(Boolean).join(' - ')};
   if(kind==='analysis')return {sections:D.analysis.sections,product:D.analysis.product,addons:D.analysis.addons,company,producer,day};
   if(kind==='comparison')return {c:D.comparison,company,producer,day,states:p.states};
@@ -2785,26 +3037,83 @@ function pdfFor(kind,s){
   if(kind==='call')return buildCallPdf(s.tab,s.v,s.producer,s.date);
   if(kind==='acord')return buildAcordBytes({v:s.v,keep:s.keep});
   if(kind==='narrative')return buildNarrativePdf(s);
+  if(kind==='benefits')return buildBenefitsPdf(s);
   if(kind==='analysis')return buildAnalysisPdf(s);
   if(kind==='comparison')return buildComparePdf(s);
 }
-function docFileName(kind,company,producer,day,data){return [({call:'Call_Summary',acord:'RFP_ACORD_130',narrative:'Narrative',analysis:'Analysis',comparison:'Cost_Comparison'+(data&&data.c?(data.c.mode==='PEO'?'_PEO':'_Payroll'):'')})[kind],safeName(company),safeName(producer||'Producer'),day||todayISO()].join('_')+'.pdf'}
+function docFileName(kind,company,producer,day,data){return [({call:'Call_Summary',acord:(data&&data.v&&data.v.carve)?'RFP':'RFP_ACORD_130',narrative:'Narrative',benefits:'Benefits_Checklist',analysis:'Analysis',comparison:'Cost_Comparison'+(data&&data.c?(data.c.mode==='PEO'?'_PEO':'_Payroll'):'')})[kind],safeName(company),safeName(producer||'Producer'),day||todayISO()].join('_')+'.pdf'}
 async function upsertDoc(kind,snap,meta){
   if(!meta.recordId)return;
   const id=meta.recordId+'_'+kind+(kind==='comparison'&&snap&&snap.c?'_'+(snap.c.mode==='PEO'?'peo':'payroll'):''),now=new Date();
   const d={kind,company:meta.company||'',producer:(H.producer||'').trim()||'Unknown',day:dayISO(now),at:now.toISOString(),recordId:meta.recordId,type:meta.type||'',data:JSON.parse(JSON.stringify(snap))};
   if(uid)d.by=uid;
-  if(store.mode==='db'&&store.db){try{await store.db.collection('documents').doc(id).set(d);return}catch(e){}}
-  const all=lsGet(DOCS_KEY)||{};all[id]=d;lsSet(DOCS_KEY,all);
+  const prev=docsList.find(x=>x.id===id);if(prev&&prev.emailedAt){d.lastEmailedAt=prev.emailedAt}
+  await persistDoc(id,d);
+  return {id,d};
+}
+async function persistDoc(id,d){
+  const c=JSON.parse(JSON.stringify(d));delete c.id;
+  if(store.mode==='db'&&store.db){try{await store.db.collection('documents').doc(id).set(c);return}catch(e){}}
+  const all=lsGet(DOCS_KEY)||{};all[id]=c;lsSet(DOCS_KEY,all);
   if(store.mode!=='db'){docsList=Object.keys(all).map(k=>({id:k,...all[k]}));if(cur==='admin')renderAdmin()}
 }
-const KIND_OF={acord:'acord',narrative:'narrative',analysis:'analysis',compare:'comparison'};
+
+/* ---------- email to sales ---------- */
+const SALES_EMAIL='sales@keyhro.com';
+function docLabelOf(d){return (DOC_LABEL[d.kind]||'Document')+(d.kind==='comparison'&&d.data&&d.data.c?' ('+d.data.c.mode+')':'')}
+function emailParts(d){
+  const label=docLabelOf(d),file=docFileName(d.kind,d.company,d.producer,d.day,d.data),lead=TYPE_LABEL[d.type]||'';
+  const subject=label+': '+(d.company||'Prospect')+(lead?' ('+lead+' lead)':'')+' - '+(d.producer||'Producer');
+  const body=['Hi Sales team,','','Attached is the '+(d.kind==='acord'?label:label.charAt(0).toLowerCase()+label.slice(1))+' for '+(d.company||'this prospect')+'.','','Prospect: '+(d.company||''),lead?'Lead type: '+lead:null,'Producer: '+(d.producer||''),'Saved: '+fmtDT(d.at),'File: '+file,'','Thank you,',d.producer||''].filter(x=>x!==null).join('\n');
+  return {label,file,subject,body};
+}
+let mailCtx=null,mailReturn=null;
+function closeMail(){$('#mailBack').hidden=true;mailCtx=null;if(mailReturn&&mailReturn.focus)mailReturn.focus();mailReturn=null}
+async function markEmailed(){
+  if(!mailCtx)return;const {id,d}=mailCtx;
+  d.emailedAt=new Date().toISOString();d.emailedBy=(H.producer||'').trim()||d.producer||'';
+  await persistDoc(id,d);
+  logEvent('doc_emailed',{company:d.company,type:d.type,recordId:d.recordId});
+  const s=$('#mailDlg .sent');if(s)s.textContent='Marked as sent to Sales';
+}
+function offerEmail(info,downloaded){
+  if(!info||!info.d)return;
+  const {d}=info,P=emailParts(d),box=$('#mailDlg');mailCtx=info;mailReturn=document.activeElement;
+  box.textContent='';
+  box.appendChild(el('h2',null,'Email this to Sales'));box.lastChild.id='mailTtl';
+  const to=el('p','mto');to.appendChild(document.createTextNode('Every saved document goes to '));to.appendChild(el('b',null,SALES_EMAIL));to.appendChild(document.createTextNode('. '+P.label+' for '+(d.company||'this prospect')+'.'));box.appendChild(to);
+  if(d.lastEmailedAt&&!d.emailedAt)box.appendChild(el('p','mto','An earlier version was sent on '+fmtDT(d.lastEmailedAt)+'. Send this updated one too.'));
+  const ol=el('ol');
+  const s1=el('li',downloaded?'ok':null);s1.appendChild(el('span','num',downloaded?'\u2713':'1'));const b1=el('div');
+  b1.appendChild(el('p','st',downloaded?'PDF downloaded':'Download the PDF'));b1.appendChild(el('p','sd',P.file));
+  const dl=el('button','sbtn',downloaded?'Download again':'Download PDF');dl.type='button';
+  dl.addEventListener('click',async()=>{dl.disabled=true;try{const out=await pdfFor(d.kind,d.data||{});if(await saveFile(P.file,out)){s1.classList.add('ok');s1.querySelector('.num').textContent='\u2713';b1.querySelector('.st').textContent='PDF downloaded';dl.textContent='Download again'}}catch(e){setMsg('Could not build that PDF ('+((e&&e.message)||'unknown')+').','err')}finally{dl.disabled=false}});
+  const r1=el('div','row');r1.appendChild(dl);b1.appendChild(r1);s1.appendChild(b1);ol.appendChild(s1);
+  const s2=el('li');s2.appendChild(el('span','num','2'));const b2=el('div');
+  b2.appendChild(el('p','st','Open the email'));b2.appendChild(el('p','sd','To, subject and message are filled in for you.'));
+  const r2=el('div','row'),E=encodeURIComponent;
+  const ow=el('a','sbtn go','Open in Outlook');ow.href='https://outlook.office.com/mail/deeplink/compose?to='+E(SALES_EMAIL)+'&subject='+E(P.subject)+'&body='+E(P.body);ow.target='_blank';ow.rel='noopener';
+  const mt=el('a','sbtn','Desktop email app');mt.href='mailto:'+SALES_EMAIL+'?subject='+E(P.subject)+'&body='+E(P.body.replace(/\n/g,'\r\n'));mt.target='_blank';mt.rel='noopener';
+  const cp=el('button','sbtn','Copy email text');cp.type='button';
+  cp.addEventListener('click',async()=>{const txt='To: '+SALES_EMAIL+'\nSubject: '+P.subject+'\n\n'+P.body;let ok=false;try{await navigator.clipboard.writeText(txt);ok=true}catch(e){const ta=el('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy')}catch(_){}ta.remove()}cp.textContent=ok?'Copied':'Copy failed';setTimeout(()=>cp.textContent='Copy email text',1800);if(ok)markEmailed()});
+  [ow,mt].forEach(a=>a.addEventListener('click',()=>markEmailed()));
+  r2.appendChild(ow);r2.appendChild(mt);r2.appendChild(cp);b2.appendChild(r2);s2.appendChild(b2);ol.appendChild(s2);
+  const s3=el('li');s3.appendChild(el('span','num','3'));const b3=el('div');b3.appendChild(el('p','st','Attach the PDF and send'));b3.appendChild(el('p','sd','Attach it from your Downloads folder, then click Send.'));s3.appendChild(b3);ol.appendChild(s3);
+  box.appendChild(ol);
+  const ft=el('div','mfoot');const sn=el('span','sent',d.emailedAt?'Sent to Sales '+fmtDT(d.emailedAt):'');ft.appendChild(sn);
+  const done=el('button','sbtn dangerfill','Done');done.type='button';done.addEventListener('click',closeMail);ft.appendChild(done);box.appendChild(ft);
+  $('#mailBack').hidden=false;setTimeout(()=>ow.focus(),30);
+}
+$('#mailBack').addEventListener('click',e=>{if(e.target.id==='mailBack')closeMail()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#mailBack').hidden)closeMail()});
+const KIND_OF={acord:'acord',narrative:'narrative',benefits:'benefits',analysis:'analysis',compare:'comparison'};
 $('#btnDocPdf').addEventListener('click',async()=>{
   const kind=cur==='acord'?(subView==='narrative'?'narrative':''):KIND_OF[cur];if(!kind||kind==='acord'||gateFor())return;
   if(!window.jspdf){setMsg('The PDF tool did not load. Check your connection and reload the page.','err');return}
+  if(kind==='benefits'){const m=benMissing();if(m.length){benRefresh(true);setMsg('Complete the checklist before downloading. '+m.length+' item'+(m.length===1?' is':'s are')+' still needed.','err');return}}
   const b=$('#btnDocPdf');b.disabled=true;
   try{const s=snapFor(kind),m=docMeta();const out=await pdfFor(kind,s);
-    if(await saveFile(docFileName(kind,m.company,H.producer,dayISO(new Date()),s),out)){markDone(lastCall,kind);persistTrack(lastCall);upsertDoc(kind,s,m);logEvent(kind+'_downloaded',{company:m.company,type:m.type,recordId:m.recordId})}}
+    if(await saveFile(docFileName(kind,m.company,H.producer,dayISO(new Date()),s),out)){markDone(lastCall,kind);persistTrack(lastCall);upsertDoc(kind,s,m).then(r=>offerEmail(r,true));logEvent(kind+'_downloaded',{company:m.company,type:m.type,recordId:m.recordId})}}
   catch(e){console.error(e);setMsg('Could not build the PDF ('+((e&&e.message)||'unknown error')+').','err')}
   finally{b.disabled=false}
 });
@@ -2812,11 +3121,13 @@ function renderDocsAdmin(){
   const p=$('#aProducer').value,f=$('#aFrom').value,t=$('#aTo').value;
   const L=docsList.filter(d=>(!p||d.producer===p)&&(!f||d.day>=f)&&(!t||d.day<=t)).sort((a,b)=>String(b.at).localeCompare(String(a.at)));
   const tb=$('#aDocs');tb.textContent='';
-  if(!L.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=5;td.appendChild(el('b',null,docsList.length?'No documents in this range':'No saved documents yet'));td.appendChild(document.createTextNode(docsList.length?'Try a different producer or date range.':'Every RFP, narrative, analysis, cost comparison and call PDF a producer downloads or saves is kept here.'));tr.appendChild(td);tb.appendChild(tr);return}
+  if(!L.length){const tr=el('tr'),td=el('td','emptyst');td.colSpan=6;td.appendChild(el('b',null,docsList.length?'No documents in this range':'No saved documents yet'));td.appendChild(document.createTextNode(docsList.length?'Try a different producer or date range.':'Every RFP, narrative, analysis, cost comparison and call PDF a producer downloads or saves is kept here.'));tr.appendChild(td);tb.appendChild(tr);return}
   L.forEach(d=>{const tr=el('tr');const c=el('td');c.appendChild(el('b',null,d.company||''));tr.appendChild(c);tr.appendChild(el('td',null,(DOC_LABEL[d.kind]||d.kind)+(d.kind==='comparison'&&d.data&&d.data.c?' ('+d.data.c.mode+')':'')));tr.appendChild(el('td',null,d.producer||''));tr.appendChild(el('td',null,fmtDT(d.at)));
+    const se=el('td');se.appendChild(el('span','em'+(d.emailedAt?' ok':''),d.emailedAt?fmtDT(d.emailedAt):'Not yet'));tr.appendChild(se);
     const a=el('td');const bx=el('div','act');const btn=el('button','sbtn','Download');btn.type='button';btn.setAttribute('aria-label','Download '+(DOC_LABEL[d.kind]||'')+' for '+(d.company||''));
     btn.addEventListener('click',async()=>{btn.disabled=true;try{const out=await pdfFor(d.kind,d.data||{});await saveFile(docFileName(d.kind,d.company,d.producer,d.day,d.data),out)}catch(e){setMsg('Could not rebuild that document ('+((e&&e.message)||'unknown')+').','err')}finally{btn.disabled=false}});
-    bx.appendChild(btn);a.appendChild(bx);tr.appendChild(a);tb.appendChild(tr)});
+    const eb=el('button','sbtn','Email to Sales');eb.type='button';eb.setAttribute('aria-label','Email '+(DOC_LABEL[d.kind]||'document')+' for '+(d.company||'')+' to Sales');eb.addEventListener('click',()=>offerEmail({id:d.id,d},false));
+    bx.appendChild(btn);bx.appendChild(eb);a.appendChild(bx);tr.appendChild(a);tb.appendChild(tr)});
 }
 
 /* ================= boot ================= */
