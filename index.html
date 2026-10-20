@@ -545,18 +545,21 @@ const SEC=(id,title,o)=>({id,title,...o});
 const arr=v=>Array.isArray(v)?v:[];
 const YN=['Yes','No'], YNM=['Yes','No','Mixed'];
 const LEAD=['Cold call','Door-to-door','Referral partner','Marketing lead','Networking event','Walk-in / inbound','Other'];
+const CO_COLS=[{k:'name',l:'Company name',w:220},{k:'fein',l:'FEIN',w:120},{k:'address',l:'Address',w:300}];
 const JOB_COLS=[{k:'state',l:'State',w:70},{k:'job',l:'Job title / type of work',w:220},{k:'n',l:'# Employees',num:true,sum:true},{k:'wages',l:'Est. annual wages',money:true,sum:true},{k:'type',l:'FT / PT / Seasonal',opts:['','Full-time','Part-time','Seasonal','Mix']}];
 const STAGES=['Initial appointment','Discovery','RFP submitted','Proposal'];
 const FOLLOW=['Lead created in Salesforce','Follow-up email sent','Calendar invite sent','Submission emailed to submissions@keyhro.com'];
 
-function empTotal(v){const ft=toNum(v.emp_total),pt=toNum(v.emp_pt);if(ft==null&&pt==null)return toNum(v.est_emp);return (ft||0)+(pt||0)}
-const callInfo=()=>SEC('call','Call Info',{step:'Before you dial',blurb:'Fill in what you know from your research. Confirm the rest on the call.',items:[
+function empTotal(v){const ft=toNum(v.emp_total),pt=toNum(v.emp_pt),fld=toNum(v.emp_field),ins=fld!=null?toNum(v.internal_staff):null;if(ft==null&&pt==null&&fld==null&&ins==null)return toNum(v.est_emp);return (ft||0)+(pt||0)+(fld||0)+(ins||0)}
+const callInfo=(o={})=>SEC('call','Call Info',{step:'Before you dial',blurb:'Fill in what you know from your research. Confirm the rest on the call.',items:[
   TXT('company','Company name',null,null,{req:true,ph:'As listed'}),
+  TXT('dba','DBA',null,null,{ph:'Trade name, if different'}),
   TXT('contact','Contact name',null,null,{ph:'First and last'}),
   TXT('title','Contact title'),
   TXT('phone','Phone',null,null,{ph:'(407) 555-0100',inputmode:'tel'}),
   TXT('email','Email',null,null,{ph:'name@company.com',inputmode:'email'}),
   TXT('fein','FEIN',null,null,{ph:'XX-XXXXXXX'}),
+  ...(o.website?[TXT('website','Website',null,null,{ph:'www.company.com'})]:[]),
   ONE('lead_source','Lead source',null,null,LEAD,{select:true}),
   NUM('est_emp','Estimated employees',null,null,{ph:'Best guess from research'}),
   AREA('est_ops','Description of operations',null,null,{full:true,ph:'What the company does day to day'}),
@@ -577,6 +580,7 @@ const PAYROLL=[
    {v:"We're too small",hint:'Only a few employees',say:"We work with businesses as small as 3 employees, and it's very cost effective. We can take payroll off your plate and give you access to services that help small business owners compete on a level playing field. Would you be open to seeing what extra value we might be able to offer your team?"},
   ]),
   TXT('provider','Current provider name',null,null,{ph:'ADP, Paychex, Gusto, accountant name...',when:s=>!!s.current&&s.current!=='In-house'}),
+  ONE('used_peo','Used a PEO before',"Have you ever worked with a PEO before?","(If yes, ask what they liked and didn't like. It tells you what to avoid.)",YN,{when:s=>!!s.current&&s.current!=='Another PEO',fu:{Yes:["Which PEO was it? What did you like about it, and why did you leave?",null],No:["Have you ever looked into one? What questions or concerns came up?",null]}}),
  ]}),
  SEC('ask','Ask for the Quote',{step:'Step 2',items:[
   BRANCH('interest','Interested in a quote','So, would you be open to a quote, or a quick call to see our platform?',"(This is your moment. Ask clearly, then wait for the answer.)",[
@@ -588,16 +592,15 @@ const PAYROLL=[
   TXT('renewal_hint','Contract renewal (if they shared it)',null,null,{when:s=>s.interest==='No'}),
  ]}),
  SEC('basics','Company Basics',{step:'Step 3 · Discovery',when:pYes,blurb:'The must-haves for every initial appointment: name, locations, states, operations, headcount, job types, decision makers.',items:[
-  TXT('legal_name','Legal company name',"What's the full legal name of the business?","(Ask if they use a different name with customers. That's their DBA, or trade name.)"),
-  TXT('dba','DBA / trade name'),
-  AREA('operations','What the company does',"In your own words, what does your company do day to day?","(Get details. \"Construction\" isn't enough. New builds or repairs? Commercial or homes? This drives pricing.)"),
-  ONE('staffing','Staffing company',"Do you place your workers at other companies' job sites, like a staffing or temp agency?","(Staffing accounts need a staffing supplemental and an end client list.)",YN),
+  ONE('staffing','Staffing company',"Are you a staffing agency?","(Staffing accounts need a staffing supplemental and an end client list.)",YN),
   NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
   TXT('address','Main address',"What's the address of your main location?"),
-  AREA('locations','Other locations',"Do you have any other locations?","(Note each address and whether it's an office, shop, warehouse, jobsite, or remote.)",{small:true}),
-  ONE('multi_state','Employees in other states',"Do you have any employees working in other states?",null,YN,{fu:{Yes:["About how many employees are in each state? Do they work remotely, or at a location there? What type of work are they performing?","(Each state has its own payroll tax and workers' comp rules. Get the headcount and type of work for each one.)"]}}),
-  TXT('states','Which states',null,null,{when:s=>s.multi_state==='Yes'}),
-  ONE('same_fein','All under one FEIN',"Are all your locations under the same company tax ID number, your FEIN?","(If not, write down each company name. More than one company is fine, we just need to know.)",['Yes','No','Not sure'],{fu:{No:["What are the names of the other companies? Do they all have the same owners?",null],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]}}),
+  ONE('other_locs','Other locations',"Do you have any other locations?",null,YN),
+  AREA('locations','Other location addresses',"What are the addresses?","(Note each address and whether it's an office, shop, warehouse, jobsite, or remote.)",{small:true,when:s=>s.other_locs==='Yes'}),
+  ONE('multi_state','Employees in other states',"Do you have any employees working in other states?",null,YN,{when:s=>s.other_locs==='Yes',fu:{Yes:["About how many employees are in each state? Do they work remotely, or at a location there? What type of work are they performing?","(Each state has its own payroll tax and workers' comp rules. Get the headcount and type of work for each one.)"]}}),
+  TXT('states','Which states',null,null,{when:s=>s.other_locs==='Yes'&&s.multi_state==='Yes'}),
+  ONE('same_fein','All under one FEIN',"Are all your locations under the same company tax ID number, your FEIN?","(More than one company is fine, we just need to know.)",['Yes','No','Not sure'],{fu:{No:["What are the other company names, their FEINs and addresses? Do they all have the same owners?","(Add each company below.)"],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]},when:s=>s.other_locs==='Yes'}),
+  TABLE('other_cos','Other companies',null,null,CO_COLS,{when:s=>s.other_locs==='Yes'&&s.same_fein==='No'}),
   NUM('emp_total','Full-time employees',"How many full-time employees do you have on payroll right now?",null,{req:true}),
   NUM('emp_pt','Part-time employees',"How many part-time employees do you have?"),
   ONE('frequency','Pay cycle',"How often do you pay your employees? Weekly, every two weeks, twice a month, or monthly?","(Company info, employee count and pay cycle are all you need for a payroll-only quote.)",['Weekly','Bi-weekly','Semi-monthly','Monthly'],{req:true}),
@@ -609,35 +612,28 @@ const PAYROLL=[
  SEC('payroll','Payroll Today',{step:'Step 4',when:pYes,items:[
   TXT('how_long','Time with provider',"How long have you been with your current provider?"),
   TXT('contract_renewal','Contract / renewal date',"Do you have a contract with them? When does it renew?"),
-  TXT('fees','Current payroll fees',"About how much are you paying for payroll, per run or per month?","(If they don't know, ask for a recent invoice. It's one of the documents we'll need anyway.)"),
-  TXT('timekeeping','Timekeeping',"How do your employees clock in and out?","(Paper timesheets or a separate app? That's an opening for our timekeeping solution.)"),
+  TXT('timekeeping','Timekeeping',"Are you currently using a timekeeping system? How do your employees clock in and out?","(Paper timesheets or a separate app? That's an opening for our timekeeping solution.)"),
   TXT('payroll_person','Who runs payroll',"Who on your team handles payroll? Collecting hours, approving it, fixing mistakes?"),
-  TXT('payroll_person_other','Their other duties',"What else is that person responsible for?","(Listen for an owner or office manager wearing too many hats. That's a pain point.)"),
-  NUM('payroll_hours','Hours per week on payroll',"About how many hours a week go into payroll and the paperwork around it?"),
-  AREA('relationship','Relationship with provider',"How would you describe your relationship with your current provider?","(One of the best questions you can ask. Ask it, then stay quiet and listen.)",{small:true}),
-  ONE('happy_service','Happy with service',"Are you happy with their service?",null,YNM,{fu:{Yes:["What are some of the things you like most about them?","(Write down what they value. Your proposal has to match it, then add more.)"],No:["Why not? What challenges are you facing with them? And how have they handled it when you've brought it up?","(Get specific examples. These become the center of your proposal.)"],Mixed:["What's working well, and what would you change if you could?","(Focus on the part they would change.)"]}}),
-  ONE('happy_price','Happy with pricing',"How about their pricing?",null,YNM,{fu:{Yes:["Good to hear. Do you know what you're paying in total, including any add-on fees?","(Many owners don't know their full cost. An invoice tells the real story.)"],No:["What feels too high? Have you had price increases or surprise fees? Have you talked to them about it?",null],Mixed:["Which parts feel fair, and which parts feel too high?",null]}}),
-  ONE('meets_needs','Meets all needs',"Do they meet all of your needs?",null,YNM,{fu:{Yes:["If you could add one thing to what they do for you, what would it be?",null],No:["What's missing? How are you handling those things today?","(Every gap is a service we can offer.)"],Mixed:["What's missing, and how are you handling it today?",null]}}),
-  AREA('challenges','Challenges / wish list',"Is there anything that frustrates you, or anything you wish you had access to?","(Write down their exact words. You'll use them in the proposal.)",{small:true}),
-  AREA('challenge_history','Cause, how long, tried to fix',"What do you think is causing that? How long has it been going on, and have you tried to fix it?",null,{small:true}),
+  AREA('relationship','Relationship with provider',"How would you describe your relationship with your current provider? Are you happy with their service? How about their pricing? Do they meet all of your needs?","(One of the best questions you can ask. Ask it, then stay quiet and listen. Write down what they like, what they would change, and any gaps.)",{}),
+  TXT('payroll_person_other','Their other duties',"What else is your person managing payroll in house responsible for?","(Listen for an owner or office manager wearing too many hats. That's a pain point.)"),
+  NUM('payroll_hours','Hours per week on payroll',"About how many hours a week go into payroll and the paperwork around it?","(Ask only if they run payroll in house or mention significant challenges with payroll.)"),
+  AREA('challenges','Challenges, how long, tried to fix',"Is there anything that frustrates you, or anything you wish you had access to? How long has it been going on, and have you tried to fix it?","(Write down their exact words. You'll use them in the proposal.)",{small:true}),
   ONE('tax_notices','Tax notices or penalties (24 months)',"In the last couple of years, have you gotten any letters or penalties from the IRS or the state about payroll taxes?","(If yes, that's a big pain point. We handle payroll tax filings for our clients.)",YN,{fu:{Yes:["What happened, and how was it fixed? Did your provider help, and who ended up paying the penalty?",null]}}),
   MANY('special','Special payroll needs',"Is there anything special about your payroll? Things like tips, commissions, wage garnishments, or tracking hours by job?",null,['Tips','Commissions','Garnishments','Job costing','Certified payroll','Multi-state','Accountant / GL export','None']),
-  ONE('used_peo','Used a PEO before',"Have you ever worked with a PEO before?","(If yes, ask what they liked and didn't like. It tells you what to avoid.)",YN,{fu:{Yes:["Which PEO was it? What did you like about it, and why did you leave?",null],No:["Have you ever looked into one? What questions or concerns came up?",null]}}),
  ]}),
  SEC('wc','Workers\' Comp',{step:'Step 5 · Full PEO opportunity',when:pYes,items:[
-  ONE('wc_carve',"Workers' comp carve out",null,"(Pick one only if Key HR is not providing workers' comp. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions']),
+  ONE('wc_carve',"Workers' comp carve out",null,"(Tap only if they want to keep their own workers' comp policy. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Not Interested in Workers Comp - Keeping their Own Policy']),
   SAY("That's really helpful, thank you. A lot of business owners I talk to are also juggling workers' comp, benefits, and HR with separate companies. Do you mind if I ask a few quick questions about those? Putting them together is usually where the biggest savings are.","(This is the move from payroll to a full PEO quote. Keep it casual. Most of the long-term value is here.)"),
   TXT('wc_carrier',"Workers' comp carrier","Who is your workers' comp insurance with?"),
-  TXT('wc_agent','Agent / broker',"Do you work with an agent for that?"),
+  TXT('wc_agent','Independent agent',"Is that through an independent agent?"),
   DATE('wc_renewal','WC renewal date',"When does that policy renew?","(Many policies renew January 1. If renewal is within 90 days, move quickly.)"),
-  TXT('wc_premium','Annual WC premium',"About how much do you pay for workers' comp each year?"),
-  ONE('wc_structure','Deposit or pay-as-you-go',"Do you pay a big deposit up front, or do you pay as you go with each payroll?","(With Key HR, workers' comp is pay-as-you-go. No deposit and no surprise audit bill at the end of the year.)",['Deposit up front','Pay-as-you-go','Not sure'],{fu:{'Deposit up front':["About how big was the deposit? Have you ever gotten a bill after the year-end audit?","(Audit bills are a common surprise. Pay-as-you-go removes them.)"],'Pay-as-you-go':["Is that through your payroll company, or through a separate insurance company?",null]}}),
+  TXT('wc_premium','Annual WC premium',"Do you know about how much you pay for workers' comp each year?"),
   ONE('wc_claims','Injuries in last 3 years',"Have you had any work injuries or workers' comp claims in the last 3 years?",null,YN,{fu:{Yes:["Can you tell me a little about what happened? What kind of injury was it, how serious, and is the claim still open?","(Ask what they changed afterward. A good answer helps underwriting.)"]}}),
-  ONE('loss_runs','Loss runs',"Could you get us a copy of your loss runs? It's a claims report from your insurance company, usually for the last 3 to 5 years.","(Their agent or carrier can usually email it within a few days.)",['Yes, will send','Will ask agent','No'],{fu:{'Will ask agent':["Who is your agent, and what's the best way to reach them?",null],No:["No problem. Who could request them for you, your agent or someone on your team? I'll send you the exact wording to use.",null]}}),
-  TXT('emr','Experience mod',"Do you happen to know your experience mod? It's a number on your policy, usually close to 1.0.","(Don't worry if they don't know. It's on the mod worksheet. Below 1.0 is good.)",{ph:'e.g. 0.92'}),
+  ONE('loss_runs','Loss runs',"To get you started with a workers' comp quote, I would need a copy of your loss runs. It's a claims report from your insurance company, usually for the last 3 years. Could you provide that?","(Their agent or carrier can usually email it within a few days.)",['Yes, will send','Will ask agent','No'],{fu:{'Will ask agent':["Who is your agent, and what's the best way to reach them?",null],No:["No problem. Who could request them for you, your agent or someone on your team? I'll send you the exact wording to use.",null]}}),
   MANY('exposures','Driving / heights / digging',"Do any of your employees drive for work, work up on ladders or roofs, or dig trenches?","(These change pricing. If yes, get the details below.)",['Driving','Heights','Trenching / digging','None']),
   AREA('exposure_detail','Exposure details',null,"(How far they drive and how many ride together, how high they work, how deep they dig.)",{small:true,when:s=>arr(s.exposures).some(x=>x!=='None')}),
-  TXT('safety','Safety plan & training',"Who handles safety for your team? Do you have a written safety plan?"),
+  TXT('safety','Who handles safety',"Who handles safety for your team?"),
+  ONE('safety_plan','Written safety plan',"Do you have a written safety plan?",null,YN),
  ]}),
  SEC('benefits','Benefits',{step:'Step 6',when:pYes,items:[
   ONE('offers_benefits','Offers benefits',"Do you offer your employees any benefits right now, like health, dental, or vision?",null,YN,{fu:{No:["Is that something you've thought about offering? What has stopped you so far?","(Cost is usually the answer. Mention the options available at no cost to the employer.)"]}}),
@@ -651,21 +647,19 @@ const PAYROLL=[
   AREA('ben_ideal','Ideal benefits plan',"If you could design your ideal benefits package, what would it include?","(Good to know: with Key HR, options like dental, vision, 401(k), and a wellness plan are available at no cost to the employer.)",{small:true}),
  ]}),
  SEC('hr','HR, Hiring & Technology',{step:'Step 7',when:pYes,items:[
-  ONE('hr_who','Who handles HR',"Who handles HR for you? Is that someone's full-time job, or part of someone's job?",null,['Full-time HR person',"Part of someone's job",'Outsourced','Nobody'],{fu:{'Full-time HR person':["What takes up most of their time? Is there anything they wish they had help with?",null],"Part of someone's job":["Who is it, and what else are they responsible for? About how many hours a week does HR take?",null],Outsourced:["Who do you use, and how is that going?",null],Nobody:["When an HR question comes up, who do you call? Has anything ever slipped through the cracks?","(This is a big opening. We become their HR team.)"]}}),
+  ONE('hr_who','Who handles HR',"Who handles HR for you? Is that someone's full-time job, or part of someone's job?",null,['Full-time HR person',"Part of someone's job",'Outsourced','PEO','Nobody'],{fu:{PEO:["Which PEO do you use, and how is that going?",null],'Full-time HR person':["What takes up most of their time? Is there anything they wish they had help with?",null],"Part of someone's job":["Who is it, and what else are they responsible for? About how many hours a week does HR take?",null],Outsourced:["Who do you use, and how is that going?",null],Nobody:["When an HR question comes up, who do you call? Has anything ever slipped through the cracks?","(This is a big opening. We become their HR team.)"]}}),
   TXT('onboarding','New hire onboarding',"When you hire someone new, who handles the paperwork and onboarding?"),
   TXT('handbook','Handbook last updated',"Do you have an employee handbook? When was it last updated?","(Laws change every year. A handbook more than 2 years old is a risk. We write and update handbooks for our clients.)"),
   TXT('pto','PTO & how it is tracked',"Do you offer paid time off? How do you keep track of it?"),
-  SCALE('compliance','Compliance confidence (1 to 10)',"On a scale of 1 to 10, how confident are you that your company is fully up to date with all the employment laws?",null,{fu:{'*':["Why did you pick that number? What would it take to get you to a 10?","(Anything under 8 is an opening. Listen for handbooks, new laws, or a past complaint.)"]}}),
+  SCALE('compliance','Compliance confidence (1 to 10)',"On a scale of 1 to 10, how confident are you that your company is fully compliant with employment laws?",null,{fu:{'*':["Why did you pick that number? What would it take to get you to a 10?","(Anything under 8 is an opening. Listen for handbooks, new laws, or a past complaint.)"]}}),
   ONE('claims_audits','Complaints, lawsuits or audits',"In the last few years, have you dealt with any employee complaints, lawsuits, or audits from the Department of Labor or the state?","(Keep a calm tone. If yes, let them know we help clients prevent and handle these.)",YN,{fu:{Yes:["What happened, and how was it resolved? What did it cost you in time and money?",null]}}),
   TXT('reviews_training','Reviews & training',"Do you do performance reviews or any employee training?","(If they want to do more, mention our training and performance tools.)"),
   ONE('hiring_freq','Hiring frequency',"How often are you hiring new people?","(Hiring often? Mention our applicant tracking system for posting jobs and managing applicants.)",['Weekly','Monthly','A few times a year','Rarely'],{fu:{Weekly:["How do you find and keep track of applicants today? What's the hardest part of hiring right now?",null],Monthly:["How do you find and keep track of applicants today? What's the hardest part of hiring right now?",null],'A few times a year':["When you do hire, how long does it take to fill the spot? Is it hard to keep good people?",null],Rarely:["That's great. What do you think keeps people around?",null]}}),
-  TXT('systems','Systems in use',"How many different systems or logins does your team use for payroll, time, HR, and benefits?","(More than one system that doesn't talk to the others is a top pain point. We put it all on one platform.)"),
+  TXT('systems','Systems in use',"How many different systems does your team use for payroll, time, HR, and benefits?","(More than one system that doesn't talk to the others is a top pain point. We put it all on one platform.)"),
  ]}),
  SEC('decision','What Matters Most',{step:'Step 8',when:pYes,items:[
   MANY('drivers','Top reasons to change',"Out of everything we talked about, what are the top things you'd want to fix?","(Pick up to three.)",["Workers' comp rates",'Benefits cost or access','Better service','Payroll or tax errors','Saving time','Compliance worries','HR technology','Growth or new states','Hiring and keeping people','Overall cost'],{max:3}),
-  AREA('impact','What solving it changes',"If we could fix those, what would that change for you and your business?",null,{small:true}),
-  AREA('what_needed','What it takes to move forward',"What would need to happen for you to move forward with us?",null,{small:true}),
-  AREA('blockers','Anything that could stop it',"Is there anything that could stop this from happening?","(Better to hear it now than at the end.)",{small:true}),
+  AREA('what_needed','What it takes to move forward',"If I am able to present you a proposal that meets all of your needs for a price that you're comfortable with, is there anything else that you would need to move forward?",null,{small:true}),
   ONE('timeline','Timeline',"When would you ideally like to have something new in place?",null,['Under 30 days','30 to 90 days','90+ days']),
   TXT('timeline_driver','What drives the timing',"What's driving that timing?","(A renewal date, a new hire, an audit, an employee leaving?)"),
   ONE('others_eval','Looking at other providers',"Are you looking at any other providers right now?",null,YN,{fu:{Yes:["Who else are you looking at? What do you like about them so far?","(Never knock the competition. Ask what matters most in their decision.)"]}}),
@@ -726,11 +720,13 @@ const WC=[
   TXT('legal_name','Legal company name',"What's the full legal name of the business?"),
   TXT('address','Main address',"What's the address of your main location?"),
   AREA('operations','What the company does',"In your own words, what does your company do day to day?","(Get details. This is how underwriting picks the right job codes, and it's the biggest factor in price.)"),
-  ONE('staffing','Staffing company',"Do you place your workers at other companies' job sites, like a staffing or temp agency?","(Staffing accounts need a staffing supplemental and an end client list.)",YN),
+  ONE('staffing','Staffing company',"Are you a staffing agency?","(Staffing accounts need a staffing supplemental and an end client list.)",YN),
   NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
   TXT('website','Website'),
-  AREA('locations','Other locations',"Do you have any other locations?","(Note each address and type: office, shop, warehouse, jobsite, or remote.)",{small:true}),
-  ONE('same_fein','All under one FEIN',"Are all of your locations under the same FEIN?",null,['Yes','No','Not sure'],{fu:{No:["What are the names of the other companies? Do they all have the same owners?",null],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]}}),
+  ONE('other_locs','Other locations',"Do you have any other locations?",null,YN),
+  AREA('locations','Other location addresses',"What are the addresses?","(Note each address and type: office, shop, warehouse, jobsite, or remote.)",{small:true,when:s=>s.other_locs==='Yes'}),
+  ONE('same_fein','All under one FEIN',"Are all of your locations under the same FEIN?",null,['Yes','No','Not sure'],{fu:{No:["What are the other company names, their FEINs and addresses? Do they all have the same owners?","(Add each company below.)"],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]},when:s=>s.other_locs==='Yes'}),
+  TABLE('other_cos','Other companies',null,null,CO_COLS,{when:s=>s.other_locs==='Yes'&&s.same_fein==='No'}),
  ]}),
  SEC('coverage','Current Coverage',{step:'Step 4',when:wNow,items:[
   TXT('carrier','Current carrier',"Who is your workers' comp with right now?"),
@@ -806,9 +802,8 @@ const WC=[
 
 /* ---------- STAFFING ---------- */
 const sGo=s=>!!s.response&&s.response!=='Not interested';
-const sNow=s=>s.path==='Go over it now';
 const STAFFING=[
- callInfo(),
+ callInfo({website:true}),
  SEC('open','Opener',{step:'Step 1',items:[
   SAY("Hi, this is {producer} with Key HR. May I speak with {contact}, please?"),
   SAY("Hi {contact}, I'll be brief. We support staffing companies like yours with cost-saving workforce management solutions, including payroll, workers' comp, HR, compliance, employee benefits and more. Would you be open to a quick comparison against what you have in place today?","(Staffing owners hear from a lot of vendors. Keep it short, lead with savings, and ask the question.)"),
@@ -822,55 +817,44 @@ const STAFFING=[
   DATE('reach_back','Reach back out on',null,null,{when:s=>s.response==='Not interested'||s.response==='Happy with current setup'}),
  ]}),
  SEC('qualify','Quick Questions',{step:'Step 2',when:sGo,items:[
-  NUM('emp_total','Total employees',"How many employees do you have on payroll right now, including the workers you place?",null,{req:true}),
-  TXT('internal_staff','Internal staff',"How many of those are internal office staff, like recruiters and admin?"),
-  MANY('staff_type','Type of staffing',"What kind of staffing do you do?",null,['Light industrial','Warehouse / logistics','Construction / trades','Clerical / office','Healthcare','IT / professional','Hospitality','Other']),
+  NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
+  TXT('address','Main address',"What is your main address?"),
+  ONE('other_locs','Other branch offices',"Do you have any other branch offices?",null,YN),
+  AREA('locations','Branch office addresses',"What are the addresses?","(Note the address of each branch.)",{small:true,when:s=>s.other_locs==='Yes'}),
+  ONE('same_fein','All under one FEIN',"Are all of your branches under the same FEIN?",null,['Yes','No','Not sure'],{fu:{No:["What are the other company names, their FEINs and addresses? Do they all have the same owners?","(Add each company below.)"],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]},when:s=>s.other_locs==='Yes'}),
+  TABLE('other_cos','Other companies',null,null,CO_COLS,{when:s=>s.other_locs==='Yes'&&s.same_fein==='No'}),
+  NUM('internal_staff','Internal employees',"How many internal employees do you have?"),
+  NUM('emp_field','Staffed workers in the field',"How many staffed workers do you have in the field?",null,{req:true}),
   MANY('placement','Placement types',"Are your placements mostly temporary, temp-to-hire or direct hire?",null,['Temporary','Temp-to-hire','Direct hire','Payrolling for clients']),
   ONE('multi_state','Other states',"Are you placing workers in any other states?",null,YN,{fu:{Yes:["About how many employees are in each state? Do they work remotely, or at a location there? What type of work are they performing?","(Each state has its own payroll tax and workers' comp rules. Get the headcount and type of work for each one.)"]}}),
   TXT('states','Which states',null,null,{when:s=>s.multi_state==='Yes'}),
-  ONE('claims','Injuries in last 3 years',"Have you had any workers' comp accidents or injuries in the past 3 years?","(A yes doesn't rule them out. Just get the details.)",YN,{fu:{Yes:["Can you give me an idea of what that looks like? What kind of injury, at which client, how serious, and is it still open?","(Ask what they changed afterward. A good answer helps underwriting.)"]}}),
-  SAY("Thanks, that's really helpful. Staffing is a great fit for us. For full approval I'll need your loss runs, a staffing supplemental, and a list of your clients and what your workers do there. If you have a few minutes now, we can go over the details, or I can send you an email with everything I'll need."),
-  BRANCH('path','How they want to continue',null,null,[
-   {v:'Go over it now',hint:'Has a few minutes',say:"Perfect. This will only take a few minutes.",tip:"(Continue to Company Details below.)"},
-   {v:'Email me the list',hint:'Send the details',say:"No problem. Can you confirm your email address? Also, can we set up a call for this time next week? I'd need about half an hour to show you our platform, go over your quote, and answer any questions you might have.",tip:"(Confirm the email and meeting time in Wrap Up. Send the document list and a calendar invite today.)"},
-  ]),
  ]}),
- SEC('company','Company Details',{step:'Step 3',when:sNow,items:[
-  TXT('legal_name','Legal company name',"What's the full legal name of the business?"),
-  TXT('address','Main address',"What's the address of your main office?"),
-  AREA('operations','What the company does',"In your own words, what does your company do, and what industries do you serve?","(Get details. Underwriting prices staffing by the work done at each client.)"),
-  NUM('years','Years in business',"How long have you been in business?","(Less than a year? You'll need the owner's resume.)"),
-  TXT('website','Website'),
-  AREA('locations','Other branch offices',"Do you have any other branch offices?","(Note the address of each branch.)",{small:true}),
-  ONE('same_fein','All under one FEIN',"Are all of your branches under the same FEIN?",null,['Yes','No','Not sure'],{fu:{No:["What are the names of the other companies? Do they all have the same owners?",null],'Not sure':["No problem. Who could confirm that for us, maybe your accountant?",null]}}),
- ]}),
- SEC('clients','Clients & Job Duties',{step:'Step 4',when:sNow,blurb:'Underwriting prices staffing by the work done at each client. This becomes the end client list.',items:[
-  NUM('n_clients','Active clients',"How many active clients are you placing workers with right now?"),
-  AREA('top_clients','Largest clients and duties',"Who are your biggest clients, what industries are they in, and what do your workers do there?","(For the end client list: client name, industry, job duties performed and number of workers placed.)"),
+ SEC('clients','Clients & Job Duties',{step:'Step 3',when:sGo,blurb:'Underwriting prices staffing by the work done at each client. This becomes the end client list.',items:[
+  AREA('top_clients','End clients and work performed',"What types of end clients are you providing staffing for? What kind of work are the employees doing?","(For the end client list: client name, industry, job duties performed and number of workers placed.)"),
   TABLE('jobs','Job types & wages',"Can you walk me through the main jobs your workers do? About how many people are in each, and roughly what they earn in a year?","(This table drives the price. Get the state, the job, the headcount and the yearly wages for each group. A best guess is fine.)",JOB_COLS),
   ONE('hazard','Hazardous work at client sites',"Do any of your workers drive, work at heights, run heavy machinery, or work in hazardous areas at client sites?",null,YN,{fu:{Yes:["What exactly are they doing, at which clients, and how many workers?","(Driving, heights and depth change pricing the most. Get every detail.)"]}}),
   ONE('client_safety','Safety training & equipment',"Who provides safety training and equipment at the job site, you or your clients?",null,['Client provides','We provide','Both']),
   ONE('site_visits','Job site visits',"Do you visit client job sites before you place workers?",null,YN,{fu:{No:["How do you learn what the work involves before you place someone?",null]}}),
   ONE('contracts','Client agreements',"Do you have written agreements with your clients that cover safety and workers' comp?",null,YN),
  ]}),
- SEC('coverage','Current Coverage',{step:'Step 5',when:sNow,items:[
-  ONE('wc_carve',"Workers' comp carve out",null,"(Pick one only if Key HR is not providing workers' comp. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions']),
-  TXT('carrier','Current carrier',"Who is your workers' comp with right now?"),
-  TXT('agent','Agent / broker',"Do you work with an agent or broker?"),
-  TXT('premium','Annual premium',"About how much do you pay for workers' comp each year?"),
-  ONE('structure','Premium structure',"Do you pay a deposit up front, or pay as you go with each payroll?","(With Key HR, workers' comp is pay-as-you-go. No deposit and no surprise audit bill.)",['Deposit up front','Pay-as-you-go','Not sure'],{fu:{'Deposit up front':["About how big was the deposit? Have you ever gotten a bill after the year-end audit?","(Audit bills are a common surprise. Pay-as-you-go removes them.)"]}}),
-  TXT('emr','Experience mod',"Do you know your experience mod? It's a number on your policy, usually close to 1.0.","(Below 1.0 is good. Above 1.0 means more claims than average.)",{ph:'e.g. 0.92'}),
-  ONE('loss_runs','Loss runs',"Can you send a copy of your loss runs? It's a claims report from your insurance company, usually for the last 3 to 5 years.","(Their agent or carrier can usually email it within a few days. It needs to be recent, from the last 90 days.)",['Yes, will send','Will ask agent','No'],{fu:{'Will ask agent':["Who is your agent, and what's the best way to reach them?",null],No:["No problem. Who could request them for you, your agent or someone on your team? I'll send you the exact wording to use.",null]}}),
-  ONE('open_claims','Open claims',"Are any of those claims still open, or involve a lawyer?",null,YN,{when:s=>s.claims==='Yes',fu:{Yes:["Can you tell me more? About how much has been paid so far, and is a lawyer involved?",null]}}),
+ SEC('coverage','Current Coverage',{step:'Step 4',when:sGo,items:[
+  ONE('wc_carve',"Workers' comp carve out",null,"(Tap only if they want to keep their own workers' comp policy. The RFP then becomes a Key HR PDF with no workers' comp sections.)",['Not Interested in Workers Comp - Keeping their Own Policy']),
+  TXT('carrier',"Workers' comp carrier","Who is your workers' comp insurance with?"),
+  TXT('agent','Independent agent',"Is that through an independent agent?"),
+  TXT('premium','Annual WC premium',"Do you know about how much you pay for workers' comp each year?"),
+  ONE('claims','Injuries in last 3 years',"Have you had any work injuries or workers' comp claims in the last 3 years?",null,YN,{fu:{Yes:["Can you tell me a little about what happened? What kind of injury was it, how serious, and is the claim still open?","(Ask what they changed afterward. A good answer helps underwriting.)"]}}),
+  ONE('loss_runs','Loss runs',"To get you started with a workers' comp quote, I would need a copy of your loss runs. It's a claims report from your insurance company, usually for the last 3 years. Could you provide that?","(Their agent or carrier can usually email it within a few days.)",['Yes, will send','Will ask agent','No'],{fu:{'Will ask agent':["Who is your agent, and what's the best way to reach them?",null],No:["No problem. Who could request them for you, your agent or someone on your team? I'll send you the exact wording to use.",null]}}),
+  TXT('safety_who','Who handles safety',"Who handles safety for your team?"),
+  ONE('safety_plan','Written safety plan',"Do you have a written safety plan?",null,YN),
  ]}),
- SEC('funding','Funding',{step:'Step 6',blurb:'Cash flow is the top pain point for most staffing companies. Key HR offers short-term payroll funding and payroll factoring.',items:[
+ SEC('funding','Funding',{step:'Step 5',blurb:'Cash flow is the top pain point for most staffing companies. Key HR offers short-term payroll funding and payroll factoring.',items:[
   ONE('factoring','Uses a factoring company',"Are you currently using a factoring company?",null,YN,{fu:{No:["How do you cover payroll while you wait for clients to pay?","(If cash flow is tight, a funding quote can open the door.)"]}}),
   TXT('factor_co','Factoring company',"If yes, who?",null,{when:s=>s.factoring==='Yes'}),
   TXT('factor_rate','Current factoring rate',"Do you know your current rate?",null,{when:s=>s.factoring==='Yes',ph:'e.g. 2.5% for 30 days'}),
   ONE('factor_happy','Happy with funding provider',"Are you happy with your provider?",null,YNM,{when:s=>s.factoring==='Yes',fu:{Yes:["What do you like most about them?",null],No:["What's not working? The rate, how fast they fund, or the service?",null],Mixed:["What would you change if you could?",null]}}),
   ONE('funding_quote','Open to a funding quote',"Would you be open to a new funding quote?","(Key HR offers short-term payroll funding and payroll factoring for staffing companies.)",YN),
  ]}),
- SEC('pivot','Payroll, Benefits & HR',{step:'Step 7',when:sNow,items:[
+ SEC('pivot','Payroll, Benefits & HR',{step:'Step 6',when:sGo,items:[
   SAY("Just a couple more questions. With us, workers' comp is paid through payroll, so I like to understand how that works for you today.","(This is your opening to quote payroll and the full PEO. Keep it light.)"),
   TXT('payroll_provider','Payroll provider',"Who do you use for payroll right now?"),
   ONE('frequency','Pay cycle',"How often do you run payroll?",null,['Weekly','Bi-weekly','Semi-monthly','Monthly']),
@@ -878,21 +862,21 @@ const STAFFING=[
   ONE('offers_benefits','Offers health benefits',"Do you offer health benefits to your employees?",null,YN,{fu:{Yes:["Who are they with, and how did your last renewal go?",null],No:["Is that something you'd like to offer? What has stopped you so far?",null]}}),
   DATE('ben_renewal','Benefits renewal',"When do your benefits renew?",null,{when:s=>s.offers_benefits==='Yes'}),
   TXT('hr_who','Who handles HR',"Who handles HR, onboarding and employee paperwork for you?","(High-volume onboarding and I-9s are a big pain point in staffing. We handle both.)"),
-  MANY('other_quotes','Also quote',"Would you like me to include payroll, benefits, HR or funding in your quote, so you can see the full picture?","(Most clients save the most when everything is together.)",['Payroll','Benefits','HR support','Timekeeping','Payroll funding']),
+  MANY('other_quotes','Also quote',"Would you like me to include benefits, HR or funding in your quote, so you can see the full picture?","(Most clients save the most when everything is together.)",['Benefits','HR support','Timekeeping','Payroll funding']),
  ]}),
- SEC('docsreq','Documents Required',{step:'Step 8',blurb:'What you must have before the quote can be built. Staffing accounts also need a staffing supplemental and an end client list.',items:[
+ SEC('docsreq','Documents Required',{step:'Step 7',blurb:'What you must have before the quote can be built. Staffing accounts also need a staffing supplemental and an end client list.',items:[
   {t:'reqdocs',id:'reqdocs_view',label:'Required documents'},
   {t:'one',id:'lr_status',label:'Loss runs status',opts:['Not requested','Requested','Received'],noRender:true},
   {t:'one',id:'ss_status',label:'Staffing supplemental status',opts:['Not requested','Requested','Received'],noRender:true},
   {t:'one',id:'ecl_status',label:'End client list status',opts:['Not requested','Requested','Received'],noRender:true},
  ]}),
- SEC('docs','Documents to Request',{step:'Step 9',items:[
+ SEC('docs','Documents to Request',{step:'Step 8',items:[
   SAY("I'll send you an email today with the full list. Here's what I'll need to get your quote approved.","(Ask for as much as you can on the call. Set the proposal at least 3 business days out once you have the documents.)"),
   MANY('docs_req','Documents requested',null,null,["WC policy page & current rates",'Experience mod worksheet','Payroll register / recent payroll report','Current payroll or PEO invoice','Current factoring agreement / rate sheet','Accounts receivable aging report'],{full:true}),
   MANY('docs_owner','Owner documents',null,"(In business less than 1 year.)",["Owner's resume"],{full:true,when:s=>toNum(s.years)!=null&&toNum(s.years)<1}),
   DATE('docs_due','Documents promised by'),
  ]}),
- SEC('close','Wrap Up',{step:'Step 10',items:[
+ SEC('close','Wrap Up',{step:'Step 9',items:[
   SAY("Thank you so much for your time. I'll send that email today, and I'm looking forward to our call."),
   TXT('confirm_email','Email confirmed',"Can I confirm the best email address for you?",null,{inputmode:'email'}),
   DT('next_meeting','Next meeting'),
@@ -909,7 +893,7 @@ const CALL_TABS=['payroll','wc','staffing'];
 const TYPE_LABEL={payroll:'Payroll / PEO',wc:"Workers' comp",staffing:'Staffing'};
 const TYPE_TAG={payroll:'PAYROLL / PEO',wc:"WORKERS' COMP",staffing:'STAFFING'};
 const LEAD_LABEL={payroll:'Payroll / PEO Lead',wc:"Workers' Comp Lead",staffing:'Staffing Lead'};
-const FAQ_AFTER={payroll:'ask',wc:'qualify',staffing:'qualify'};
+const FAQ_AFTER={payroll:'ask',wc:'qualify',staffing:'open'};
 
 /* ---------- quick answers ---------- */
 const FAQ={
@@ -1184,7 +1168,10 @@ function calcMarkup(){
 }
 
 function renderForm(tab){
-  {const vv=forms[tab].v;if(!(vv.operations||'').trim()&&(vv.est_ops||'').trim())vv.operations=vv.est_ops}
+  {const vv=forms[tab].v;if(tab==='payroll'){const o=(vv.operations||'').trim(),e=(vv.est_ops||'').trim();if(o&&!e.includes(o))vv.est_ops=e?e+'\n'+o:o;delete vv.operations}
+   else if(!(vv.operations||'').trim()&&(vv.est_ops||'').trim())vv.operations=vv.est_ops}
+  if(tab==='staffing'){const vv=forms[tab].v;if(vv.emp_total!=null&&vv.emp_field==null){const t=toNum(vv.emp_total),i=toNum(vv.internal_staff);if(t!=null)vv.emp_field=String(Math.max(0,t-(i||0)));delete vv.emp_total}if(vv.safety_who==null&&vv.safety)vv.safety_who=vv.safety}
+  {const vv=forms[tab].v;if(!vv.other_locs&&((vv.locations||'').trim()||vv.same_fein||(tab==='payroll'&&vv.multi_state)))vv.other_locs='Yes'}
   const root=$('#form-'+tab);root.textContent='';whenMap[tab]=[];
   SCHEMA[tab].forEach(sec=>{
     const s=el('section','sec');s.id='sec-'+tab+'-'+sec.id;s.setAttribute('aria-labelledby','h-'+tab+'-'+sec.id);
@@ -1327,7 +1314,7 @@ function setMsg(t,kind){const m=$('#msg');m.textContent=t;m.className='msg'+(kin
 /* ================= records ================= */
 function outcomeOf(tab,v){
   if(tab==='payroll'){if(v.interest==='Yes')return 'Wants a quote';if(v.interest==='Not sure')return v.followup?'10-min call booked':'Not sure';if(v.interest==='No')return 'Not interested';return 'In progress'}
-  if(v.response==='Not interested')return 'Not interested';if(v.path==='Go over it now')return 'Wants a quote';if(v.path==='Email me the list')return 'Sending doc list';if(v.response)return v.response;return 'In progress';
+  if(v.response==='Not interested')return 'Not interested';if(tab==='staffing'&&v.response==='Yes, interested')return 'Wants a quote';if(v.path==='Go over it now')return 'Wants a quote';if(v.path==='Email me the list')return 'Sending doc list';if(v.response)return v.response;return 'In progress';
 }
 function cleanValues(tab,v){
   const out={};
@@ -1677,7 +1664,7 @@ const ACORD=[
  {id:'general',title:'General Information',blurb:'Page 3. Answer all 24 questions. Explain every Yes.',items:GQ.map(([n,code,key,label])=>({t:'gq',n,id:'q'+n,label,af:LOB+'Question_'+code+'Code_A',exp:{id:'q'+n+'_exp',af:LOB+key+'Explanation_'+(n===23?'W':'A')}}))},
 ];
 const carveOn=v=>!!(v&&v.carve);
-const CARVE_OPTS=['Comp carve out - maintaining existing policy','Comp carve out - Enwage Insurance Solutions'];
+const CARVE_OPTS=['Not Interested in Workers Comp - Keeping their Own Policy'];
 const WC_SECS=['ws1','ws2','ws3','prior','general'];
 ACORD.forEach(sec=>{if(WC_SECS.includes(sec.id)){const w=sec.when;sec.when=v=>!carveOn(v)&&(!w||w(v))}});
 ACORD.splice(ACORD.findIndex(s=>s.id==='nature'),0,{id:'carveinfo',title:'Employees & Payroll',blurb:'Included on the Key HR RFP when workers\' comp is carved out.',when:v=>carveOn(v),items:[
@@ -1746,6 +1733,7 @@ function acordFromCall(tab){
     const gr=String(v.group_ride||'').trim();if(gr)q(9,/^no\b/i.test(gr)?'No':'Yes',/^no\b/i.test(gr)?'':gr);
   }else{
     if(arr(v.exposures).includes('Trenching / digging'))q(3,'Yes',v.exposure_detail||'Trenching / digging');
+    if(v.safety_plan)q(8,v.safety_plan,v.safety_plan==='Yes'?(v.safety||''):'');
   }
   if(v.uses_1099)q(6,v.uses_1099,v.uses_1099==='Yes'?[v.n_1099,v.uses_1099_notes].filter(Boolean).join('. '):'');
   if(rows.some(r=>r.type==='Seasonal'))q(11,'Yes',rows.filter(r=>r.type==='Seasonal').map(r=>(r.n?r.n+' ':'')+(r.job||'')).join(', '));
@@ -1869,9 +1857,9 @@ function renderAcord(){
   const body=el('div','body acbody');
   const cb0=el('div','carvebox'+(CV?' on':''));cb0.appendChild(el('span','lbl',"WORKERS' COMP"));
   const pg=el('div','pills');pg.setAttribute('role','group');pg.setAttribute('aria-label',"Workers' comp carve out");
-  CARVE_OPTS.forEach(o=>{const x=el('button','pill',o);x.type='button';x.setAttribute('aria-pressed',v.carve===o?'true':'false');x.addEventListener('click',()=>{v.carve=v.carve===o?'':o;saveDraft();buildSubMenu();renderAcord();setMsg(v.carve?'Comp carve out selected. The RFP will download as a Key HR PDF with no workers\' comp sections.':'Carve out cleared. The RFP will download as the ACORD 130.','ok')});pg.appendChild(x)});
+  [...CARVE_OPTS,...(v.carve&&!CARVE_OPTS.includes(v.carve)?[v.carve]:[])].forEach(o=>{const x=el('button','pill',o);x.type='button';x.setAttribute('aria-pressed',v.carve===o?'true':'false');x.addEventListener('click',()=>{v.carve=v.carve===o?'':o;saveDraft();buildSubMenu();renderAcord();setMsg(v.carve?'Comp carve out selected. The RFP will download as a Key HR PDF with no workers\' comp sections.':'Carve out cleared. The RFP will download as the ACORD 130.','ok')});pg.appendChild(x)});
   cb0.appendChild(pg);
-  cb0.appendChild(el('p','cnote',CV?(v.carve===CARVE_OPTS[1]?'Workers\' comp is placed separately with Enwage Insurance Solutions. ':'The client keeps its existing workers\' comp policy. ')+'Rating Information, General Information and every workers\' comp item are removed. Download RFP produces a Key HR RFP PDF instead of the ACORD 130.':'Select one if Key HR is not providing workers\' comp. Leave both off to produce the ACORD 130.'));
+  cb0.appendChild(el('p','cnote',CV?(/enwage/i.test(v.carve)?'Workers\' comp is placed separately with Enwage Insurance Solutions. ':'The client keeps its own workers\' comp policy. ')+'Rating Information, General Information and every workers\' comp item are removed. Download RFP produces a Key HR RFP PDF instead of the ACORD 130.':'Select one if Key HR is not providing workers\' comp. Leave both off to produce the ACORD 130.'));
   body.appendChild(cb0);
   const mb=el('div','missbox');mb.id='acMiss';body.appendChild(mb);
   const opts=el('div','acopts');
@@ -2041,7 +2029,7 @@ function buildCarveRfpPdf(A){
   y=pdfPrepared(doc,y,v.ni_name,toNum(v.emp_ct)!=null?toNum(v.emp_ct)+' Employees':'',[v.pay_freq?v.pay_freq+' Payroll':'',v.ni_state||''].filter(Boolean).join(' - '));
   doc.setFillColor(...RED);doc.rect(M,y,W-2*M,40,'F');doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,226,224);doc.text("W O R K E R S '   C O M P",M+12,y+15);
   doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text(ascii(v.carve),M+12,y+30);
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(ascii(v.carve===CARVE_OPTS[1]?'Placed separately with Enwage Insurance Solutions':'Client keeps its existing policy'),W-M-12,y+30,{align:'right'});
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(ascii(/enwage/i.test(v.carve)?'Placed separately with Enwage Insurance Solutions':'Client keeps its own policy'),W-M-12,y+30,{align:'right'});
   y+=54;
   const tbl=(title,rows,head)=>{
     rows=rows.filter(r=>r.some(c=>String(c==null?'':c).trim()));if(!rows.length)return;
@@ -2243,7 +2231,7 @@ function prof(t){
   const ex=arr(v.exposures);
   return {t,company:(v.legal_name||v.company||'').trim(),contact:v.contact||'',years:toNum(v.years),city:ad.city||'',state:ad.state||'',
     ops:(v.operations||v.est_ops||'').trim(),emp:empTotal(v),split:toNum(v.emp_pt)!=null?(toNum(v.emp_total)||0)+' FT / '+toNum(v.emp_pt)+' PT':(v.emp_split||''),jobs,wages,states,
-    locations:v.locations||'',staffing:v.staffing==='Yes'||t==='staffing',staffType:arr(v.staff_type),placement:arr(v.placement),nClients:toNum(v.n_clients),topClients:v.top_clients||'',internalStaff:v.internal_staff||'',factoring:v.factoring||'',factorCo:v.factor_co||'',factorRate:v.factor_rate||'',factorHappy:v.factor_happy||'',fundingQuote:v.funding_quote||'',clientSafety:v.client_safety||'',siteVisits:v.site_visits||'',uses1099:v.uses_1099||'',n1099:v.n_1099||'',coi:v.coi||'',
+    locations:v.other_locs==='No'?'':(v.locations||''),otherCos:v.same_fein==='No'?arr(v.other_cos).filter(r=>r&&(r.name||r.fein||r.address)):[],staffing:v.staffing==='Yes'||t==='staffing',staffType:arr(v.staff_type),placement:arr(v.placement),nClients:toNum(v.n_clients),topClients:v.top_clients||'',internalStaff:v.internal_staff||'',factoring:v.factoring||'',factorCo:v.factor_co||'',factorRate:v.factor_rate||'',factorHappy:v.factor_happy||'',fundingQuote:v.funding_quote||'',clientSafety:v.client_safety||'',siteVisits:v.site_visits||'',uses1099:v.uses_1099||'',n1099:v.n_1099||'',coi:v.coi||'',
     carrier:(W?v.carrier:v.wc_carrier)||'',premium:toNum(W?v.premium:v.wc_premium),renewal:(W?v.renewal:v.wc_renewal)||'',emr:toNum(v.emr),structure:(W?v.structure:v.wc_structure)||'',
     claims:(W?v.claims:v.wc_claims)||'',claimsNotes:(W?v.claims_notes:v.wc_claims_notes)||'',openClaims:v.open_claims==='Yes',
     driving:W?v.driving==='Yes':ex.includes('Driving'),heights:W?v.heights==='Yes':ex.includes('Heights'),depth:W?v.depth==='Yes':ex.includes('Trenching / digging'),noExposure:W?(v.driving==='No'&&v.heights==='No'&&v.depth==='No'):ex.includes('None'),
@@ -2288,6 +2276,7 @@ function buildNarrativeText(p){
   if(p.emp!=null)a.push('The company has '+p.emp+' W-2 employee'+(p.emp===1?'':'s')+(p.split?' ('+p.split+')':'')+(p.states.length>1?' working across '+listJoin(p.states):p.states.length?' in '+p.states[0]:'')+'.');
   if(p.jobs.length)a.push('The workforce includes '+listJoin(p.jobs.map(r=>(r.n?r.n+' ':'')+lc1(r.job||'employees')+(r.state&&p.states.length>1?' in '+(stateCode(r.state)||r.state):'')+(r.type&&r.type!=='Full-time'?' ('+r.type.toLowerCase()+')':'')))+(p.wages?', with estimated annual payroll of '+money(p.wages):'')+'.');
   if(p.locations)a.push('Additional locations: '+sent(p.locations));
+  if(p.otherCos.length)a.push('Related companies under a different FEIN: '+p.otherCos.map(r=>[r.name,r.fein?'FEIN '+r.fein:'',r.address].filter(Boolean).join(', ')).join('; ')+'.');
   if(p.uses1099==='Yes')a.push('The company uses 1099 contractors'+(p.n1099?' ('+stripDot(p.n1099)+')':'')+(p.coi?', and certificates of insurance are collected '+p.coi.toLowerCase():'')+'.');
   else if(p.uses1099==='No')a.push('No 1099 contractors are used.');
   // risk paragraph
@@ -2900,7 +2889,7 @@ function benFromCall(t){
   put('company',v.legal_name||v.company);put('dba',v.dba);put('fein',v.fein);
   const ad=parseAddr(v.address);put('address',ad.street);if(ad.city||ad.state)put('csz',[ad.city,[ad.state,ad.zip].filter(Boolean).join(' ')].filter(Boolean).join(', '));
   put('contact',v.contact);put('title',v.title);put('email',v.confirm_email||v.email);put('phone',v.phone);
-  if(toNum(v.emp_total)!=null)put('ft',toNum(v.emp_total));if(toNum(v.emp_pt)!=null)put('pt',toNum(v.emp_pt));
+  if(t==='staffing'){const ec=empTotal(v);if(ec!=null)put('ft',ec)}else if(toNum(v.emp_total)!=null)put('ft',toNum(v.emp_total));if(toNum(v.emp_pt)!=null)put('pt',toNum(v.emp_pt));
   const st=[...new Set([ad.state,...parseStates(v.states),...arr(v.jobs).map(r=>stateCode(r&&r.state))].filter(Boolean))];if(st.length)put('states',st.join(', '));
   if(v.offers_benefits==='Yes'||v.offers_benefits==='No'){const types=arr(v.benefit_types);
     const med=v.offers_benefits==='No'?'No':(!types.length||types.includes('Medical')?'Yes':'No');put('has_health',med);
